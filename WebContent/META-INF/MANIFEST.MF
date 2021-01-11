@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: eON
+Built-OS: Windows 10
+Implementation-Version: 20.18
+Built-By: ezekiel
+Created-By: Apache Maven 3.3.9
+Build-Jdk: 1.8.0_271
+Implementation-Vendor: FRASC
+

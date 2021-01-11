@@ -1,0 +1,16 @@
+Module/Task: Redmine 880 - Chrome compatibility
+Date:       Oct 01, 2012
+Developer:  Rhoda
+1.35		login.jsp
+=======================================================
+Module/Task: Redmine 1089 - defferent Allocation-Received
+Date:       Oct 01, 2012
+Developer:  Rhoda
+1.19		AllocationDao.java
+1.23		AllocationDaoImpl.java
+1.44		OrderAllocation.xml
+1.44		ReceivedSheet.xml
+1.24		ReceivedSheetDao.java
+1.29		ReceivedSheetDaoImpl.java
+1.39		ReceivedSheetServiceImpl.java
+1.34		WebServiceImpl.java

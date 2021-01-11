@@ -1,0 +1,98 @@
+===============================================================
+Module/Task:   Migration Scripts Batch 06.00
+Date:          August 18, 2011
+Developer:     Ogie
+RevNo          FileName
+scripts
+1.1            readme_batch_06.txt
+
+scripts/migration
+1.1            00_run_Batch_06.sql
+1.1            run_batch_06.cmd
+
+scripts/migration/Batch_06
+1.1            Batch_06_Company.sql
+1.1            Batch_06_CompanyDealingPattern.sql
+1.1            Batch_06_UserDealingPattern.sql
+1.1            Batch_06_Users.sql
+1.1            grant_user.sql
+1.1            proc_populate_order_item.sql
+1.1            proc_populate_sku.sql
+===============================================================
+Module/Task:   Migration Scripts Batch 06.01
+Date:          August 19, 2011
+Developer:     Ogie
+RevNo          FileName
+scripts/migration
+1.2            00_run_Batch_06.sql
+1.1            99_delete_old_data.sql
+
+scripts/migration/Batch_06
+1.2            Batch_06_Company.sql
+1.2            Batch_06_CompanyDealingPattern.sql
+1.2            Batch_06_UserDealingPattern.sql
+1.2            Batch_06_Users.sql
+===============================================================
+Module/Task:   Migration Scripts Batch 06.02
+Date:          August 19, 2011
+Developer:     Ogie
+RevNo          FileName
+
+scripts/migration/Batch_06
+1.3            Batch_06_UserDealingPattern.sql
+1.3            Batch_06_Users.sql
+
+
+Module/Task:   Migration Scripts Batch 06.02
+Date:          August 24, 2011
+Developer:     Ogie
+RevNo          FileName
+scripts/migration
+1.3            00_run_Batch_06.sql
+1.2            99_delete_old_data.sql
+
+scripts/migration/Batch_06
+1.1            proc_populate_order_item_visibility.sql
+
+===============================================================
+Module/Task:   Migration Scripts Batch 06.03
+Date:          August 24, 2011
+Developer:     Ogie
+RevNo          FileName
+scripts/migration/Batch_06
+1.3            Batch_06_Company.sql
+1.3            Batch_06_CompanyDealingPattern.sql
+1.4            Batch_06_UserDealingPattern.sql
+1.4            Batch_06_Users.sql
+
+===============================================================
+Module/Task:   Migration Scripts Batch 06.05
+Date:          August 25, 2011
+Developer:     Ogie
+RevNo          FileName
+scripts/migration
+1.3            99_delete_old_data.sql  (delete < '20110501')
+
+scripts/migration/Batch_06
+1.5            Batch_06_UserDealingPattern.sql
+1.5            Batch_06_Users.sql
+
+===============================================================
+Module/Task:   Migration Scripts Batch 06.06
+Date:          September 01, 2011
+Developer:     Ogie
+RevNo          FileName
+scripts/migration
+1.4-1.5        99_delete_old_data.sql  (OR delivery_date is null)
+
+scripts/update scripts
+1.1            2011_Migration_Batch_06.sql
+
+===============================================================
+Module/Task:   Migration Scripts Batch 06.08
+Date:          November 11, 2011
+Developer:     Ogie
+RevNo          FileName
+1.6            Batch_06_UserDealingPattern.sql
+1.6            Batch_06_Users.sql
+

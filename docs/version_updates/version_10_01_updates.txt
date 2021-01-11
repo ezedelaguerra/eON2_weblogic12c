@@ -1,0 +1,28 @@
+Module/Task: Autodownload Issue (enhanced reload of schedules)
+Date:       May 24, 2012
+Developer:  Lele
+1.14		AutoDownloadServiceImpl.java
+1.2			ReloadJobsController.java
+1.9			list.jsp
+1.2			applicationContext-scheduler.xml
+============================================================================
+Module/Task: Performance (Modify SheetData param as for allDates/allBuyers view)
+Date:       May 28, 2012
+Developer:  Rhoda
+1.72		OrderSheetLoadController.java(seller)
+1.62		OrderSheetLoadController.java(buyer)
+============================================================================
+Module/Task: Dev found issues
+Date:       May 28, 2012
+Developer:  Rhoda
+
+			1. Nullity check on buyer preference
+1.42		BuyerOrderSheetServiceImpl.java
+
+			2. Filter Pages didn't load properly(blue)
+1.32		admin_filter.js(buyer)
+1.40		admin_filter.js(seller)
+1.34		buyer_filter.js
+1.58		filter.js
+============================================================================
+

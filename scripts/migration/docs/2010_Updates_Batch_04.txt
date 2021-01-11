@@ -1,0 +1,65 @@
+----------------------
+Module/Task:   Migration Scripts Batch 04
+Date:          June 09, 2010
+Developer:     Ogie
+RevNo          FileName
+1.1            readme_batch_04.txt
+
+scripts/migration
+1.1            04_run_Batch_04.sql
+1.1            run_batch_04.cmd
+
+scripts/migration/Batch04
+1.1            Batch_04_Company.sql             
+1.1            Batch_04_CompanyDealingPattern.sql
+1.1            Batch_04_UserDealingPattern.sql
+1.1            Batch_04_Users.sql
+1.1            grant_user.sql
+1.1            proc_execute_migration.sql
+1.1            proc_execute_once.sql
+1.1            proc_populate_order.sql
+1.1            proc_populate_sku_group.sql
+1.1            proc_populate_users.sql
+----------------------
+Module/Task:   Migration Scripts Batch 4.01
+Date:          June 10, 2010
+Developer:     Ogie
+RevNo          FileName
+1.2            Batch_04_UserDealingPattern.sql
+1.2            Batch_04_Users.sql
+----------------------
+Module/Task:   Migration Scripts Batch 4.02
+Date:          June 17, 2010
+Developer:     Ogie
+RevNo          FileName
+1.2            Batch_04_Company.sql             
+1.2            Batch_04_CompanyDealingPattern.sql
+1.3            Batch_04_UserDealingPattern.sql
+1.3            Batch_04_Users.sql
+----------------------
+Module/Task:   Migration Scripts Batch 4.03
+Date:          June 17, 2010
+Developer:     Ogie
+RevNo          FileName
+1.3            Batch_04_CompanyDealingPattern.sql
+1.4-1.6        Batch_04_UserDealingPattern.sql
+1.4            Batch_04_Users.sql
+----------------------
+Module/Task:   Migration Scripts Batch 4.04
+Date:          June 17, 2010
+Developer:     Ogie
+RevNo          FileName
+1.5            Batch_04_UserDealingPattern.sql
+----------------------
+Module/Task:   Migration Scripts Batch 4.05
+Date:          June 21, 2010
+Developer:     Ogie
+RevNo          FileName
+1.5            Batch_04_Users.sql
+----------------------
+Module/Task:   Migration Scripts Batch 4.06
+Date:          June 27, 2010
+Developer:     Ogie
+RevNo          FileName
+1.7            Batch_04_UserDealingPattern.sql
+1.6            Batch_04_Users.sql

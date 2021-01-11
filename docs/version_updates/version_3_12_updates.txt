@@ -1,0 +1,17 @@
+===============================================================
+Module/Task: Redmine #342
+Date:       July 11, 2011
+Developer:  rhoda
+RevNo       FileName
+1.31		BillingSheetServiceImpl.java
+1.15		OrderItemDao.java
+1.17		OrderItemDaoImpl.java
+1.111		OrderSheet.xml
+1.116		OrderSheetServiceImpl.java
+===============================================================
+Module/Task: Added null SKU checking (Reverted)
+Date:       July 11, 2011
+Developer:  Lele
+RevNo       FileName
+1.117 (1.118) OrderSheetServiceImpl.java
+===============================================================

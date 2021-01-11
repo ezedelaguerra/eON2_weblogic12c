@@ -1,0 +1,7 @@
+<?xml version='1.0'  encoding='UTF-8' ?>
+<dataset>
+	<EON_SKU_GROUP SKU_GROUP_ID="25" 
+		SELLER_ID="3" SKU_CATEGORY_ID="1" DESCRIPTION="sku_fruit_010"
+		START_DATE="20100101" CREATE_TIMESTAMP="2010-10-01 08:28:18.0"
+		CREATED_BY="3" />
+</dataset>

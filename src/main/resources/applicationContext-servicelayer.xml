@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd"
+	default-autowire="byName">
+
+	<bean id="startUpDBAudit" class="com.freshremix.service.StartupDBAudit">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- Used for service layer transaction management. Note:@Transactional 
+		annotation is also used in the DAO level to enforce Propagation MANDATORY. 
+		FYI: Spring checks XML based txadvice first before @Transactional annotations 
+		(refer to Spring's TxAdviceBeanDefinitionParser). It is not recommended to 
+		mix both ways of transaction management in a single class. -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="insert*" propagation="REQUIRED"
+				rollback-for="Exception" />
+			<tx:method name="save*" propagation="REQUIRED"
+				rollback-for="Exception" />
+			<tx:method name="update*" propagation="REQUIRED"
+				rollback-for="Exception" />
+			<tx:method name="delete*" propagation="REQUIRED"
+				rollback-for="Exception" />
+			<tx:method name="reset*" propagation="REQUIRED"
+				rollback-for="Exception" />
+			<tx:method name="create*" propagation="REQUIRED"
+				rollback-for="Exception" />
+			<tx:method name="addSkuAllocation" propagation="REQUIRED"
+				rollback-for="Exception" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="allServiceOperation"
+			expression="execution(* com.freshremix.service.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="allServiceOperation" />
+	</aop:config>
+
+	<!-- Performance Logging: Start <bean name="peformanceAspect" class="com.freshremix.aop.PerformanceAOP"/> 
+		<bean name="proxyCreator" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator"> 
+		<property name="beanNames"> <list> <value>*Dao</value> <value>*Service</value> 
+		</list> </property> <property name="interceptorNames"> <list> <value>peformanceAspect</value> 
+		</list> </property> </bean> Performance Logging: End -->
+
+	<!-- Login Module Start -->
+	<bean id="loginService" class="com.freshremix.service.impl.LoginServiceImpl">
+		<property name="messageForgotPassword">
+			<ref bean="mailMessageForgotPassword" />
+		</property>
+		<property name="messageInquiry">
+			<ref bean="mailMessageInquiry" />
+		</property>
+	</bean>
+
+	<bean id="mailMessageForgotPassword" class="org.springframework.mail.SimpleMailMessage">
+		<!--eON Admin email address -->
+		<property name="subject" value="[eON] Forgot Password" />
+	</bean>
+
+	<bean id="mailMessageInquiry" class="org.springframework.mail.SimpleMailMessage">
+		<!--eON Admin email address -->
+		<property name="subject" value="[eON] Non-Member's Inquiry" />
+	</bean>
+	<!-- Login Module End -->
+
+	<!-- Admin Company Maintenance start -->
+	<bean id="companyInfoService"
+		class="com.freshremix.service.impl.CompanyInformationServiceImpl">
+		<property name="companyInfoDao" ref="companyInfoDaos"></property>
+	</bean>
+
+	<bean id="userInfoService" class="com.freshremix.service.impl.UsersInformationServiceImpl">
+		<property name="usersInfoDao" ref="usersInfoDaos"></property>
+		<property name="tosUserService" ref="tosUserService"></property>
+		<property name="categoryService" ref="categoryService"></property>
+		<property name="roleService" ref="roleService"></property>
+	</bean>
+
+	<bean id="categoryService" class="com.freshremix.service.impl.CategoryServiceImp">
+		<property name="categoryDao" ref="categoryDaos"></property>
+	</bean>
+
+	<bean id="roleService" class="com.freshremix.service.impl.RolesServiceImpl">
+		<property name="rolesDao" ref="rolesDaos"></property>
+	</bean>
+
+	<bean id="compDPService"
+		class="com.freshremix.service.impl.CompanyDealingPatternServiceImpl">
+		<property name="compDPDao" ref="compDPDaos"></property>
+	</bean>
+	<!-- Admin company Maintenance end -->
+
+	<bean id="tosAdminService" class="com.freshremix.service.impl.TOSAdminServiceImpl">
+		<property name="tosDao" ref="tosDaos" />
+	</bean>
+
+	<bean id="tosUserService" class="com.freshremix.service.impl.TOSUserServiceImpl">
+		<property name="tosDao" ref="tosDaos" />
+		<property name="usersTOSDao" ref="usersTOSDao" />
+		<property name="loginService" ref="loginService"></property>
+		<property name="tosMailSender" ref="tosMailSenderService" />
+	</bean>
+
+	<bean id="tosMailSenderService" class="com.freshremix.service.impl.TOSMailSenderImpl">
+		<property name="vmTemplateFile" value="com/freshremix/vmtemplates/TOSEmailAlert.vm" />
+		<property name="fromEmail" value="${eon.tos.emailFrom}" />
+		<property name="mailSenderService" ref="mailSenderService" />
+		<property name="messageI18NService" ref="messageI18NService" />
+	</bean>
+
+	<!-- Order Sheet: start -->
+	<bean id="skuGroupService" class="com.freshremix.service.impl.SKUGroupServiceImpl" />
+	<bean id="orderSheetService" class="com.freshremix.service.impl.OrderSheetServiceImpl" />
+	<bean id="buyerOrderSheetService" class="com.freshremix.service.impl.BuyerOrderSheetServiceImpl" />
+	<bean id="allocationSheetService" class="com.freshremix.service.impl.AllocationSheetServiceImpl" />
+	<bean id="dealingPatternService" class="com.freshremix.service.impl.DealingPatternServiceImpl" />
+	<bean id="skuService" class="com.freshremix.service.impl.SKUServiceImpl" />
+	<bean id="receivedSheetService" class="com.freshremix.service.impl.ReceivedSheetServiceImpl" />
+	<!-- Order Sheet: end -->
+
+	<bean id="downloadExcelService" class="com.freshremix.service.impl.DownloadExcelServiceImpl" />
+
+	<!-- Akaden Sheet: start -->
+	<bean id="akadenService" class="com.freshremix.service.impl.AkadenServiceImpl">
+	</bean>
+	<!-- Akaden Sheet: end -->
+
+	<!-- PMF: start -->
+	<bean id="pmfService"
+		class="com.freshremix.service.impl.ProductMasterFileServiceImpl">
+	</bean>
+	<!-- PMF: end -->
+
+	<bean id="userUtil" class="com.freshremix.util.UserUtil">
+	</bean>
+	<bean id="companyUtil" class="com.freshremix.util.CompanyUtil">
+	</bean>
+	<bean id="sortingUtil" class="com.freshremix.util.SortingUtil">
+	</bean>
+
+	<!-- Billing Sheet Module Start -->
+	<bean id="billingSheetService" class="com.freshremix.service.impl.BillingSheetServiceImpl" />
+	<!-- Billing Sheet Module End -->
+
+	<!-- Akaden Sheet Module Start -->
+	<bean id="akadenSheetService" class="com.freshremix.service.impl.AkadenSheetServiceImpl" />
+	<!-- Akaden Sheet Module End -->
+
+	<!-- Comments Module Start -->
+	<bean id="commentsService" class="com.freshremix.service.impl.CommentsServiceImpl" />
+	<!-- Comments Module End -->
+
+	<!-- Download Reports start -->
+	<bean id="downloadCSVService" class="com.freshremix.service.impl.DownloadCSVServiceImpl" />
+	<!-- Download Reports end -->
+
+	<!-- SKU Sort : Start -->
+	<bean id="skuSortService" class="com.freshremix.service.impl.SKUSortServiceImpl" />
+	<!-- SKU Sort : End -->
+
+	<!-- SKU Group Sort : Start -->
+	<bean id="skuGroupSortService" class="com.freshremix.service.impl.SKUGroupSortServiceImpl" />
+	<!-- SKU Group Sort : End -->
+
+	<!-- Company/Buyers Sort : Start -->
+	<bean id="companybuyersSortService"
+		class="com.freshremix.service.impl.CompanyBuyersSortServiceImpl" />
+	<!-- Company/Buyers : End -->
+
+	<!-- Company/Sellers Sort : Start -->
+	<bean id="companySellersSortService"
+		class="com.freshremix.service.impl.CompanySellersSortServiceImpl" />
+	<!-- Company/Sellers : End -->
+
+	<!-- OrderUnit: start -->
+	<bean id="orderUnitService" class="com.freshremix.service.impl.OrderUnitServiceImpl">
+	</bean>
+	<!-- OrderUnit: end -->
+
+	<!-- SKU Max Limit -->
+	<bean id="skuMaxLimitService" class="com.freshremix.service.impl.SKUMaxLimitServiceImpl">
+	</bean>
+	<!-- SKU Max Limit: End -->
+
+	<!-- UserPreference: End -->
+	<bean id="userPreferenceService" class="com.freshremix.service.impl.UserPreferenceServiceImpl">
+		<property name="userPreferenceDao" ref="userPreferenceDao"></property>
+	</bean>
+	<!-- UserPreference: End -->
+	
+	<bean id="activityLogService"
+		class="com.freshremix.service.impl.ActivityLogServiceImpl">
+		<property name="activityLogDao" ref="activityLogDao" />
+	</bean>
+
+	<!-- UserPreference: End -->
+	<bean id="forgotPasswordLinkService"
+		class="com.freshremix.service.impl.ForgotPasswordLinkServiceImpl">
+		<property name="forgotPasswordLinkDao" ref="forgotPasswordLinkDao"></property>
+	</bean>
+
+	<bean id="freshRemixServiceAdapter" class="com.freshremix.ws.adapter.FreshRemixServiceAdapter" />
+
+	<bean id="freshRemixBuyerServiceAdapter" class="com.freshremix.ws.adapter.impl.FreshRemixBuyerServiceAdapterImpl" />
+
+    <bean id="webServiceBuyerValidator" class="ws.freshremix.validator.WebServiceBuyerValidator" />
+
+	<!-- Audit Trail -->
+	<bean id="auditTrailService" class="com.freshremix.service.impl.AuditTrailServiceImpl" />
+
+	<!-- Context -->
+	<bean id="springContext" class="com.freshremix.util.SpringContext" />
+
+	<!-- Web Service -->
+	<bean id="webService" class="com.freshremix.service.impl.WebServiceImpl" />
+
+	<!-- Sheet Data -->
+	<bean id="sheetDataService" class="com.freshremix.service.impl.SheetDataServiceImpl" />
+
+	<bean id="autoDownloadService" class="com.freshremix.service.impl.AutoDownloadServiceImpl"
+		lazy-init="true">
+		<property name="emailTo" value="${eon.smtp.emailToEonDev}" />
+	</bean>
+	<bean id="passwordHandler" class="com.freshremix.autodownload.PasswordHandler">
+		<property name="securiryPassword" value="${eon.autodownload.password}" />
+	</bean>
+	<bean id="downloadUserDetailsService"
+		class="com.freshremix.service.impl.DownloadUserDetailsServiceImpl">
+		<property name="userDao" ref="usersInfoDaos" />
+	</bean>
+
+	<bean id="wsSellerService" class="com.freshremix.service.impl.WSSellerServiceImpl" />
+
+    <bean id="webServiceSellerValidator" class="ws.freshremix.validator.WebServiceSellerValidator" />
+
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" scope="singleton">
+		<property name="staticMethod" value="com.freshremix.util.TaxUtil.setTaxRate" />
+		<property name="arguments">
+			<list>
+				<value>${eon.taxrate}</value>
+			</list>
+		</property>
+	</bean>
+	
+		
+	<!-- ActivityLog Filter -->
+	<bean id="activityLogFilter" class="com.freshremix.webapp.filter.ActivityLogFilter">
+		<property name="activityLogDao" ref="activityLogDao" />
+	</bean>
+</beans>

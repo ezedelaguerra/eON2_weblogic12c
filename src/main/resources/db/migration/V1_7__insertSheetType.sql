@@ -1,0 +1,15 @@
+
+Insert into EON_SHEET_TYPE (SHEET_TYPE_ID,DESCRIPTION,ROLE_ID) values (10001,'Order Sheet',1);
+Insert into EON_SHEET_TYPE (SHEET_TYPE_ID,DESCRIPTION,ROLE_ID) values (10003,'Allocation Sheet',1);
+Insert into EON_SHEET_TYPE (SHEET_TYPE_ID,DESCRIPTION,ROLE_ID) values (10005,'Billing Sheet',1);
+Insert into EON_SHEET_TYPE (SHEET_TYPE_ID,DESCRIPTION,ROLE_ID) values (10020,'Akaden Sheet',1);
+Insert into EON_SHEET_TYPE (SHEET_TYPE_ID,DESCRIPTION,ROLE_ID) values (10000,'Order Sheet',3);
+Insert into EON_SHEET_TYPE (SHEET_TYPE_ID,DESCRIPTION,ROLE_ID) values (10004,'Received Sheet',3);
+Insert into EON_SHEET_TYPE (SHEET_TYPE_ID,DESCRIPTION,ROLE_ID) values (10006,'Billing Sheet',3);
+Insert into EON_SHEET_TYPE (SHEET_TYPE_ID,DESCRIPTION,ROLE_ID) values (10009,'Order Sheet',2);
+Insert into EON_SHEET_TYPE (SHEET_TYPE_ID,DESCRIPTION,ROLE_ID) values (10010,'Allocation Sheet',2);
+Insert into EON_SHEET_TYPE (SHEET_TYPE_ID,DESCRIPTION,ROLE_ID) values (10011,'Billing Sheet',2);
+Insert into EON_SHEET_TYPE (SHEET_TYPE_ID,DESCRIPTION,ROLE_ID) values (10021,'Akaden Sheet',2);
+Insert into EON_SHEET_TYPE (SHEET_TYPE_ID,DESCRIPTION,ROLE_ID) values (10007,'Order Sheet',4);
+Insert into EON_SHEET_TYPE (SHEET_TYPE_ID,DESCRIPTION,ROLE_ID) values (10012,'Received Sheet',4);
+Insert into EON_SHEET_TYPE (SHEET_TYPE_ID,DESCRIPTION,ROLE_ID) values (10013,'Billing Sheet',4);

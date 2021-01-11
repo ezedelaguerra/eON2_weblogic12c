@@ -1,0 +1,245 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Login">
+	<resultMap id="Login-result" class="User">
+		<result property="userId" column="USER_ID" />
+		<result property="userName" column="USERNAME" />
+		<result property="password" column="PASSWORD" />
+		<result property="name" column="NAME" />
+		<result property="shortName" column="SHORTNAME" />
+		<result property="company.companyId" column="COMPANY_ID" />
+		<result property="company.companyName" column="COMPANY_NAME" />
+		<result property="company.shortName" column="SHORT_NAME" />
+		<result property="company.companyType.companyTypeId" column="COMPANY_TYPE_ID" />
+		<result property="company.companyType.description" column="DESCRIPTION" />
+		<result property="company.contactPerson" column="CONTACT_PERSON" />
+		<result property="company.soxFlag" column="SOX_FLAG" />
+		<result property="company.address1" column="COMPANY_ADDRESS1" />
+		<result property="company.address2" column="COMPANY_ADDRESS2" />
+		<result property="company.address3" column="COMPANY_ADDRESS3" />
+		<result property="company.telNumber" column="TELEPHONE_NUMBER" />
+		<result property="company.emailAdd" column="EMAIL_ADDRESS" />
+		<result property="company.faxNumber" column="FAX_NUMBER" />
+		<result property="company.comments" column="COMMENTS" />
+		<result property="role.roleId" column="ROLE_ID" />
+		<result property="role.roleName" column="ROLE_NAME" />
+		<result property="role.sellerFlag" column="SELLER_FLAG" />
+		<result property="role.sellerAdminFlag" column="SELLER_ADMIN_FLAG" />
+		<result property="role.buyerFlag" column="BUYER_FLAG" />
+		<result property="role.buyerAdminFlag" column="BUYER_ADMIN_FLAG" />
+		<result property="role.adminFlag" column="ADMIN_FLAG" />
+		<result property="role.companyTypeFlag" column="COMPANY_TYPE_FLAG" />
+		<result property="address1" column="ADDRESS1" />
+		<result property="address2" column="ADDRESS2" />
+		<result property="address3" column="ADDRESS3" />
+		<result property="mobileNumber" column="MOBILE_NUMBER" />
+		<result property="telNumber" column="TELEPHONE_NUMBER" />
+		<result property="faxNumber" column="FAX_NUMBER" />
+		<result property="mobileEmail" column="MOBILE_EMAIL_ADDRESS" />
+		<result property="pcEmail" column="PC_EMAIL_ADDRESS" />
+		<result property="comments" column="COMMENTS" />
+		<result property="useBms" column="USE_BMS" />
+		<result property="dateLastLogin" column="DATE_LAST_LOGIN" />
+		<result property="datePasswordChange" column="DATE_PASSWORD_CHANGE" />
+		
+		<!--  
+		// Ogie: 12062010 Auto-publish
+	    // findings: Design problem User object contruction 
+	    // todo: This should be an object reference to 'EONUserPreference'
+	    <result property="preference.viewUnpublisheAlloc" column="VIEW_UNPUBLISH_ALLOC" />
+		<result property="preference.viewUnfinalizeBilling" column="VIEW_UNFINALIZE_BILLING" />
+		<result property="preference.enableBAPublish" column="ENABLE_BA_PUBLISH_ORDER" />
+		<result property="preference.autoPublishAlloc" column="AUTO_PUBLISH_ALLOC" />
+	    -->
+		<result property="viewUnpublisheAlloc" column="VIEW_UNPUBLISH_ALLOC" />
+		<result property="viewUnfinalizeBilling" column="VIEW_UNFINALIZE_BILLING" />
+		<result property="enableBAPublish" column="ENABLE_BA_PUBLISH_ORDER" />
+		<result property="autoPublishAlloc" column="AUTO_PUBLISH_ALLOC" />
+	</resultMap>
+
+	<resultMap id="Login-result2" class="User" extends="Login-result">
+		<result property="dateLastLoginStr" column="DATE_LAST_LOGIN_STR" />
+		<result property="enableCalendarHighlight" column="ENABLE_CALENDAR_HIGHLIGHT" />
+	</resultMap>
+
+
+	<resultMap id="Login-Simple" class="User">
+		<result property="userId" column="USER_ID" />
+		<result property="userName" column="USERNAME" />
+		<result property="password" column="PASSWORD" />
+		<result property="name" column="NAME" />
+		<result property="shortName" column="SHORTNAME" />
+		<result property="company.companyId" column="COMPANY_ID" />
+		<result property="company.companyName" column="COMPANY_NAME" />
+		<result property="company.shortName" column="SHORT_NAME" />
+		<result property="company.companyType.companyTypeId" column="COMPANY_TYPE_ID" />
+		<result property="company.companyType.description" column="DESCRIPTION" />
+		<result property="company.contactPerson" column="CONTACT_PERSON" />
+		<result property="company.soxFlag" column="SOX_FLAG" />
+		<result property="company.address1" column="COMPANY_ADDRESS1" />
+		<result property="company.address2" column="COMPANY_ADDRESS2" />
+		<result property="company.address3" column="COMPANY_ADDRESS3" />
+		<result property="company.telNumber" column="TELEPHONE_NUMBER" />
+		<result property="company.emailAdd" column="EMAIL_ADDRESS" />
+		<result property="company.faxNumber" column="FAX_NUMBER" />
+		<result property="company.comments" column="COMMENTS" />
+		<result property="role.roleId" column="ROLE_ID" />
+		<result property="role.roleName" column="ROLE_NAME" />
+		<result property="role.sellerFlag" column="SELLER_FLAG" />
+		<result property="role.sellerAdminFlag" column="SELLER_ADMIN_FLAG" />
+		<result property="role.buyerFlag" column="BUYER_FLAG" />
+		<result property="role.buyerAdminFlag" column="BUYER_ADMIN_FLAG" />
+		<result property="role.adminFlag" column="ADMIN_FLAG" />
+		<result property="role.companyTypeFlag" column="COMPANY_TYPE_FLAG" />
+		<result property="address1" column="ADDRESS1" />
+		<result property="address2" column="ADDRESS2" />
+		<result property="address3" column="ADDRESS3" />
+		<result property="mobileNumber" column="MOBILE_NUMBER" />
+		<result property="telNumber" column="TELEPHONE_NUMBER" />
+		<result property="faxNumber" column="FAX_NUMBER" />
+		<result property="mobileEmail" column="MOBILE_EMAIL_ADDRESS" />
+		<result property="pcEmail" column="PC_EMAIL_ADDRESS" />
+		<result property="comments" column="COMMENTS" />
+		<result property="useBms" column="USE_BMS" />
+		<result property="dateLastLogin" column="DATE_LAST_LOGIN" />
+		<result property="datePasswordChange" column="DATE_PASSWORD_CHANGE" />
+	</resultMap>
+
+
+	<select id="validateUsernameAndPassword" resultClass="Integer">
+		SELECT
+		count(*)
+		FROM EON_USERS
+		WHERE USERNAME = #userName# AND PASSWORD =
+		#password#
+	</select>
+	<select id="getUserByUsernameAndPassword" resultMap="Login-Simple">
+		SELECT *
+		FROM EON_USERS eu
+		JOIN EON_COMPANY ec ON eu.company_id = ec.company_id
+		JOIN EON_COMPANY_TYPE ect ON ec.COMPANY_TYPE_ID = ect.COMPANY_TYPE_ID
+		JOIN EON_ROLES er ON eu.role_id = er.role_id
+		WHERE eu.USERNAME =
+		#userName#
+		AND eu.PASSWORD = #password#
+	</select>
+	<select id="validateUsernameAndEmail" resultClass="Integer">
+		SELECT
+		count(*)
+		FROM EON_USERS
+		WHERE USERNAME = #userName# AND PC_EMAIL_ADDRESS
+		= #email#
+	</select>
+	<select id="getUserByUsernameAndEmail" resultMap="Login-result">
+		SELECT *
+		FROM EON_USERS eu
+		JOIN EON_COMPANY ec ON eu.company_id = ec.company_id
+		JOIN EON_COMPANY_TYPE ect ON ec.COMPANY_TYPE_ID = ect.COMPANY_TYPE_ID
+		JOIN EON_ROLES er ON eu.role_id = er.role_id
+		LEFT JOIN EON_USER_PREF_FLAGS upFlag ON eu.USER_ID = upFlag.USER_ID  
+		WHERE eu.USERNAME = #userName#
+		AND eu.PC_EMAIL_ADDRESS = #email#
+	</select>
+	<select id="getUserByUsername" resultMap="Login-result2">
+		SELECT eu.USER_ID
+			USER_ID, 
+			eu.USERNAME USERNAME, 
+			eu.PASSWORD, 
+			eu.NAME NAME, 
+			eu.SHORTNAME,
+			eu.ADDRESS1, 
+			eu.ADDRESS2, 
+			eu.ADDRESS3, 
+			eu.MOBILE_NUMBER,
+			eu.TELEPHONE_NUMBER, 
+			eu.FAX_NUMBER, 
+			eu.MOBILE_EMAIL_ADDRESS,
+			eu.PC_EMAIL_ADDRESS, 
+			eu.COMMENTS, 
+			eu.USE_BMS,
+			eu.DATE_LAST_LOGIN,
+			eu.ENABLE_CALENDAR_HIGHLIGHT,
+			to_char(eu.DATE_LAST_LOGIN,'yyyy/mm/dd DY HH24:MI') DATE_LAST_LOGIN_STR,
+			eu.DATE_PASSWORD_CHANGE, 
+			ec.*, 
+			er.*,
+			upFlag.VIEW_UNPUBLISH_ALLOC,
+            upFlag.VIEW_UNFINALIZE_BILLING,
+            upFlag.ENABLE_BA_PUBLISH_ORDER,
+            upFlag.AUTO_PUBLISH_ALLOC,
+            ct.COMPANY_TYPE_ID, ct.DESCRIPTION
+		FROM EON_USERS eu
+		JOIN EON_COMPANY ec ON eu.company_id = ec.company_id
+		JOIN EON_COMPANY_TYPE ct ON ct.COMPANY_TYPE_ID = ec.COMPANY_TYPE_ID
+		JOIN EON_ROLES er ON eu.role_id = er.role_id
+		LEFT JOIN EON_USER_PREF_FLAGS upFlag ON eu.USER_ID = upFlag.USER_ID  
+		WHERE eu.USERNAME = #userName#
+	</select>
+	<insert id="insertNonMemberInquiry" parameterClass="LoginInquiry">
+		Insert into EON_LOGIN_INQUIRY_REQUEST
+		(INQUIRY_REQUEST_ID, INQUIRY_ITEMS_EON, INQUIRY_ITEMS_NSYSTEM, INQUIRY_ITEMS_OTHERS, DETAILS_OF_INQUIRY_APPLY, DETAILS_OF_INQUIRY_DOCS,DETAILS_OF_INQUIRY_EXPLANATION,DETAILS_OF_INQUIRY_OTHERS,NAME_FIRST,NAME_LAST,FURIGANA_FIRST,FURIGANA_LAST,COMPANY_NAME,STORE_NAME,DEPARTMENT_NAME,TELEPHONE_NUMBER,MOBILE_NUMBER,EMAIL_ADDRESS,ADDRESS,ZIPCODE,DATE_CREATED)
+		values
+		( EON_LOGIN_INQUIRY_REQUEST_SEQ.nextval,#inquireEon#,#inquireNsystem#,#inquireOthers#,#applyDetails#,#docsDetails#,#explainDetails#,#otherDetails#,#firstname#,#surname#,#furiganaFirstname#,#furiganaSurname#,#companyName#,#storeName#,#deptName#,#contactNo#,#mobileNo#,#email#,#address#,#zipcode#,#dateCreated#)
+        
+<!--			<selectKey keyProperty="inquiry_id" resultClass="int"> SELECT-->
+<!--			EON_LOGIN_INQUIRY_ID_SEQ.currval FROM DUAL </selectKey>-->
+		
+	</insert>
+	<update id="updateUserLastLoginDate">
+		UPDATE EON_USERS eu 
+		SET eu.DATE_LAST_LOGIN = SYSDATE 
+		WHERE eu.USERNAME = #userName# 		
+	</update>
+	
+	<select id="getUserByUserId" resultMap="Login-result2">
+		SELECT eu.USER_ID
+			USER_ID, 
+			eu.USERNAME USERNAME, 
+			eu.PASSWORD, 
+			eu.NAME NAME, 
+			eu.SHORTNAME,
+			eu.ADDRESS1, 
+			eu.ADDRESS2, 
+			eu.ADDRESS3, 
+			eu.MOBILE_NUMBER,
+			eu.TELEPHONE_NUMBER, 
+			eu.FAX_NUMBER, 
+			eu.MOBILE_EMAIL_ADDRESS,
+			eu.PC_EMAIL_ADDRESS, 
+			eu.COMMENTS, 
+			eu.USE_BMS,
+			eu.DATE_LAST_LOGIN,
+			eu.ENABLE_CALENDAR_HIGHLIGHT,
+			to_char(eu.DATE_LAST_LOGIN,'yyyy/mm/dd DY HH24:MI') DATE_LAST_LOGIN_STR,
+			eu.DATE_PASSWORD_CHANGE, 
+			ec.*, 
+			er.*,
+			upFlag.VIEW_UNPUBLISH_ALLOC,
+            upFlag.VIEW_UNFINALIZE_BILLING,
+            upFlag.ENABLE_BA_PUBLISH_ORDER,
+            upFlag.AUTO_PUBLISH_ALLOC,
+            ct.COMPANY_TYPE_ID, 
+            ct.DESCRIPTION
+		FROM EON_USERS eu
+		JOIN EON_COMPANY ec ON eu.company_id = ec.company_id
+		JOIN EON_COMPANY_TYPE ct ON ct.COMPANY_TYPE_ID = ec.COMPANY_TYPE_ID
+		JOIN EON_ROLES er ON eu.role_id = er.role_id
+		LEFT JOIN EON_USER_PREF_FLAGS upFlag ON eu.USER_ID = upFlag.USER_ID  
+		WHERE eu.USER_ID = #userId#
+	</select>
+	
+	<select id="getCityByZip" parameterClass="java.lang.Integer" resultClass="java.lang.String">
+		SELECT ez.ADDRESS
+		FROM EON_ZIP_CODE ez
+		WHERE ez.ZIP_CODE = #zipCd#
+	</select>
+	
+	<select id="getKenEmailAdd" resultClass="java.lang.String">
+		Select EU.PC_EMAIL_ADDRESS KEN_EMAIL_ADDRESS 
+		from EON_USERS EU, EON_ROLES ER 
+		where EU.ROLE_ID = ER.ROLE_ID 
+		and ER.ROLE_NAME = 'KEN'
+	</select>
+	
+</sqlMap>

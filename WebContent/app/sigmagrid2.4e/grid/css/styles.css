@@ -1,0 +1,21 @@
+/*Customized css for the grid
+ Created by jovsab(2009.10.15)
+ EON Reengineering
+*/
+
+.customTooltip{background-color:green; //background-image:url(./lib/grid/skin/default/images/cell_updated.gif); background-position:right top; background-repeat:no-repeat}
+.gt-editor-q{width:100%; height:30px; font:normal 12px arial,verdana,tahoma,helvetica,sans-serif; vertical-align:middle; text-align:right; margin:0px; padding:0px; border:0px}
+.higlightedRowQty{background-color:#bfbfbf; font-weight:bold; height:28px; color:#000000}
+.higlightedPriceWTax{}
+.finalize-status{background-color:#828282}
+.publish-status{background-color:#A6ED2D}
+.unpublish-status{background-color:#FEFE00}
+.lock-order-status{background-color:#E2A9A0}
+.akaden-changes{color:#FE1D01}
+.verticaltext{font:bold 13px Arial; width:2px; writing-mode:rl-tb; direction:tb}
+span.requiredColumn{color:red; font-weight:bold;}
+span.publishedMark{color:#ff0033;; font-weight:bold; font-size:10px;}
+.finalizedCell{background-color:#eee9e9;}
+.unfinalizedCell{background-color:#ffffff;}
+.updatedCell{background-color: #ffcc66;}
+.notVisibleCell{background-color: #9E9E9E;}

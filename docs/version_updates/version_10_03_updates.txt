@@ -1,0 +1,15 @@
+Module/Task: PROD ISSUE – SKU doesn't appear on Received after SKU Qty input on a published Alloc.
+
+Date:       Jun 27, 2012
+Developer:  Rhoda
+1.50		AllocationSheetServiceImpl
+============================================================================
+Module/Task: PROD ISSUE – SKU with MAXLIMIT on order sheet doesn't appear on Received,
+						 after SKU Qty input on a published Alloc.
+
+Date:       Jul 02, 2012
+Developer:  Rhoda
+1.44		AllocationSheetLoadController.java
+1.33		SKU.java
+1.117		allocationTable.jsp
+============================================================================

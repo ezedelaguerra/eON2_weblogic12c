@@ -1,0 +1,18 @@
+Module/Task: Redmine 102 - Enable the seller admin to have the only quantity display in the user preference menu
+					(menu checkbox for Display Alloc Qty)
+Date:       Aug 31, 2012
+Developer:  rhoda
+1.67		menu.js(menu checkbox for Display Alloc Qty)
+1.32		index.js(seller)
+1.24		index.js(buyer)
+1.36		header.js
+=======================================================
+Module/Task: Redmine 354 - Unfinalize Order and Finalize Alloc concurrency
+				(Redmine 867 - alert received finalized )
+Date:       Aug 31, 2012
+Developer:  Rhoda
+1.12		AllocationSheetFinalizeController.java 
+1.11		ConcurrencyUtil.java
+1.127		allocationTable.jsp
+1.78		allocation_sheet.js
+=======================================================

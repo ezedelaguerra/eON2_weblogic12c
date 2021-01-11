@@ -1,0 +1,4 @@
+<h3>$label.title</h3>
+<br />
+<br /> $label.userName : $value.userName
+<br /> $label.flagDate : $value.flagDate

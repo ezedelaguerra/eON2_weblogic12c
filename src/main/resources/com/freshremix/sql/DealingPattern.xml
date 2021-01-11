@@ -1,0 +1,429 @@
+<!-- 
+	Copyright Freshremix Asia Software Corporation
+	
+	date		name		version	changes
+	==============================================
+	20120725	Lele		v11		Redmine 131 - Change of display in address bar of Comments
+-->
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="DealingPattern">
+
+	<resultMap
+		id="selectedCompanyIds"
+		class="com.freshremix.ui.model.FilteredIDs">
+		<result property="id" column="ID" />
+		<result property="caption" column="NAME" />
+	</resultMap>
+
+	<resultMap
+		id="companyFilterList"
+		class="Company">
+		<result property="companyId" column="ID" />
+		<result property="companyName" column="NAME" />
+	</resultMap>
+	
+	<resultMap
+		id="userFilterList"
+		class="User">
+		<result property="userId" column="ID" />
+		<result property="name" column="NAME" />
+	</resultMap>
+
+    <resultMap
+        id="adminMemberList"
+        class="com.freshremix.model.AdminMember">
+        <result property="user.userId" column="ID" />
+        <result property="user.name" column="NAME" />
+        <result property="startDate" column="START_DATE" />
+        <result property="endDate" column="END_DATE" />
+    </resultMap>
+	
+	<!-- ENHANCEMENT START 20120725: Lele - Redmine 131 -->
+	<resultMap
+		id="emailFilter"
+		class="User"
+		extends="userFilterList">
+		<result property="company.companyId" column="COMPANY_ID" />
+		<result property="mobileEmail" column="MOBILE_EMAIL_ADDRESS" />
+		<result property="pcEmail" column="PC_EMAIL_ADDRESS" />
+	</resultMap>
+	<!-- ENHANCEMENT END 20120725: -->
+	
+	<resultMap
+		id="dealingFinalization"
+		class="com.freshremix.model.DealingPatternFinalization">
+		<result property="deliveryDate" column="DELIVERY_DATE" />
+		<result property="sellerId" column="SELLER_ID" />
+		<result property="buyerId" column="BUYER_ID" />
+		<result property="withDealingPattern" column="withDeal" />
+		<result property="sellerOrderFinalized" column="sellerOrderFinalized" />
+		<result property="buyerOrderFinalized" column="buyerOrderFinalized" />
+		<result property="sellerAllocFinalized" column="sellerAllocFinalized" />
+		<result property="buyerReceivedFinalized" column="buyerReceivedFinalized" />
+		<result property="sellerBillingFinalized" column="sellerBillingFinalized" />
+	</resultMap>
+	
+	<!-- 
+	get list of Buyer Companies to be displayed on Seller Filter Page.
+	Note: not used anymore on Filter Page : by Rhoda 5/29/10 modification
+	 -->
+	<select id="getBuyerCompaniesBySellerCompanyIds" parameterClass="java.util.Map" resultMap="companyFilterList">
+		SELECT B.COMPANY_02 AS ID, D.COMPANY_NAME AS NAME 
+		FROM EON_COMPANY_DEALING_PATTERN B JOIN EON_COMPANY D ON B.COMPANY_02 = D.COMPANY_ID
+		WHERE B.COMPANY_01 = #userCompanyId#
+		  <!-- AND ISACTIVE = 1-->
+	    ORDER BY D.COMPANY_NAME
+	</select>
+
+	<!-- 
+	get list of Seller Companies to be displayed on Buyer Filter Page.		
+	Note: not used anymore on Filter Page : by Rhoda 5/29/10 modification
+	 -->
+	<select id="getSellerCompaniesByBuyerCompanyIds" parameterClass="java.util.Map" resultMap="companyFilterList">
+		SELECT B.COMPANY_01 AS ID, D.COMPANY_NAME AS NAME 
+		FROM EON_COMPANY_DEALING_PATTERN B JOIN EON_COMPANY D ON B.COMPANY_01 = D.COMPANY_ID
+		WHERE B.COMPANY_02 = #userCompanyId#
+		   <!--AND ISACTIVE = 1-->
+	    ORDER BY D.COMPANY_NAME
+	</select>
+	
+	<!-- 
+	-get list of Seller Users to be displayed on Buyer Filter Page based on the selected Seller Company.	
+	 -->
+	<select id="getUserSellersBySellerCompanyIds" parameterClass="java.util.Map" resultMap="userFilterList">
+		SELECT DISTINCT D.USER_ID AS ID, D.NAME AS NAME 
+		FROM EON_USER_DEALING_PATTERN B JOIN EON_USERS D ON B.USER_01 = D.USER_ID
+		WHERE B.USER_02 = #userId#
+			<!--AND B.ISACTIVE = 1-->
+			AND D.COMPANY_ID IN <iterate property="selectedCompanyIds" open="(" close=")" conjunction=","> #selectedCompanyIds[]# </iterate>
+			AND ((COALESCE(B.START_DATE, '00000000') &lt;= #dateFrom# or COALESCE(B.START_DATE, '00000000') &lt;= #dateTo#) 
+					and (COALESCE(B.END_DATE, '99999999') &gt;= #dateFrom# or COALESCE(B.END_DATE, '99999999') &gt;=  #dateTo#))
+		ORDER BY D.NAME
+	</select>
+	
+	<!-- ENHANCEMENT START 20120725: Lele - Redmine 131 -->
+	<select id="getUserSellersBySellerCompanyIds2" parameterClass="java.util.Map" resultMap="emailFilter">
+		SELECT DISTINCT D.USER_ID AS ID, D.NAME AS NAME,
+		D.COMPANY_ID AS COMPANY_ID, D.MOBILE_EMAIL_ADDRESS AS MOBILE_EMAIL_ADDRESS, D.PC_EMAIL_ADDRESS AS PC_EMAIL_ADDRESS
+		FROM EON_USER_DEALING_PATTERN B JOIN EON_USERS D ON B.USER_01 = D.USER_ID
+		WHERE B.USER_02 = #userId#
+			<!--AND B.ISACTIVE = 1-->
+			AND D.COMPANY_ID IN <iterate property="selectedCompanyIds" open="(" close=")" conjunction=","> #selectedCompanyIds[]# </iterate>
+			AND ((COALESCE(B.START_DATE, '00000000') &lt;= #dateFrom# or COALESCE(B.START_DATE, '00000000') &lt;= #dateTo#) 
+					and (COALESCE(B.END_DATE, '99999999') &gt;= #dateFrom# or COALESCE(B.END_DATE, '99999999') &gt;=  #dateTo#))
+		ORDER BY D.NAME
+	</select>
+	<!-- ENHANCEMENT END 20120725: -->
+	
+	<!-- 
+	get list of Buyer Users to be displayed on Seller Filter Page based on selected Buyer Company.	
+	 -->
+	<select id="getUserBuyersByBuyerCompanyIds" parameterClass="java.util.Map" resultMap="userFilterList">
+		SELECT DISTINCT D.USER_ID AS ID, D.NAME AS NAME 
+		FROM EON_USER_DEALING_PATTERN B JOIN EON_USERS D ON B.USER_02 = D.USER_ID
+		WHERE B.USER_01 = #userId#
+			<!--AND B.ISACTIVE = 1-->
+			AND D.COMPANY_ID IN <iterate property="selectedCompanyIds" open="(" close=")" conjunction=","> #selectedCompanyIds[]# </iterate>
+			AND ((COALESCE(B.START_DATE, '00000000') &lt;= #dateFrom# or COALESCE(B.START_DATE, '00000000') &lt;= #dateTo#) 
+					and (COALESCE(B.END_DATE, '99999999') &gt;= #dateFrom# or COALESCE(B.END_DATE, '99999999') &gt;=  #dateTo#))
+		ORDER BY D.NAME
+	</select>
+	
+	<!-- ENHANCEMENT START 20120725: Lele - Redmine 131 -->
+	<select id="getUserBuyersByBuyerCompanyIds2" parameterClass="java.util.Map" resultMap="emailFilter">
+		SELECT DISTINCT D.USER_ID AS ID, D.NAME AS NAME, 
+		D.COMPANY_ID AS COMPANY_ID, D.MOBILE_EMAIL_ADDRESS AS MOBILE_EMAIL_ADDRESS, D.PC_EMAIL_ADDRESS AS PC_EMAIL_ADDRESS
+		FROM EON_USER_DEALING_PATTERN B JOIN EON_USERS D ON B.USER_02 = D.USER_ID
+		WHERE B.USER_01 = #userId#
+			<!--AND B.ISACTIVE = 1-->
+			AND D.COMPANY_ID IN <iterate property="selectedCompanyIds" open="(" close=")" conjunction=","> #selectedCompanyIds[]# </iterate>
+			AND ((COALESCE(B.START_DATE, '00000000') &lt;= #dateFrom# or COALESCE(B.START_DATE, '00000000') &lt;= #dateTo#) 
+					and (COALESCE(B.END_DATE, '99999999') &gt;= #dateFrom# or COALESCE(B.END_DATE, '99999999') &gt;=  #dateTo#))
+		ORDER BY D.NAME
+	</select>
+	<!-- ENHANCEMENT END 20120725: -->
+
+	<!-- 
+	This is for user Seller Admin, Buyer Admin and Chouai
+		get List of Member Users of an Admin User			
+	 -->
+	<select id="getMembersByAdminId" parameterClass="java.util.Map" resultMap="userFilterList">
+		SELECT DISTINCT D.USER_ID AS ID, D.NAME AS NAME 
+		FROM EON_ADMIN_MEMBER B JOIN EON_USERS D ON B.MEMBER_ID = D.USER_ID
+		WHERE B.ADMIN_ID = #userId#
+			<!--AND B.ISACTIVE = 1-->
+			AND B.DEALING_PATTERN_RELATION_ID = #dealingRelationId#
+			AND ((COALESCE(B.START_DATE, '00000000') &lt;= #dateFrom# or COALESCE(B.START_DATE, '00000000') &lt;= #dateTo#) 
+					and (COALESCE(B.END_DATE, '99999999') &gt;= #dateFrom# or COALESCE(B.END_DATE, '99999999') &gt;=  #dateTo#))
+		ORDER BY D.NAME
+	</select>
+
+    <!--  -->
+    <select id="getMembersByAdminIdWithStartEndDates" parameterClass="java.util.Map" resultMap="adminMemberList">
+        SELECT DISTINCT D.USER_ID AS ID, D.NAME AS NAME , COALESCE(B.START_DATE, #dateFrom#) AS START_DATE, COALESCE(B.END_DATE, '99999999') AS END_DATE
+        FROM EON_ADMIN_MEMBER B JOIN EON_USERS D ON B.MEMBER_ID = D.USER_ID
+        WHERE B.ADMIN_ID = #userId#
+            AND B.DEALING_PATTERN_RELATION_ID = #dealingRelationId#
+            AND ((COALESCE(B.START_DATE, '00000000') &lt;= #dateFrom# or COALESCE(B.START_DATE, '00000000') &lt;= #dateTo#) 
+                    and (COALESCE(B.END_DATE, '99999999') &gt;= #dateFrom# or COALESCE(B.END_DATE, '99999999') &gt;=  #dateTo#))
+        ORDER BY D.NAME, START_DATE, END_DATE
+    </select>
+	
+	<!-- ENHANCEMENT START 20120725: Lele - Redmine 131 -->
+	<select id="getMembersByAdminId2" parameterClass="java.util.Map" resultMap="emailFilter">
+		SELECT DISTINCT D.USER_ID AS ID, D.NAME AS NAME,
+		D.COMPANY_ID AS COMPANY_ID, D.MOBILE_EMAIL_ADDRESS AS MOBILE_EMAIL_ADDRESS, D.PC_EMAIL_ADDRESS AS PC_EMAIL_ADDRESS
+		FROM EON_ADMIN_MEMBER B JOIN EON_USERS D ON B.MEMBER_ID = D.USER_ID
+		WHERE B.ADMIN_ID = #userId#
+			<!--AND B.ISACTIVE = 1-->
+			AND B.DEALING_PATTERN_RELATION_ID = #dealingRelationId#
+			AND ((COALESCE(B.START_DATE, '00000000') &lt;= #dateFrom# or COALESCE(B.START_DATE, '00000000') &lt;= #dateTo#) 
+					and (COALESCE(B.END_DATE, '99999999') &gt;= #dateFrom# or COALESCE(B.END_DATE, '99999999') &gt;=  #dateTo#))
+		ORDER BY D.NAME
+	</select>
+	<!-- ENHANCEMENT END 20120725: -->
+	
+	<select id="getAllMembers" parameterClass="java.util.Map" resultMap="User.User-result">
+		SELECT D.* 
+		FROM EON_ADMIN_MEMBER B JOIN EON_USERS D ON B.MEMBER_ID = D.USER_ID
+		WHERE B.ADMIN_ID IN <iterate property="adminIdList" open="(" close=")" conjunction=",">#adminIdList[]#</iterate>
+			AND B.DEALING_PATTERN_RELATION_ID IN <iterate property="dealingRelationIdList" open="(" close=")" conjunction=",">#dealingRelationIdList[]#</iterate>
+			AND ((COALESCE(B.START_DATE, '00000000') &lt;= #dateFrom# or COALESCE(B.START_DATE, '00000000') &lt;= #dateTo#) 
+					and (COALESCE(B.END_DATE, '99999999') &gt;= #dateFrom# or COALESCE(B.END_DATE, '99999999') &gt;=  #dateTo#))
+		ORDER BY D.NAME
+	</select>
+	
+	<!-- 	
+	-get list of Buyer Companies to be displayed on Seller Filter Page by Seller user id.
+	-get list of Buyer Companies to be displayed on Seller Admin Filter Page based on the selected Seller Users.	
+	 -->
+	<select id="getBuyerCompaniesByUserSellerIds" parameterClass="java.util.Map" resultMap="companyFilterList">
+		SELECT DISTINCT E.COMPANY_ID AS ID, E.COMPANY_NAME AS NAME
+		FROM EON_USER_DEALING_PATTERN B JOIN EON_USERS D ON B.USER_02 = D.USER_ID
+			JOIN EON_COMPANY E ON D.COMPANY_ID = E.COMPANY_ID
+		WHERE B.USER_01 IN <iterate property="selectedSellerIds" open="(" close=")" conjunction=","> #selectedSellerIds[]# </iterate>
+			<!--AND B.ISACTIVE = 1 -->
+			AND ((COALESCE(B.START_DATE, '00000000') &lt;= #dateFrom# or COALESCE(B.START_DATE, '00000000') &lt;= #dateTo#) 
+					and (COALESCE(B.END_DATE, '99999999') &gt;= #dateFrom# or COALESCE(B.END_DATE, '99999999') &gt;=  #dateTo#))
+		ORDER BY NAME
+	</select>
+				
+	<!-- 	
+	-get list of Buyer Users to be displayed on Admin Filter Page based on the selected User Seller and Buyer Company.	
+	 -->
+	<select id="getUserBuyersByUserSellersAndBuyerCompanyIds" parameterClass="java.util.Map" resultMap="userFilterList">
+		SELECT DISTINCT D.USER_ID AS ID, D.NAME AS NAME 
+		FROM EON_USER_DEALING_PATTERN B JOIN EON_USERS D ON B.USER_02 = D.USER_ID
+		WHERE B.USER_01 IN <iterate property="selectedSellerIds" open="(" close=")" conjunction=","> #selectedSellerIds[]# </iterate>
+			<!--AND B.ISACTIVE = 1 -->
+			AND D.COMPANY_ID IN <iterate property="selectedCompanyIds" open="(" close=")" conjunction=","> #selectedCompanyIds[]# </iterate>
+			AND ((COALESCE(B.START_DATE, '00000000') &lt;= #dateFrom# or COALESCE(B.START_DATE, '00000000') &lt;= #dateTo#) 
+					and (COALESCE(B.END_DATE, '99999999') &gt;= #dateFrom# or COALESCE(B.END_DATE, '99999999') &gt;=  #dateTo#))
+		ORDER BY D.NAME
+	</select>
+	<!-- ENHANCEMENT START 20120725: Lele - Redmine 131 -->
+	<select id="getUserBuyersByUserSellersAndBuyerCompanyIds2" parameterClass="java.util.Map" resultMap="emailFilter">
+		SELECT DISTINCT D.USER_ID AS ID, D.NAME AS NAME,
+		D.COMPANY_ID AS COMPANY_ID, D.MOBILE_EMAIL_ADDRESS AS MOBILE_EMAIL_ADDRESS, D.PC_EMAIL_ADDRESS AS PC_EMAIL_ADDRESS
+		FROM EON_USER_DEALING_PATTERN B JOIN EON_USERS D ON B.USER_02 = D.USER_ID
+		WHERE B.USER_01 IN <iterate property="selectedSellerIds" open="(" close=")" conjunction=","> #selectedSellerIds[]# </iterate>
+			<!--AND B.ISACTIVE = 1 -->
+			AND D.COMPANY_ID IN <iterate property="selectedCompanyIds" open="(" close=")" conjunction=","> #selectedCompanyIds[]# </iterate>
+			AND ((COALESCE(B.START_DATE, '00000000') &lt;= #dateFrom# or COALESCE(B.START_DATE, '00000000') &lt;= #dateTo#) 
+					and (COALESCE(B.END_DATE, '99999999') &gt;= #dateFrom# or COALESCE(B.END_DATE, '99999999') &gt;=  #dateTo#))
+		ORDER BY D.NAME
+	</select>
+	<!-- ENHANCEMENT END 20120725: -->
+
+	<!-- 	
+	-get list of Seller Companies to be displayed on Buyer Filter Page by Buyer user id.
+	-get list of Seller Companies to be displayed on Buyer Admin Filter Page based on the selected Buyer Users.	
+	 -->
+	<select id="getSellerCompaniesByUserBuyerIds" parameterClass="java.util.Map" resultMap="companyFilterList">
+		SELECT DISTINCT E.COMPANY_ID AS ID, E.COMPANY_NAME AS NAME
+		FROM EON_USER_DEALING_PATTERN B JOIN EON_USERS D ON B.USER_01 = D.USER_ID
+			JOIN EON_COMPANY E ON D.COMPANY_ID = E.COMPANY_ID
+		WHERE B.USER_02 IN <iterate property="selectedBuyerIds" open="(" close=")" conjunction=","> #selectedBuyerIds[]# </iterate>
+			<!--AND B.ISACTIVE = 1 -->
+			AND ((COALESCE(B.START_DATE, '00000000') &lt;= #dateFrom# or COALESCE(B.START_DATE, '00000000') &lt;= #dateTo#) 
+					and (COALESCE(B.END_DATE, '99999999') &gt;= #dateFrom# or COALESCE(B.END_DATE, '99999999') &gt;=  #dateTo#))
+		ORDER BY NAME
+	</select>
+	
+	<!-- 	
+	-get list of Seller Users to be displayed on Buyer Admin Filter Page based on the selected User Buyer and Seller Company.	
+	 -->
+	<select id="getUserSellersByUserBuyersAndSellerCompanyIds" parameterClass="java.util.Map" resultMap="userFilterList">
+		SELECT DISTINCT D.USER_ID AS ID, D.NAME AS NAME 
+		FROM EON_USER_DEALING_PATTERN B JOIN EON_USERS D ON B.USER_01 = D.USER_ID
+		WHERE B.USER_02 IN <iterate property="selectedBuyerIds" open="(" close=")" conjunction=","> #selectedBuyerIds[]# </iterate>
+			<!--AND B.ISACTIVE = 1 -->
+			AND D.COMPANY_ID IN <iterate property="selectedCompanyIds" open="(" close=")" conjunction=","> #selectedCompanyIds[]# </iterate>
+			AND ((COALESCE(B.START_DATE, '00000000') &lt;= #dateFrom# or COALESCE(B.START_DATE, '00000000') &lt;= #dateTo#) 
+					and (COALESCE(B.END_DATE, '99999999') &gt;= #dateFrom# or COALESCE(B.END_DATE, '99999999') &gt;=  #dateTo#))
+		ORDER BY D.NAME
+	</select>
+	
+	<!-- ENHANCEMENT START 20120725: Lele - Redmine 131 -->
+	<select id="getUserSellersByUserBuyersAndSellerCompanyIds2" parameterClass="java.util.Map" resultMap="emailFilter">
+		SELECT DISTINCT D.USER_ID AS ID, D.NAME AS NAME,
+		D.COMPANY_ID AS COMPANY_ID, D.MOBILE_EMAIL_ADDRESS AS MOBILE_EMAIL_ADDRESS, D.PC_EMAIL_ADDRESS AS PC_EMAIL_ADDRESS
+		FROM EON_USER_DEALING_PATTERN B JOIN EON_USERS D ON B.USER_01 = D.USER_ID
+		WHERE B.USER_02 IN <iterate property="selectedBuyerIds" open="(" close=")" conjunction=","> #selectedBuyerIds[]# </iterate>
+			<!--AND B.ISACTIVE = 1 -->
+			AND D.COMPANY_ID IN <iterate property="selectedCompanyIds" open="(" close=")" conjunction=","> #selectedCompanyIds[]# </iterate>
+			AND ((COALESCE(B.START_DATE, '00000000') &lt;= #dateFrom# or COALESCE(B.START_DATE, '00000000') &lt;= #dateTo#) 
+					and (COALESCE(B.END_DATE, '99999999') &gt;= #dateFrom# or COALESCE(B.END_DATE, '99999999') &gt;=  #dateTo#))
+		ORDER BY D.NAME
+	</select>
+	<!-- ENHANCEMENT END 20120725: -->
+	
+	<select id="getDealingPatternFinalization" parameterClass="java.util.Map">
+	SELECT
+	  ord.DELIVERY_DATE,
+	  ord.SELLER_ID,
+	  ord.BUYER_ID,
+	  (
+	    select 1 
+	    from
+	      EON_USER_DEALING_PATTERN deal
+	    where
+	      deal.USER_01 = #sellerId# and
+	      deal.USER_02 = ord.BUYER_ID and
+	      deal.DEALING_PATTERN_RELATION_ID = 1 
+	      <!--and deal.ISACTIVE = 1 --> and
+	      #deliveryDate# between coalesce(deal.START_DATE, '00000000') and
+	                             coalesce(deal.END_DATE, '99999999')
+	  ) withDeal,
+	  DECODE(ord.ORDER_FINALIZED_BY, null, 0, 1) sellerOrderFinalized,
+	  DECODE(ord.ORDER_LOCKED_BY, null, 0, 1) buyerOrderFinalized,
+	  DECODE(ord.ALLOCATION_FINALIZED_BY, null, 0, 1) sellerAllocFinalized,
+	  DECODE(ord.RECEIVED_APPROVED_BY, null, 0, 1) buyerReceivedFinalized,
+	  DECODE(ord.BILLING_FINALIZED_BY, null, 0, 1) sellerBillingFinalized
+	FROM
+  	  EON_ORDER ord
+	WHERE
+	  ord.SELLER_ID = #sellerId# AND
+	  ord.BUYER_ID IN <iterate property="buyerIds" open="(" close=")" conjunction=",">#buyerIds[]#</iterate> AND
+	  ord.DELIVERY_DATE = #deliveryDate#
+	</select>
+	
+	<select id="getSellerIdsOfBuyerId" parameterClass="java.util.Map" resultClass="java.lang.Integer" >
+		SELECT users.USER_ID
+		FROM
+			EON_USERS users,
+			EON_USER_DEALING_PATTERN userDeal
+		WHERE
+			users.USER_ID = userDeal.USER_01 AND
+			userDeal.USER_02 = #userId# 
+			<!--AND userDeal.ISACTIVE = 1-->
+	</select>
+	
+	<select id="getSellerIdsOfSellerAdminId" parameterClass="java.util.Map" resultClass="java.lang.Integer" >
+		SELECT users.USER_ID
+		FROM
+			EON_USERS users,
+			EON_ADMIN_MEMBER adminMem
+		WHERE
+			users.USER_ID = adminMem.MEMBER_ID AND
+			adminMem.ADMIN_ID = #userId# 
+			<!--AND adminMem.ISACTIVE = 1--> AND
+			adminMem.DEALING_PATTERN_RELATION_ID = 10003
+	</select>
+	
+	<select id="getSellerIdsOfBuyerAdminId" parameterClass="java.util.Map" resultClass="java.lang.Integer" >
+		SELECT DISTINCT users.USER_ID
+		FROM
+			EON_USERS users,
+			EON_USER_DEALING_PATTERN userDeal
+		WHERE
+			users.USER_ID = userDeal.USER_01 
+			<!--AND userDeal.ISACTIVE = 1 -->AND
+			userDeal.USER_02 IN
+			(
+				select a.user_id from
+				eon_users a,
+				eon_admin_member b
+				where
+				a.user_id = b.member_id and
+				b.admin_id = #userId# 
+				<!--AND b.isactive = 1 -->AND
+				b.dealing_pattern_relation_id = 10002
+			)
+	</select>
+	
+	<select id="getAdminUsersOfMember" parameterClass="java.util.Map" resultClass="java.lang.Integer" >
+		SELECT ADMIN_ID FROM EON_ADMIN_MEMBER WHERE DEALING_PATTERN_RELATION_ID = #dealingPatternId# AND MEMBER_ID = #userId#
+	</select>
+
+	<select id="getSellerUsersOfBuyerAdminId" parameterClass="java.util.Map" resultMap="userFilterList">
+		SELECT DISTINCT users.USER_ID as ID, users.Name
+		FROM
+			EON_USERS users,
+			EON_USER_DEALING_PATTERN userDeal
+		WHERE
+			users.USER_ID = userDeal.USER_01
+			<!-- AND userDeal.ISACTIVE = 1--> AND
+			userDeal.USER_02 IN
+			(
+				select a.user_id from
+				eon_users a,
+				eon_admin_member b
+				where
+				a.user_id = b.member_id and
+				b.admin_id = #userId# 
+				<!--AND b.isactive = 1 -->AND
+				b.dealing_pattern_relation_id = 10002
+			)
+	</select>
+
+	<select id="getSortedUserBuyer" resultClass="int">
+	  SELECT 
+	  		BUYER_ID
+	  FROM 
+	  		EON_SORT_BUYERS
+	  WHERE 
+	  		USER_ID = #userId#
+	  ORDER BY SORTING
+	</select>
+	
+	<select id="getSortedCompanyBuyer" resultClass="int">
+	  SELECT 
+	  		COMPANY_ID
+	  FROM 
+	  		EON_SORT_BUYERS
+	  WHERE 
+	  		USER_ID = #userId#
+	  ORDER BY SORTING
+	</select>	
+	
+	<select id="getAllBuyerIdsBySellerIds" parameterClass="java.util.Map" resultMap="userFilterList">
+		SELECT 
+			DISTINCT users.USER_ID as ID, users.NAME 
+		FROM 
+			EON_USER_DEALING_PATTERN dp, 
+			EON_USERS users
+		WHERE users.USER_ID = dp.USER_02
+		AND dp.USER_01 IN <iterate property="sellerIds" open="(" close=")" conjunction=",">#sellerIds[]#</iterate>
+		AND ((COALESCE(dp.START_DATE, '00000000') &lt;= #dateFrom# or COALESCE(dp.START_DATE, '00000000') &lt;= #dateTo#) 
+		AND (COALESCE(dp.END_DATE, '99999999') &gt;= #dateFrom# or COALESCE(dp.END_DATE, '99999999') &gt;=  #dateTo#))
+		ORDER BY users.NAME
+	</select>
+	
+	<select id="getAllSellerIdsByBuyerIds" parameterClass="java.util.Map" resultMap="userFilterList">
+		SELECT 
+			DISTINCT users.USER_ID as ID, users.NAME 
+		FROM 
+			EON_USER_DEALING_PATTERN dp, 
+			EON_USERS users
+		WHERE users.USER_ID = dp.USER_01
+		AND dp.USER_02 IN <iterate property="buyerIds" open="(" close=")" conjunction=",">#buyerIds[]#</iterate>
+		AND ((COALESCE(dp.START_DATE, '00000000') &lt;= #dateFrom# or COALESCE(dp.START_DATE, '00000000') &lt;= #dateTo#) 
+		AND (COALESCE(dp.END_DATE, '99999999') &gt;= #dateFrom# or COALESCE(dp.END_DATE, '99999999') &gt;=  #dateTo#))
+		ORDER BY users.NAME
+	</select>
+				
+</sqlMap>

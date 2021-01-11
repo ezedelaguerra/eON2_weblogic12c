@@ -1,0 +1,313 @@
+===============================================================
+Module/Task: Redmine #131 Same Username error
+Date:       July 13, 2011
+Developer:  rhoda
+RevNo       FileName
+1.7 		AdminUpdateUserController.java
+1.11		CompanyInformationDaoImpl.java
+1.6			CompanySaveInformationController.java
+1.27		UserDaoImpl.java
+1.14		UserSaveInformationController.java
+1.25		error_en.properties
+1.26		error_ja.properties
+1.0			2011_Version_04.sql
+
+Date:       Aug 15, 2011
+Developer:  rhoda
+RevNo       FileName
+1.7 		AdminUsers.xml
+1.15		CompanyInformation.xml
+1.12		CompanyInformationDaoImpl.java
+1.7			CompanySaveInformationController.java
+1.28		UserDaoImpl.java
+
+Module/Task: Redmine #131 Same Username error - should be unique only in the company.
+Date:       Sep 12, 2011
+Developer:  rhoda
+RevNo       FileName
+1.8 		AdminUsers.xml
+1.5			2011_Version_04.sql
+
+Date:       Sep 15, 2011
+Developer:  lele
+1.26		UserDao.java
+1.31		UserDaoImpl.java
+1.19		User.xml
+1.5			SellerSelectController.java (allocation)
+1.5			SellerSelectController.java (seller order)
+1.2			PmfSellerSelectController.java
+1.13		PmfSetParamController.java
+
+Module/Task: Redmine #444 due to #131
+Date:       Sept 20, 2011
+Developer:  Lele
+RevNo       FileName
+1.35		SessionParamConstants.java
+1.27		UserDao.java
+1.32		UserDaoImpl.java
+1.57		OrderSheetService.java
+1.121		OrderSheetServiceImpl.java
+1.20		User.xml
+1.22		OrderSheetController.java
+1.43		OrdersheetLoadController.java
+1.0			SellerIdSelectController.java
+1.82-1.83	buyerAdmin_orderTable.jsp
+1.93		dispatcher-json-servlet.xml
+===============================================================
+Module/Task: Redmine #177 Non-Members: incorrect Telephone number and Mobile number causes error
+Date:       July 15, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.19		inquiry.jsp
+===============================================================
+Module/Task: Redmine #84 If you enter number and space in order limit, it cause error.
+Date:       July 15, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.196		sigmaTable.jsp
+
+Date:       September 14, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.206		sigmaTable.jsp
+1.4			sigma_util.js(revert - this file is wrongly checked in)
+===============================================================
+Module/Task: Redmine #185 Entering spaces in UOM
+Date:       July 15, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.17        unitoforder.js
+
+Date:       September 14, 2011
+Developer:  Ogie 
+1.18        unitoforder.js
+===============================================================
+Module/Task: Redmine #238 Remember password
+Date:       July 28, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.30		login.jsp
+===============================================================
+Module/Task: Redmine #113 User can press apply button several times.
+Date:       Aug 10, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.19		OrderSheetUpdateController
+1.107		order_sheet.js
+1.199		sigmaTable.jsp
+
+Date:       Aug 12, 2011
+Developer:  Rhoda
+1.20		OrderSheetUpdateController(revert)
+1.30		gt_grid_all.js
+1.201		sigmaTable.jsp
+
+Date:       Sept 16, 2011
+Developer:  Lele
+RevNo       FileName
+1.78		buyer_ordersheet.js
+1.55		received_sheet.js
+1.73		akadensheet.js
+1.70		allocation_sheet.js
+1.57		billing_sheet.js
+1.67		akadenGrid.jsp
+===============================================================
+Module/Task: Redmine #221 Comments: Clicking 'All' in filter page causes user to login again
+Date:       
+Developer:  Lele
+RevNo       FileName
+1.8			search_recipient.js
+
+Module/Task: Fixed error in comments
+Date:       Aug 17, 2011
+Developer:  Lele
+RevNo       FileName
+1.5			UserFetcher1Impl.java
+1.4			UserFetcher2Impl.java
+1.5			UserFetcher3Impl.java
+1.4			UserFetcher4Impl.java
+1.25		UserDao.java
+1.30		UserDaoImpl.java
+===============================================================
+Module/Task: Redmine #125 Sku group maintenance: Cannot add japanese text
+Date:       
+Developer:  Lele
+RevNo       FileName
+1.16		sku_group_maintenance.js
+1.8			SKUGroupUpdateController.java
+1.14		SKUGroupService.java
+1.20		SKUGroupServiceImpl.java
+1.91		dispatcher-json-servlet.xml
+===============================================================
+Module/Task: Redmine #161 Cannot delete sku
+Date:       
+Developer:  Lele
+RevNo       FileName
+1.197		sigmaTable.jsp
+1.29		gt_grid_all.js
+===============================================================
+Module/Task: Redmine #165 createSheet: unitPriceWithoutTax is a required field
+Date:       Aug 10, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.21		WebServiceValidator.java
+===============================================================
+Module/Task: Versioning
+Date:       Aug 12, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.62		web.xml
+===============================================================
+Module/Task: Redmine #321 - Buyer Admin added SKU should be able to deleted 
+				- from BuyerAdmin/SellerAdmin/Seller 
+
+Date:       Aug. 17, 2011
+Developer:  rhoda
+RevNo       FileName
+1.17		OrderItemDao.java
+1.19		OrderItemDaoImpl.java
+1.120		OrderSheetServiceImpl.java
+1.28		WebServiceImpl.java
+
+Date:       Aug. 24, 2011
+Developer:  rhoda
+RevNo       FileName
+1.78		buyerAdmin_orderTable.jsp
+===============================================================
+Module/Task: Hide/Show Column (Seller only)
+
+Date:       Sept 02, 2011
+Developer:  Lele
+RevNo       FileName
+1..2		UserPreferenceDao.java
+1..2		UserPreferenceDaoImpl.java
+1.3			EONUserPreference.java
+1.0			HideColumn.java
+1.10		User.java
+1.2			UserPreferenceService.java
+1.2			UserPreferenceServiceImpl.java
+1.3			UserPreference.xml
+1.8			LoginSubmitController.java
+1.0			LoadHideColumnController.java
+1.0			SaveHideColumnController.java
+1.2			2011_Version_04.sql
+1.67		en.js
+1.79		ja.js
+1.2			sigma_util.js
+1.0			hide_column.js
+1.10		user_preference.js
+1.63		akadenGrid.jsp
+1.35-1.36	akadenImportAllocGrid.jsp
+1.90		allocationTable.jsp
+1.67		billingTable.jsp
+1.58		index.jsp
+1.202		sigmaTable.jsp
+1.92		dispatcher-json-servlet.xml
+
+Module/Task: Hide/Show Column (Buyer only)
+
+Date:       Sept 07, 2011
+Developer:  Lele
+RevNo       FileName
+1..4		UserPreferenceDaoImpl.java
+1..2		HideColumn.java
+1.3			UserPreferenceServiceImpl.java
+1..5-1.7	UserPreference.xml
+1..4		2011_Version_04.sql
+1..1		hide_column.js (buyer)
+1.12		user_preference.js
+1.33		buyer_billingTable.jsp
+1.69		buyer_orderTable.jsp
+1..56		buyer_receivedTable.jsp
+1.79		buyerAdmin_orderTable.jsp
+1.35		index.jsp
+1..69		en.js
+1..81		ja.js
+
+Module/Task: Hide/Show Column (Code Review)
+
+Date:       Sept 12, 2011
+Developer:  Lele
+RevNo       FileName
+1.5			UserPreferenceDaoImpl.java
+1.4			HideColumn.java
+1.3			UserPreferenceService.java
+1.4			UserPreferenceServiceImpl.java
+1.6			UserPreference.xml
+1.9			LoginSubmitController.java
+1.5			2011_Version_04.sql
+1.3			hide_column.js (buyer)
+1.70		en.js
+1.81		ja.js
+1.2			hide_column.js (seller)
+1.80		buyerAdmin_orderTable.jsp
+1.64		akadenGrid.jsp
+1.36		akadenImportAllocGrid.jsp
+1.91		allocationTable.jsp
+1.68		billingTable.jsp
+1.203		sigmaTable.jsp
+
+Module/Task: Hide/Show Column Translation
+Date:       Sept 20, 2011
+Developer:  Lele
+RevNo       FileName
+1.82        ja.js
+
+Module/Task: Hide/Show Column Buyer Sku Max Limit
+Date:       Sept 20, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.72        buyer_orderTable.jsp
+===============================================================
+Module/Task: Additional editable columns in Buyer Admin
+
+Date:       Sept 06, 2011
+Developer:  Lele
+RevNo       FileName
+1.31-1.32   gt_grid_all.js
+===============================================================
+Module/Task: eON Screen  
+- Auto-resize of eON screen
+- Remove extra scrollbars on sigma grid
+- Relocate download excel button
+- Login page change texts/labels
+Date:       Sept 14, 2011
+Developer:  Ogie
+RevNo       FileName
+1.32-1.33   app/common/util/header.js
+1.31        app/login/jsp/login.jsp
+1.26        app/common/component/comments.js
+
+app/seller
+1.41-1.42   js/home.js
+1.62-1.63   js/menu.js
+1.108-1.110 js/order_sheet.js
+1.72		js/akadensheet.js
+1.69		js/allocation_sheet.js
+1.57		js/billing_sheet.js
+1.11        js/user_preference.js
+1.205       jsp/sigmaTable.jsp
+1.65-1.66   jsp/akadenGrid.jsp
+1.92-1.93   jsp/allocationTable.jsp
+1.69-1.70   jsp/billingTable.jsp
+
+app/buyer
+1.28        js/buyer_home.js
+1.39        js/buyer_menu.js
+1.37		js/buyer_billing.js
+1.77		js/buyer_ordersheet.js
+1.54		js/receive_sheet.js
+1.13        js/user_preference.js
+1.34-1.35   jsp/buyer_billingTable.jsp
+1.70-1.71   jsp/buyer_orderTable.jsp
+1.57-1.58   jsp/buyer_receivedTable.jsp
+1.81        jsp/buyerAdmin_orderTable.jsp
+
+===============================================================
+Module/Task: 4 New Columns - advance checkin for Lele's testing
+
+Date:       Sept 19, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.26		SKU.java
+1.17		AkadenSKU.java(revert)

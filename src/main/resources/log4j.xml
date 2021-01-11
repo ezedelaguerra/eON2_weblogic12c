@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <appender class="org.apache.log4j.DailyRollingFileAppender" name="autodownload">
+        <param value=".yyyy-MM-dd" name="DatePattern"/>
+        <param value="UTF-8" name="Encoding"/>
+        <param value="C:/eon/logs/autodownload.log" name="file"/>
+        <param value="true" name="ImmediateFlush"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c - %m%n" name="ConversionPattern"/>
+        </layout>
+    </appender>
+    <appender class="org.apache.log4j.DailyRollingFileAppender" name="performance">
+        <param value=".yyyy-MM-dd" name="DatePattern"/>
+        <param value="UTF-8" name="Encoding"/>
+        <param value="C:/eon/logs/performance.log" name="file"/>
+        <param value="true" name="ImmediateFlush"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c - %m%n" name="ConversionPattern"/>
+        </layout>
+    </appender>
+    <appender class="org.apache.log4j.ConsoleAppender" name="stdout">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param value="%d [%t] %-5p %c - %m%n" name="ConversionPattern"/>
+        </layout>
+    </appender>
+    <appender class="org.apache.log4j.DailyRollingFileAppender" name="weblogs">
+        <param value=".yyyy-MM-dd" name="DatePattern"/>
+        <param value="C:/eon/logs/eon.log" name="File"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param value="%d [%t] %-5p %c - %m%n" name="ConversionPattern"/>
+        </layout>
+    </appender>
+    <appender class="org.apache.log4j.DailyRollingFileAppender" name="webservice">
+        <param value=".yyyy-MM-dd" name="DatePattern"/>
+        <param value="UTF-8" name="Encoding"/>
+        <param value="C:/eon/logs/webservice.log" name="file"/>
+        <param value="true" name="ImmediateFlush"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c - %m%n" name="ConversionPattern"/>
+        </layout>
+    </appender>
+	<appender name="async" class="org.apache.log4j.AsyncAppender">
+		<param name="BufferSize" value="500" />
+		<param name="LocationInfo" value="true"/>
+        <param name="Blocking" value="false"/>
+		<appender-ref ref="stdout" />
+	    <appender-ref ref="weblogs"/>
+		
+	</appender>    
+    <appender name="nullappender" class="org.apache.log4j.varia.NullAppender">
+    </appender>    
+    <logger name="com.freshremix">
+        <level value="info"/>
+    </logger>
+    <logger name="com.freshremix.aop">
+        <level value="info"/>
+        <appender-ref ref="performance"/>
+    </logger>
+    <logger name="com.freshremix.autodownload">
+        <level value="info"/>
+        <appender-ref ref="autodownload"/>
+    </logger>
+    <logger name="com.freshremix.ftp">
+        <level value="info"/>
+        <appender-ref ref="autodownload"/>
+    </logger>
+    <logger name="com.freshremix.service.impl">
+        <level value="info"/>
+        <appender-ref ref="autodownload"/>
+    </logger>
+    <logger name="com.freshremix.webapp.filter.AuditTrailFilter">
+        <level value="info"/>
+        <appender-ref ref="performance"/>
+    </logger>
+    <logger name="com.freshremix.ws">
+        <level value="info"/>
+        <appender-ref ref="webservice"/>
+    </logger>
+    <root>
+        <level value="info"/>
+        <appender-ref ref="async"/>
+    </root>
+
+    <!-- SQL Debugging -->
+<!--      <logger name="com.ibatis">
+        <level value="debug"/>
+        <appender-ref ref="async"/>
+    </logger>
+    <logger name="com.ibatis.common.jdbc.ScriptRunner">
+        <level value="debug"/>
+        <appender-ref ref="async"/>
+    </logger>
+    <logger name="com.ibatis.common.jdbc.SimpleDataSource">
+        <level value="debug"/>
+        <appender-ref ref="async"/>
+    </logger>
+    <logger name="com.ibatis.SQL">
+        <appender-ref ref="async"/>
+    </logger>
+    <logger name="java.sql.Connection">
+        <level value="debug"/>
+        <appender-ref ref="async"/>
+    </logger>
+    <logger name="java.sql.PreparedStatement">
+        <level value="debug"/>
+        <appender-ref ref="async"/>
+    </logger>
+    <logger name="java.sql.ResultSet">
+        <level value="debug"/>
+        <appender-ref ref="async"/>
+    </logger>
+    <logger name="java.sql.Statement">
+        <level value="debug"/>
+        <appender-ref ref="async"/>
+    </logger> -->
+</log4j:configuration>

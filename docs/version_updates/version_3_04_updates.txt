@@ -1,0 +1,572 @@
+===============================================================
+Module/Task: Redmine #57 - Javascript cache
+Date:       May 11, 2011
+Developer:  Ogie
+RevNo       FileName
+1.16-1.18   app\admin\jsp\index.jsp 
+1.29-1.30   app\buyer\jsp\buyer_billingTable.jsp
+1.61-1.62   app\buyer\jsp\buyer_orderTable.jsp
+1.51-1.52   app\buyer\jsp\buyer_receivedTable.jsp
+1.70-1.71   app\buyer\jsp\buyerAdmin_orderTable.jsp
+1.32-1.34   app\buyer\jsp\index.jsp
+1.28-1.29   app\login\jsp\login.jsp
+1.59-1.60   app\seller\jsp\akadenGrid.jsp
+1.32-1.33   app\seller\jsp\akadenImportAllocGrid.jsp
+1.85-1.86   app\seller\jsp\allocationTable.jsp
+1.61,1.64   app\seller\jsp\billingTable.jsp
+1.54-1.57   app\seller\jsp\index.jsp
+1.38-1.39   app\seller\jsp\pmfSigmaTable.jsp
+1.189,1.192 app\seller\jsp\sigmaTable.jsp
+
+===============================================================
+Module/Task: Redmine #100 - DownloadCSV for billing sheet
+Date:       May 11, 2011
+Developer:  Lele
+RevNo       FileName
+1.24		AkadenDao.java
+1.24		AkadenDaoImpl.java
+1.2			AkadenItem.java
+1.6			BillingItem.java
+1.3			Item.java
+1.10		OrderItem.java
+1.5			OrderReceived.java
+1.9			SheetData.java
+1.17		SheetDataServiceImpl.java
+1.45		Akaden.xml
+1.18		DownloadCSVUtil.java
+1.47		OrderSheetUtil.java
+1.62		billingTable.jsp
+
+===============================================================
+Module/Task: Redmine #105 & #64 Disable Checkbox if already finalized
+Date:       May 11, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.86		allocationTable.jsp
+1.63		billingTable.jsp
+1.71		buyerAdmin_orderTable.jsp
+1.190		sigmaTable.jsp
+
+===============================================================
+Module/Task: Admin user create dealing pattern [SellerAdmin / BuyerAdmin]
+Date:       May 12, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.24		UserInformation.xml
+
+===============================================================
+Module/Task: Redmine #90 PMF button disable
+Date:       May 12, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.191		sigmaTable.jsp
+
+===============================================================
+Module/Task: Redmine #94 PMF username column
+Date:       May 12, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.14		ProductMasterFile.xml
+
+===============================================================
+Module/Task: Change Proposed SKU Company Name to Company Short Name
+Date:       May 11, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.48		AkadenServiceImpl.java
+1.32		AllocationSheetLoadController.java
+1.22		BillingSheetLoadController.java
+1.8			BuyerBillingSheetLoadController.java
+1.38		OrderSheetLoadController.java (Buyer)
+1.62		OrderSheetLoadController.java (Seller)
+1.24		ReceivedSheetLoadController.java
+
+===============================================================
+Module/Task: Redmine #88 Date formatting yyyy/mm/dd
+Date:       May 16, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.33		util.js
+1.28		admin_filter.js(buyer)
+1.36		admin_filter.js(seller)
+1.16		admin_filter_akaden.js
+1.31		buyer_filter.js
+1.53		filter.js
+1.18		filter_akaden.js
+
+===============================================================
+Module/Task: Redmine #59 UOM Deletion
+Date:       May 16, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.16		unitoforder.js
+
+===============================================================
+Module/Task: Redmine #146 getSellerOrderSheet doesn't returns all fields
+Date:       May 17, 2011
+Developer:  Ogie
+RevNo       FileName
+1.3         SKUInfoWithAltPrice.java
+1.4         WSSKU.java
+1.16        WebServiceImpl.java
+1.5         WebServiceUtil.java
+1.19        OldFreshRemixServiceEndpoint.java
+
+===============================================================
+Module/Task: Redmine #149 downloadCSV Class1/Class2 
+Date:       May 17, 2011
+Developer:  Ogie
+RevNo       FileName
+1.19        DownloadCSVUtil.java
+
+===============================================================
+Module/Task: Redmine #160 createSheet/addSkuAlllocation when desc is blank
+Date:       May 17, 2011
+Developer:  Ogie
+RevNo       FileName
+1.8         WebServiceConstants.java
+1.19        error_en.properties
+1.20        error_ja.properties
+1.10        WebServiceValidator.java
+
+===============================================================
+Module/Task: Redmine #162 downloadCSV Order/Billing sheet 
+Date:       May 17, 2011
+Developer:  Lele
+RevNo       FileName
+1.18        SheetDataServiceImpl.java
+1.48		OrderSheetUtil.java
+
+===============================================================
+Module/Task: Redmine #21 PMF garbage values  
+Date:       May 17, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.40        pmfSigmaTable.jsp
+
+===============================================================
+Module/Task: Redmine #20 Download Excel Label for seller and buyer print option 
+Date:       May 17, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.16        download_excel.js
+1.65		en.js
+1.77		ja.js
+
+===============================================================
+Module/Task: Redmine #106 Download Excel Jap Char for wed, Price1 Total and Price2 Total 
+Date:       May 17, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.6			label_ja.properties
+
+Module/Task: Redmine #106 Download Excel garbled Jap Char for Font Face 
+Date:       May 26, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.7			label_ja.properties
+1.10		DownloadExcelUtil.java
+1.3			MessageUtil.java
+===============================================================
+Module/Task: Redmine #100 Filter page disable buttons/date when AJAX call 
+Date:       May 18, 2011
+Developer:  Lele
+RevNo       FileName
+1.29		admin_filter.js
+1.32		buyer_filter.js
+1.17		admin_filter_akaden.js
+1.37		admin_filter.js
+1.19		filter_akaden.js
+1.54		filter.js
+
+===============================================================
+Module/Task: Redmine #93 Akaden add sku - undefined
+Date:       May 18, 2011
+Developer:  Lele
+RevNo       FileName
+1.49		AkadenServiceImpl.java
+1.14		AkadenSheetLoadController.java
+
+===============================================================
+Module/Task: Redmine #15 No sku vs Not published sheet message 
+Date:       May 18, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.61		akadenGrid.jsp
+1.88		allocationTable.jsp
+1.65		billingTable.jsp
+1.73		buyerAdmin_orderTable.jsp
+1.31		buyer_billingTable.jsp
+1.63		buyer_orderTable.jsp
+1.53		buyer_receivedTable.jsp
+
+
+Date:       May 26, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.62		akadenGrid.jsp
+1.89		allocationTable.jsp
+1.66		billingTable.jsp
+1.75		buyerAdmin_orderTable.jsp
+1.32		buyer_billingTable.jsp
+1.65		buyer_orderTable.jsp
+1.54		buyer_receivedTable.jsp
+1.15		AkadenSheetLoadController.java
+1.33		AllocationSheetLoadController.java
+1.23		BillingSheetLoadController.java
+1.9			BuyerBillingSheetLoadController.java
+1.39		OrderSheetLoadController.java
+1.25		ReceivedSheetLoadController.java
+
+Date:       May 27, 2011
+Developer:  Lele
+RevNo       FileName
+1.16		AkadenSheetLoadController.java
+1.34		AllocationSheetLoadController.java
+1.24		BillingSheetLoadController.java
+1.10		BuyerBillingSheetLoadController.java
+1.40		OrderSheetLoadController.java
+1.26		ReceivedSheetLoadController.java
+1.26		ReceivedSheet.xml
+
+===============================================================
+Module/Task: Redmin #163 Webservice validation on Sku group and UOM
+Date:       May 18, 2011
+Developer:  Ogie
+RevNo       FileName
+1.9         WebServiceConstants.java
+1.5         EONWebServiceResponse.java
+1.20        error_en.properties
+1.21        error_ja.properties
+1.17        WebServiceImpl.java
+1.13        FreshRemixServiceAdapter.java
+1.11        WebServiceValidator.java
+
+===============================================================
+Module/Task: Redmine#22/23 Akaden garbage data
+Date:       May 19, 2011
+Developer:  Lele
+RevNo       FileName
+1.34		akadenImportAllocGrid.jsp
+
+===============================================================
+Module/Task: Redmine#85 Sku max limit - translation
+Date:       May 23, 2011
+Developer:  Lele
+RevNo       FileName
+1.192		sigmaTable.jsp
+1.16		gt_msg_en.js
+1.19		gt_msg_ja.js
+
+===============================================================
+Module/Task: Redmine#60 Message count when deleting comments
+Date:       May 23, 2011
+Developer:  Lele
+RevNo       FileName
+1.23		comments.js
+
+===============================================================
+Module/Task: Redmine#61 Cannot send comments
+Date:       May 23, 2011
+Developer:  Lele
+RevNo       FileName
+1.7		CommentsService.java
+1.10		CommentsService.Impl.java
+1.5			LoadCompaniesController.java
+
+===============================================================
+Module/Task: Redmine#85 Sku max limit - translation (additional fix)
+Date:       May 25, 2011
+Developer:  Lele
+RevNo       FileName
+1.64		buyer_orderTable.jsp
+1.74		buyerAdmin_orderTable.jsp
+
+===============================================================
+Module/Task: Redmine#34
+Date:       May 26, 2011
+Developer:  Lele
+RevNo       FileName
+1.66		buyer_orderTable.jsp
+1.28		gt_grid_all.js
+
+===============================================================
+Module/Task: Redmine#166 seller name is not a required field
+Date:       May 26, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.20		OldFreshRemixServiceEndpoint.java
+1.12		WebServiceValidator.java
+
+===============================================================
+Module/Task: Webservice Monitoring Input/Output XML 
+Date:       May 27, 2011
+Developer:  Ogie
+RevNo       FileName
+1.9         OldFreshRemixService.java
+1.1         SOAPLoggingHandler.java
+1.1         handler-chain.xml
+1.4         log4j.properties
+===============================================================
+
+===============================================================
+Module/Task: Redmine#60
+Date:       June 1, 2011
+Developer:  Lele
+RevNo       FileName
+1.24		comments.js
+===============================================================
+Module/Task: Redmine#167 Max length of fields in the web service are different 
+				from the max length in new eON application.
+Date:       June 02, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.14		FreshRemixServiceAdapter.java
+1.10		WebServiceConstants.java
+1.13		WebServiceValidator.java
+1.21		error_en.properties
+1.22		error_ja.properties
+
+Renamed Class/Grade to Class1/Class2
+Date:       June 03, 2011
+Developer:  Ogie
+RevNo       FileName
+1.11		WebServiceConstants.java
+1.14		WebServiceValidator.java
+1.22		error_en.properties
+1.23		error_ja.properties
+
+max length for Quantity
+Date:       June 13, 2011
+Developer:  Ogie
+RevNo       FileName
+1.12		WebServiceConstants.java
+1.15		WebServiceValidator.java
+1.23		error_en.properties
+1.24		error_ja.properties
+
+max length for Quantity
+Date:       June 22, 2011
+Developer:  Ogie
+RevNo       FileName
+1.16		WebServiceValidator.java
+===============================================================
+Module/Task: Redmine#117 
+Date:       June 03, 2011
+Developer:  Lele
+RevNo       FileName
+1.25		AkadenDaoImpl.java
+1.15		AllocationDaoImpl.java
+1.20		OrderBillingDaoImpl.java
+1.35		OrderDaoImpl.java
+1.38		OrderSheetImpl.java
+1.16		ReceivedSheetDaoImpl.java
+1.1			Weblogic_Memory.txt
+===============================================================
+Module/Task: Redmine#100 the zero (0) value of 'Finalize' column moved to the next row.
+				(this is due to enter key/comma inputs)
+Date:       June 06, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.54		DownloadCSVController.java
+1.20		DownloadCSVUtil.java
+1.9			DownloadCSVView.java
+1.10		StringUtil.java
+===============================================================
+Module/Task: Redmine#139 - Flags for Finalize, Publish, Lock and Approved
+
+Date:       June 07, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.21		DownloadCSVUtil.java
+1.10		DownloadCSVView.java
+1.33		OrderAllocation.xml
+1.11		OrderItem.java
+
+Date:       June 07, 2011 (revert)
+Developer:  Rhoda
+RevNo       FileName
+1.34		OrderAllocation.xml
+1.12		OrderItem.java
+===============================================================
+Module/Task: Redmine#139 - Flags for Finalize, Publish, Lock and Approved
+
+Date:       June 13, 2011
+Developer:  Lele
+RevNo       FileName
+1.0			2011_Version_03_08.sql
+
+Date:       June 13, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.13		AllocationDao.java
+1.16		AllocationDaoImpl.java
+1.35		AllocationSheetServiceImpl.java
+1.22		DownloadCSVUtil.java
+1.35		OrderAllocation.xml
+1.13		OrderItem.java
+1.22		ReceivedSheetServiceImpl.java
+1.20		WebServiceImpl.java
+===============================================================
+Module/Task: Redmine #190 - adding SKU in allocation using selleradmin webservice 
+Date:       June 13, 2011
+Developer:  Ogie
+RevNo       FileName
+1.19        WebServiceImpl.java
+1.15        FreshRemixServiceAdapter.java
+===============================================================
+Module/Task: Redmine #220 - external id sorting 
+Date:       June 14, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.9	        SKUComparator.java
+1.4	        SKUSortColumnNames.java
+===============================================================
+Module/Task: Redmine #198 - Date formatting yyyy/mm/dd
+Date:       June 15, 2011
+Developer:  Ogie
+RevNo       FileName
+1.13        download_csv_admin.js
+1.12        download_csv.js
+1.14        download_csv_admin.js
+1.18        download_csv.js
+1.66        en.js
+1.78        ja.js
+ 
+Date:       June 17, 2011
+Developer:  Ogie
+RevNo       FileName
+1.14        buyer\download_csv_admin.js
+1.13        buyer\download_csv.js
+1.15        seller\download_csv_admin.js
+1.19        seller\download_csv.js
+
+Date formatting of yyyy\mm\dd when comparing two days
+Date:       June 23, 2011
+Developer:  Ogie
+RevNo       FileName
+1.16        buyer\download_csv_admin.js
+1.15        buyer\download_csv\.js
+1.17        seller\download_csv_admin.js
+1.20        seller\download_csv.js
+===============================================================
+Module/Task: Redmine #69 - Weekly validation of SKU Max Limit 
+Date:       June 15, 2011
+Developer:  Lele
+RevNo       FileName
+1.34		OrderSheetDao.java
+1.5			SKUDao.java
+1.39		OrderSheetDaoImpl.java
+1.7			SKUDaoImpl.java
+1.56		OrderSheetService.java
+1.5			SKUService.java
+1.115		OrderSheetServiceImpl.java
+1.6			SKUServiceImpl.java
+1.108		OrderSheet.xml
+1.17		SKU.xml
+1.0			WeeklyQuantityLimitController.java
+1.194		sigmaTable.jsp
+1.90		dispatcher-json-servlet.xml
+===============================================================
+Module/Task: Redmine #202 - getSellerOrderSheet, SKU visibility is always "0" 
+Date:       June 15, 2011
+Developer:  Ogie
+RevNo       FileName
+1.5         WSSKU.java
+1.21        WebServiceImpl.java
+1.21        OldFreshRemixServiceEndpoint.java
+===============================================================
+Module/Task: Redmine #223 - Change error message 
+Date:       June 15, 2011
+Developer:  Lele
+RevNo       FileName
+1.67		buyer_orderTable.jsp
+1.18		gt_msg_en.js
+1.21		gt_msg_ja.js
+
+Date:       June 23, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.76		buyerAdmin_orderTable.jsp
+===============================================================
+Module/Task: Redmine #60 - Comments: Message is not selected 
+Date:       June 15, 2011
+Developer:  Lele
+RevNo       FileName
+1.25		comments.js
+===============================================================
+Module/Task: Web Service - SKU ID has changed for same/match SKU 
+Date:       June 16, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.22		WebServiceImpl.java
+
+Redmine #266 Web Service - Error on populate Lists, match null to blank 
+Date:       June 23, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.23		WebServiceImpl.java
+
+Module/Task: New Rules 1. Not allow to create sheet if published
+			 2. Delete future not yet publish orders (created before a published order)
+Date:       July 01, 2011
+Developer:  rhoda
+RevNo       FileName
+1.30	OrderDao.java
+1.36	OrderDaoImpl.java
+1.109	OrderSheet.xml
+1.13	WebServiceConstants.java
+1.25	WebServiceImpl.java
+1.17	WebServiceValidator.java
+1.24	error_en.properties
+1.25	error_ja.properties
+===============================================================
+Module/Task: Web Service - SKU Group name return too many result 
+Date:       June 16, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.15		SKUGroup.xml
+===============================================================
+Module/Task: Redmine #222 - Web Service - in the Order Sheet, SKU GROUP ID appears in SKU GROUP NAME field.
+				Also that SKU GROUP doesn't appear in SKU GROUP MAINTENANCE page.
+Date:       June 16, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.16		SKUGroup.xml
+1.11		SKUGroupDao.java
+1.13		SKUGroupDaoImpl.java
+1.6			SKUGroupListController.java
+1.19		SKUGroupServiceImpl.java
+1.7			SKUGroupUpdateController.java
+===============================================================
+Module/Task: Change error message
+Date:       June 17, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.195		sigmaTable.jsp
+===============================================================
+Module/Task: [Webservice] createSheet 
+        // if no order item to update 
+		// need to insert an order item 
+Date:       June 23, 2011
+Developer:  Ogie
+RevNo       FileName
+1.16        OrderItemDaoImpl.java
+===============================================================
+Module/Task: Redmine #297:[Webservice] newAddSKUAllocation
+		// - error occurs when there is no existing SKU in allocation 
+		//	then you add sku in allocation using webservice
+Date:       June 28, 2011
+Developer:  rhoda
+RevNo       FileName
+1.24		WebServiceImpl.java
+===============================================================
+Module/Task: Redmine #310 Download CSV filter page: Error message 
+			 is displayed when initial selection for date in FROM textbox
+Date:       June 30, 2011
+Developer:  rhoda
+RevNo       FileName
+1.18		download_csv_admin.js (buyer)
+1.17		download_csv.js (buyer)
+1.19		download_csv_admin.js (seller)
+1.22		download_csv.js (seller)

@@ -1,0 +1,21 @@
+===============================================================
+Module/Task: Download CSV Bug
+Date:       March 25, 2010
+Developer:  Ogie
+RevNo       FileName
+1.13        DealingPatternDao.java
+1.15        DealingPatternDaoImpl.java
+1.16        DealingPatternService.java
+1.17        DealingPatternServiceImpl.java
+1.27        DealingPattern.xml
+1.37        DownloadCSVConrtoller.java
+1.1         DownloadCSVFilterBuyerAdminSellersController.java
+1.11        DownloadCSVUsersListController.java
+1.30        app\buyer\jsp\index.jsp
+1.1         downloadcsv_admin_buyer.js
+1.86        dispatcher-json-servlet.xml
+
+Module/Task: Download CSV More Bugs
+Date:       March 26, 2010
+RevNo       FileName
+1.12        DownloadCSVParamsContorller.java

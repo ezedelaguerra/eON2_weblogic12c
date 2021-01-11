@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd"
+   default-autowire="byName">
+ 
+
+    <import resource="classpath:mailContext-${eon.jndiProfile}.xml" />
+
+	<bean id="mailSenderUtil"
+		class="com.freshremix.util.MailSenderUtil">
+		  <property name="mailHost"><ref bean="mailHost"/></property>
+<!--		  <property name="from" value="${eon.smtp.username}"/>-->
+	</bean>
+	
+    <bean id="velocityEngine"
+        class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="velocityProperties">
+            <value>
+                resource.loader=class
+                class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+            </value>
+        </property>
+    </bean>
+
+    <bean id="mailSenderService"
+        class="com.freshremix.service.impl.MailSenderServiceImpl">
+        <property name="mailSender" ref="mailHost" />
+        <property name="velocityEngine" ref="velocityEngine" />
+    </bean>
+ 	
+</beans>

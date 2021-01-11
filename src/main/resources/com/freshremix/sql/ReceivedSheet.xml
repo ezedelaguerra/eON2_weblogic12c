@@ -1,0 +1,594 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ReceivedSheet">
+	
+	<resultMap
+		id="order-result"
+		class="com.freshremix.model.Order">
+		<result property="orderId" column="ORDER_ID" />
+		<result property="buyerId" column="BUYER_ID" />
+		<result property="sellerId" column="SELLER_ID" />
+		<result property="deliveryDate" column="DELIVERY_DATE" />
+		<result property="receivedApprovedBy" column="RECEIVED_APPROVED_BY" />
+		<result property="allocationFinalizedBy" column="ALLOCATION_FINALIZED_BY" />
+		<result property="allocationPublishedBy" column="ALLOCATION_PUBLISHED_BY" />
+	</resultMap>
+	
+	<resultMap
+		id="orderReceived-result"
+		class="com.freshremix.model.OrderReceived">
+		<result property="order.orderId" column="ORDER_ID" />
+		<result property="order.buyerId" column="BUYER_ID" />
+		<result property="order.sellerId" column="SELLER_ID" />
+		<result property="order.deliveryDate" column="DELIVERY_DATE" />
+		<result property="order.receivedApprovedBy" column="RECEIVED_APPROVED_BY" />
+		<result property="order.allocationFinalizedBy" column="ALLOCATION_FINALIZED_BY" />
+		<result property="orderReceivedId" column="ORDER_RECEIVED_ID" />
+		<result property="skuId" column="SKU_ID" />
+		<result property="quantity" column="QUANTITY" />
+		<result property="isApproved" column="ISAPPROVED" />
+		<result property="skuBaId" column="SKU_BA_ID" />
+	</resultMap>
+	
+	<resultMap
+		id="orderReceivedBuyerSum-result"
+		class="com.freshremix.model.OrderReceived">
+		<result property="order.buyerId" column="BUYER_ID" />
+		<result property="quantity" column="QUANTITY" />
+	</resultMap>
+	
+	<resultMap
+		id="orderReceivedDateSum-result"
+		class="com.freshremix.model.OrderReceived">
+		<result property="order.deliveryDate" column="DELIVERY_DATE" />
+		<result property="quantity" column="QUANTITY" />
+	</resultMap>
+	
+	<resultMap
+		id="sku-GT2"
+		class="com.freshremix.model.GrandTotalPrices">
+		<result property="priceWithoutTax" column="PRICE_WITHOUT_TAX_GT" />
+		<result property="priceWithTax" column="PRICE_WITH_TAX_GT" />
+	</resultMap>	
+
+<!--	<select id="selectDistinctSKUs" parameterClass="java.util.Map" resultMap="SKU.sku">-->
+<!--		SELECT * FROM (-->
+<!--			SELECT ROWNUM  row_num, res_sku.* from (-->
+<!--				SELECT-->
+<!--					sku.SKU_ID, users.USER_ID, users.NAME USER_NAME, users.SHORTNAME USER_SHORTNAME,-->
+<!--					comp.COMPANY_ID, comp.COMPANY_NAME, comp.SHORT_NAME COMPANY_SHORTNAME,-->
+<!--					grp.SKU_GROUP_ID, grp.DESCRIPTION, sku.MARKET, sku.SKU_NAME, sku.LOCATION,-->
+<!--					sku.GRADE, sku.CLASS, sku.PRICE1, sku.PRICE2, sku.PRICE_WITHOUT_TAX,-->
+<!--					sku.PACKAGE_QUANTITY, sku.PACKAGE_TYPE, uom.ORDER_UNIT_ID, uom.ORDER_UNIT_NAME,-->
+<!--					sku.ORIGINAL_SKU_ID, sku.SHEET_TYPE_ID, sku.SKU_CATEGORY_ID-->
+<!--				FROM EON_SKU sku, EON_USERS users, EON_COMPANY comp, EON_SKU_GROUP grp, EON_ORDER_UNIT uom,-->
+<!--					(-->
+<!--					select distinct rec.sku_id-->
+<!--					from-->
+<!--						eon_order_received rec, eon_order ord, eon_sku tmp_sku-->
+<!--					where-->
+<!--						rec.order_id = ord.order_id and-->
+<!--						rec.sku_id = tmp_sku.sku_id and-->
+<!--						tmp_sku.sku_category_id = #categoryId# and-->
+<!--						ord.order_id in <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate>-->
+<!--					) rec_sku-->
+<!--				WHERE-->
+<!--					rec_sku.SKU_ID = sku.SKU_ID AND-->
+<!--					sku.SELLER_ID = users.USER_ID AND-->
+<!--					sku.COMPANY_ID = comp.COMPANY_ID AND-->
+<!--					sku.SKU_GROUP_ID = grp.SKU_GROUP_ID AND-->
+<!--					sku.ORDER_UNIT_ID = uom.ORDER_UNIT_ID-->
+<!--				ORDER BY users.NAME, sku.SKU_ID-->
+<!--			) res_sku-->
+<!--		)-->
+<!--		WHERE row_num BETWEEN #rowStart# AND #rowEnd#-->
+<!--	</select>-->
+		
+	<select id="selectDistinctSKUs" parameterClass="java.util.Map" resultMap="SKU.skuProposed">
+		<!--SELECT * FROM (
+			SELECT ROWNUM  row_num, res_sku.* from (-->
+				SELECT
+					sku.SKU_ID, users.USER_ID, users.NAME USER_NAME, users.SHORTNAME USER_SHORTNAME,
+					comp.COMPANY_ID, comp.COMPANY_NAME, comp.SHORT_NAME COMPANY_SHORTNAME,
+					grp.SKU_GROUP_ID, grp.DESCRIPTION, sku.MARKET, sku.SKU_NAME, sku.LOCATION,
+					sku.GRADE, sku.CLASS, sku.PRICE1, sku.PRICE2, sku.PRICE_WITHOUT_TAX,
+					sku.PACKAGE_QUANTITY, sku.PACKAGE_TYPE, uom.ORDER_UNIT_ID, uom.ORDER_UNIT_NAME,
+					sku.ORIGINAL_SKU_ID, sku.SHEET_TYPE_ID, sku.SKU_CATEGORY_ID, sku.SKU_MAX_LIMIT,
+                    prop_user.USER_ID PROPOSED_BY, prop_user.NAME PROPOSED_NAME, prop_user.SHORTNAME PROPOSED_SHORTNAME,
+                    prop_company.COMPANY_ID PROPOSED_COMPANY_ID, prop_company.COMPANY_NAME PROPOSED_COMPANY_NAME, 
+                    prop_company.SHORT_NAME PROPOSED_COMPANY_SHORTNAME, sku.EXTERNAL_SKU_ID,
+                    sku.COLUMN_01, sku.COLUMN_02, sku.COLUMN_03, sku.COLUMN_04, sku.COLUMN_05,  
+					sku.COLUMN_06, sku.COLUMN_07, sku.COLUMN_08, sku.COLUMN_09, sku.COLUMN_10, 
+					sku.COLUMN_11, sku.COLUMN_12, sku.COLUMN_13, sku.COLUMN_14, sku.COLUMN_15, 
+					sku.COLUMN_16, sku.COLUMN_17, sku.COLUMN_18, sku.COLUMN_19, sku.COLUMN_20
+				FROM EON_USERS users, EON_COMPANY comp, EON_SKU_GROUP grp, EON_ORDER_UNIT uom,
+					(
+					select distinct rec.sku_id
+					from
+						eon_order_received rec, eon_order ord, eon_sku tmp_sku
+					where
+						rec.order_id = ord.order_id and
+						rec.sku_id = tmp_sku.sku_id and
+						tmp_sku.sku_category_id = #categoryId# and
+						<isNotNull property="hasQty">rec.quantity is not null and rec.quantity != 0 and</isNotNull>
+						ord.order_id in <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate>
+					) rec_sku,
+                    EON_SKU sku 
+                    left join EON_USERS prop_user on sku.PROPOSED_BY = prop_user.USER_ID
+                    left join EON_COMPANY prop_company on prop_user.COMPANY_ID = prop_company.COMPANY_ID
+				WHERE
+					rec_sku.SKU_ID = sku.SKU_ID AND
+					sku.SELLER_ID = users.USER_ID AND
+					users.COMPANY_ID = comp.COMPANY_ID AND
+					sku.SKU_GROUP_ID = grp.SKU_GROUP_ID AND
+					sku.ORDER_UNIT_ID = uom.ORDER_UNIT_ID
+				ORDER BY users.NAME, sku.SKU_ID
+			<!--) res_sku
+		)
+		WHERE row_num BETWEEN #rowStart# AND #rowEnd#-->
+	</select>
+	
+	<select id="selectDistinctSKUBAs" parameterClass="java.util.Map" resultMap="SKUBA.buyerSKU">
+		SELECT 		sku.SKU_ID,
+					sku.SELLER_ID as USER_ID,
+					users.NAME USER_NAME,
+					users.SHORTNAME USER_SHORTNAME,
+					company.COMPANY_NAME, 
+					company.SHORT_NAME COMPANY_SHORTNAME,
+					grp.DESCRIPTION,
+					sku.SKU_GROUP_ID,
+					sku.ORDER_UNIT_ID,
+					sku.SKU_CATEGORY_ID,
+					sku.SKU_NAME,
+					sku.LOCATION,
+					sku.MARKET,
+					sku.GRADE,
+					sku.CLASS,
+					NULL as PRICE1,
+					sku.PRICE2,
+					sku.PRICE_WITHOUT_TAX,
+					sku.PACKAGE_QUANTITY,
+					sku.PACKAGE_TYPE,
+					sku.PROPOSED_BY,
+					sku.EXTERNAL_SKU_ID,
+					ord_sku.SKUBAID SKU_BA_ID,
+					ord_sku.PURCHASE_PRICE,
+					ord_sku.SELLING_PRICE,
+					ord_sku.FK_ID_SELLING_UOM,
+					ord_sku.SKU_COMMENT,
+					company.COMPANY_ID,
+					uom.ORDER_UNIT_NAME,
+					sku.ORIGINAL_SKU_ID,
+					sku.SHEET_TYPE_ID,
+					sku.SKU_MAX_LIMIT,
+					prop_user.NAME PROPOSED_NAME, 
+					prop_user.SHORTNAME PROPOSED_SHORTNAME,
+                    prop_company.COMPANY_ID PROPOSED_COMPANY_ID, 
+                    prop_company.COMPANY_NAME PROPOSED_COMPANY_NAME, 
+                    prop_company.SHORT_NAME PROPOSED_COMPANY_SHORTNAME,
+					sku.COLUMN_01, sku.COLUMN_02, sku.COLUMN_03, sku.COLUMN_04, sku.COLUMN_05,  
+					sku.COLUMN_06, sku.COLUMN_07, sku.COLUMN_08, sku.COLUMN_09, sku.COLUMN_10, 
+					sku.COLUMN_11, sku.COLUMN_12, sku.COLUMN_13, sku.COLUMN_14, sku.COLUMN_15, 
+					sku.COLUMN_16, sku.COLUMN_17, sku.COLUMN_18, sku.COLUMN_19, sku.COLUMN_20
+					
+			FROM EON_USERS users, EON_COMPANY company, EON_SKU_GROUP grp, EON_ORDER_UNIT uom,(
+				SELECT * FROM
+					( SELECT item.sku_id, item.sku_ba_id, item.sku_ba_id SKUBAID FROM EON_ORDER_RECEIVED item
+					      INNER JOIN EON_SKU sku
+					        ON item.sku_id = sku.sku_id
+					      LEFT JOIN EON_SKU_BA sku_ba
+					        ON sku_ba.sku_ba_id = item.sku_ba_id
+					      WHERE item.order_id IN <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate>
+					        AND sku.sku_category_id = #categoryId#
+					        <isNotNull property="hasQty">AND item.quantity is not null and item.quantity != 0</isNotNull>
+					      GROUP BY item.sku_id, item.sku_ba_id
+					      ) ord_sku LEFT JOIN  EON_SKU_BA sku_ba on ord_sku.sku_ba_id = sku_ba.sku_ba_id
+					) ord_sku,
+					EON_SKU sku
+					left join EON_USERS prop_user on sku.PROPOSED_BY = prop_user.USER_ID
+                    left join EON_COMPANY prop_company on prop_user.COMPANY_ID = prop_company.COMPANY_ID     
+			where sku.sku_id = ord_sku.sku_id and
+				  sku.SELLER_ID = users.USER_ID and
+				  users.COMPANY_ID = company.COMPANY_ID and
+				  sku.SKU_GROUP_ID = grp.SKU_GROUP_ID AND
+				  sku.ORDER_UNIT_ID = uom.ORDER_UNIT_ID 
+	</select>
+	
+	<select id="selectDistinctSKUBAByOrderParams" parameterClass="java.util.Map" resultMap="SKUBA.buyerSKU">
+		SELECT 		sku.SKU_ID,
+					sku.SELLER_ID as USER_ID,
+					users.NAME USER_NAME,
+					users.SHORTNAME USER_SHORTNAME,
+					company.COMPANY_NAME, 
+					company.SHORT_NAME COMPANY_SHORTNAME,
+					grp.DESCRIPTION,
+					sku.SKU_GROUP_ID,
+					sku.ORDER_UNIT_ID,
+					sku.SKU_CATEGORY_ID,
+					sku.SKU_NAME,
+					sku.LOCATION,
+					sku.MARKET,
+					sku.GRADE,
+					sku.CLASS,
+					NULL as PRICE1,
+					sku.PRICE2,
+					sku.PRICE_WITHOUT_TAX,
+					sku.PACKAGE_QUANTITY,
+					sku.PACKAGE_TYPE,
+					sku.PROPOSED_BY,
+					sku.EXTERNAL_SKU_ID,
+					ord_sku.SKUBAID SKU_BA_ID,
+					ord_sku.PURCHASE_PRICE,
+					ord_sku.SELLING_PRICE,
+					ord_sku.FK_ID_SELLING_UOM,
+					ord_sku.SKU_COMMENT,
+					company.COMPANY_ID,
+					uom.ORDER_UNIT_NAME,
+					sku.ORIGINAL_SKU_ID,
+					sku.SHEET_TYPE_ID,
+					sku.SKU_MAX_LIMIT,
+					prop_user.NAME PROPOSED_NAME, 
+					prop_user.SHORTNAME PROPOSED_SHORTNAME,
+                    prop_company.COMPANY_ID PROPOSED_COMPANY_ID, 
+                    prop_company.COMPANY_NAME PROPOSED_COMPANY_NAME, 
+                    prop_company.SHORT_NAME PROPOSED_COMPANY_SHORTNAME,
+					sku.COLUMN_01, sku.COLUMN_02, sku.COLUMN_03, sku.COLUMN_04, sku.COLUMN_05,  
+					sku.COLUMN_06, sku.COLUMN_07, sku.COLUMN_08, sku.COLUMN_09, sku.COLUMN_10, 
+					sku.COLUMN_11, sku.COLUMN_12, sku.COLUMN_13, sku.COLUMN_14, sku.COLUMN_15, 
+					sku.COLUMN_16, sku.COLUMN_17, sku.COLUMN_18, sku.COLUMN_19, sku.COLUMN_20
+					
+			FROM EON_USERS users, EON_COMPANY company, EON_SKU_GROUP grp, EON_ORDER_UNIT uom,(
+				SELECT * FROM
+					( SELECT item.sku_id, item.sku_ba_id, item.sku_ba_id SKUBAID FROM EON_ORDER_RECEIVED item
+						  INNER JOIN EON_ORDER ord
+						  	ON item.order_id = ord.order_id
+					      INNER JOIN EON_SKU sku
+					        ON item.sku_id = sku.sku_id
+					      LEFT JOIN EON_SKU_BA sku_ba
+					        ON sku_ba.sku_ba_id = item.sku_ba_id
+					      WHERE ord.seller_id in <iterate property="sellerId" open="(" close=")" conjunction=",">#sellerId[]#</iterate>
+							AND ord.buyer_id in <iterate property="buyerId" open="(" close=")" conjunction=",">#buyerId[]#</iterate>
+							And ord.delivery_date in <iterate property="deliveryDate" open="(" close=")" conjunction=",">#deliveryDate[]#</iterate>
+					        AND sku.sku_category_id = #categoryId#
+					        <isNotNull property="hasQty">AND item.quantity is not null and item.quantity != 0</isNotNull>
+					      GROUP BY item.sku_id, item.sku_ba_id
+					      ) ord_sku LEFT JOIN  EON_SKU_BA sku_ba on ord_sku.sku_ba_id = sku_ba.sku_ba_id
+					) ord_sku,
+					EON_SKU sku
+					left join EON_USERS prop_user on sku.PROPOSED_BY = prop_user.USER_ID
+                    left join EON_COMPANY prop_company on prop_user.COMPANY_ID = prop_company.COMPANY_ID     
+			where sku.sku_id = ord_sku.sku_id and
+				  sku.SELLER_ID = users.USER_ID and
+				  users.COMPANY_ID = company.COMPANY_ID and
+				  sku.SKU_GROUP_ID = grp.SKU_GROUP_ID AND
+				  sku.ORDER_UNIT_ID = uom.ORDER_UNIT_ID 
+	</select>
+	
+	<select id="getOrderReceivedMap" parameterClass="java.util.Map" resultMap="orderReceived-result">
+		SELECT
+			ord.ORDER_ID,
+			ord.BUYER_ID,
+			ord.SELLER_ID,
+			ord.DELIVERY_DATE,
+			ord.RECEIVED_APPROVED_BY,
+			ord.ALLOCATION_FINALIZED_BY,
+			rec.ORDER_RECEIVED_ID,
+			rec.SKU_ID,
+			rec.QUANTITY,
+			rec.ISAPPROVED,
+			rec.SKU_BA_ID
+		FROM
+			EON_ORDER ord,
+			EON_ORDER_RECEIVED rec
+		WHERE
+			ord.ORDER_ID = rec.ORDER_ID AND
+			ord.ORDER_ID IN <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate> AND
+			rec.SKU_ID = #skuId#
+	</select>
+	
+	<select id="getSumOrderReceivedBuyerMap" parameterClass="java.util.Map" resultMap="orderReceivedBuyerSum-result">
+		SELECT
+			ord.BUYER_ID,
+			SUM(rec.QUANTITY) QUANTITY
+		FROM
+			EON_ORDER ord,
+			EON_ORDER_RECEIVED rec
+		WHERE
+			ord.ORDER_ID = rec.ORDER_ID AND
+			ord.ORDER_ID IN <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate> AND
+			rec.SKU_ID = #skuId#
+		GROUP BY ord.BUYER_ID
+	</select>
+	
+	<select id="getSumOrderReceivedDateMap" parameterClass="java.util.Map" resultMap="orderReceivedDateSum-result">
+		SELECT
+			ord.DELIVERY_DATE,
+			SUM(rec.QUANTITY) QUANTITY
+		FROM
+			EON_ORDER ord,
+			EON_ORDER_RECEIVED rec
+		WHERE
+			ord.ORDER_ID = rec.ORDER_ID AND
+			ord.ORDER_ID IN <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate> AND
+			rec.SKU_ID = #skuId#
+		GROUP BY ord.DELIVERY_DATE
+	</select>
+	
+	<select id="getTotalPriceByDateAndBuyer" parameterClass="java.util.Map" resultClass="java.math.BigDecimal">
+		SELECT SUM(PRICE_WITHOUT_TAX) AS TOTAL FROM EON_SKU WHERE SKU_ID IN (
+  			SELECT SKU_ID FROM EON_ORDER_RECEIVED WHERE ORDER_ID IN (
+    			SELECT ORDER_ID FROM EON_ORDER WHERE DELIVERY_DATE IN #selectedDate# AND BUYER_ID = #buyerId#))
+	</select>
+	
+	<select id="getPublishedOrdersForReceived" parameterClass="java.util.Map" resultMap="order-result">
+		SELECT
+			ORDER_ID,
+			BUYER_ID,
+			SELLER_ID,
+			DELIVERY_DATE,
+			RECEIVED_APPROVED_BY,
+			ALLOCATION_FINALIZED_BY,
+			ALLOCATION_PUBLISHED_BY
+		FROM
+  			EON_ORDER ord
+		WHERE
+			ord.ALLOCATION_PUBLISHED_BY IS NOT NULL AND
+			ord.BUYER_ID IN <iterate property="buyerIds" open="(" close=")" conjunction=",">#buyerIds[]#</iterate> AND
+			ord.DELIVERY_DATE IN <iterate property="deliveryDates" open="(" close=")" conjunction=",">#deliveryDates[]#</iterate> AND
+			ord.SELLER_ID IN <iterate property="sellerIds" open="(" close=")" conjunction=",">#sellerIds[]#</iterate>
+	</select>
+	
+	<update id="updateReceived" parameterClass="java.util.Map">
+		UPDATE EON_ORDER_RECEIVED
+		SET
+			<isNotNull property="isApproved">ISAPPROVED = #isApproved#,</isNotNull>
+			<isNotNull property="skuBaId">SKU_BA_ID = #skuBaId#,</isNotNull>
+		<!--DELETE 20121001: Rhoda Redmine 1084-->
+		<!--QUANTITY = #quantity#,-->
+			UPDATE_TIMESTAMP = SYSDATE,
+			UPDATED_BY = #userId#
+		WHERE
+			SKU_ID = #skuId# AND
+			<isNotNull property="oldSkuBaId">SKU_BA_ID = #oldSkuBaId# AND</isNotNull>
+			<isNull property="oldSkuBaId">SKU_BA_ID IS NULL AND</isNull>
+			ORDER_ID = #orderId#
+	</update>
+	
+	<update id="updateReceivedFromAlloc" parameterClass="java.util.Map">
+		UPDATE EON_ORDER_RECEIVED
+		SET
+			QUANTITY = #quantity#,
+			UPDATE_TIMESTAMP = SYSDATE,
+			UPDATED_BY = #userId#
+		WHERE
+			SKU_ID = #skuId# AND
+			ORDER_ID = #orderId#
+	</update>
+	
+	<update id="updateReceivedItemSkuBaId" parameterClass="java.util.Map">
+		UPDATE EON_ORDER_RECEIVED
+		SET
+			SKU_BA_ID = #skuBaId#
+		WHERE
+			SKU_ID = #skuId# AND
+			<isNotNull property="oldSkuBaId">SKU_BA_ID = #oldSkuBaId# AND</isNotNull>
+			<isNull property="oldSkuBaId">SKU_BA_ID IS NULL AND</isNull>
+			ORDER_ID = #orderId#
+	</update>
+	
+	<update id="lockUnlockReceived" parameterClass="java.util.Map">
+		UPDATE EON_ORDER SET 
+			RECEIVED_APPROVED_BY = #receivedLockedBy#,
+			RECEIVED_UNAPPROVED_BY = #receivedUnlockedBy#,
+			DATE_UPDATED = SYSDATE,
+			UPDATED_BY = #userId#
+			WHERE
+				<!-- ALLOCATION_FINALIZED_BY IS NULL AND  -->
+				ORDER_ID IN <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate>
+	</update>
+	
+	<insert id="insertReceivedItem" parameterClass="java.util.Map">
+		INSERT INTO EON_ORDER_RECEIVED
+		(
+			ORDER_RECEIVED_ID, ORDER_ID, SKU_ID, CREATED_BY, CREATE_TIMESTAMP, UPDATED_BY,
+			UPDATE_TIMESTAMP, QUANTITY, ISAPPROVED, SKU_BA_ID
+		)
+		VALUES
+		(
+			EON_ORDER_RECEIVED_SEQ.nextVal, #orderId#, #skuId#, #userId#,
+			SYSDATE, #userId#, SYSDATE, #quantity#, 0, #skuBaId#
+		)
+		<selectKey keyProperty="orderItemId" resultClass="java.lang.Integer">
+            SELECT EON_ORDER_RECEIVED_SEQ.currval FROM DUAL
+        </selectKey>
+	</insert>
+
+    <insert id="bulkInsertReceivedItemFromAllocation" parameterClass="java.util.Map">
+        INSERT INTO EON_ORDER_RECEIVED
+        (
+            ORDER_RECEIVED_ID, ORDER_ID, SKU_ID, CREATED_BY, CREATE_TIMESTAMP, UPDATED_BY,
+            UPDATE_TIMESTAMP, QUANTITY, ISAPPROVED, SKU_BA_ID
+        )
+        SELECT EON_ORDER_RECEIVED_SEQ.nextVal, ord.ORDER_ID, alloc.SKU_ID, #userId#,
+         SYSDATE, #userId#, SYSDATE, alloc.QUANTITY, 0, alloc.SKU_BA_ID
+        FROM
+            EON_ORDER ord, EON_ORDER_ALLOCATION alloc
+        WHERE
+            ord.ORDER_ID = alloc.ORDER_ID AND
+            alloc.ORDER_ID = #orderId#
+    </insert>
+    
+    <insert id="bulkInsertReceivedItemFromAllocation2" parameterClass="java.util.Map">
+        INSERT INTO EON_ORDER_RECEIVED
+        (
+            ORDER_RECEIVED_ID, ORDER_ID, SKU_ID, CREATED_BY, CREATE_TIMESTAMP, UPDATED_BY,
+            UPDATE_TIMESTAMP, QUANTITY, ISAPPROVED, SKU_BA_ID
+        )
+        SELECT EON_ORDER_RECEIVED_SEQ.nextVal, ord.ORDER_ID, alloc.SKU_ID, #userId#,
+         SYSDATE, #userId#, SYSDATE, alloc.QUANTITY, 0, alloc.SKU_BA_ID
+        FROM
+            EON_ORDER ord, EON_ORDER_ALLOCATION alloc
+        WHERE
+            ord.ORDER_ID = alloc.ORDER_ID AND
+            alloc.ORDER_ID IN <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate>
+    </insert>
+	
+	
+	<update id="updateSpecialReceivedItem" parameterClass="java.util.Map">
+		UPDATE EON_ORDER_RECEIVED
+		SET
+			SKU_ID = #skuId#,
+			SKU_BA_ID = NULL,
+			QUANTITY = #quantity#,
+			UPDATE_TIMESTAMP = SYSDATE,
+			UPDATED_BY = #userId#
+		WHERE
+			SKU_ID = #origSkuId# AND
+			ORDER_ID = #orderId#
+	</update>
+
+	<delete id="deleteReceiveItemByOrderId" parameterClass="java.lang.Integer">
+		DELETE FROM EON_ORDER_RECEIVED WHERE
+			ORDER_ID = #orderId#
+	</delete>
+	
+	<delete id="deleteReceiveItemByOrderId2" parameterClass="java.util.Map">
+		DELETE FROM EON_ORDER_RECEIVED WHERE
+			ORDER_ID IN <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate>
+	</delete>
+	
+	<delete id="deleteReceiveItemByOrderIdSkuId" parameterClass="java.util.Map">
+		DELETE
+		FROM
+			EON_ORDER_RECEIVED
+		WHERE
+			ORDER_ID = #orderId# AND
+			SKU_ID IN <iterate property="skuIds" open="(" close=")" conjunction=",">#skuIds[]#</iterate>
+	</delete>
+		
+	<delete id="deleteReceiveItemByOrderIdsSkuId" parameterClass="java.util.Map">
+		DELETE
+		FROM
+			EON_ORDER_RECEIVED
+		WHERE
+			ORDER_ID IN <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate> AND
+			SKU_ID IN <iterate property="skuIds" open="(" close=")" conjunction=",">#skuIds[]#</iterate>
+	</delete>
+	
+	<select id="selectApprovedOrdersForReceived" parameterClass="java.util.List" resultMap="order-result">
+		SELECT * FROM EON_ORDER WHERE RECEIVED_APPROVED_BY IS NOT NULL
+	</select>
+	
+	<select id="getReceivedItemsBulk" parameterClass="java.util.Map" resultMap="orderReceived-result">
+		SELECT
+			ord.ORDER_ID,
+			ord.BUYER_ID,
+			ord.SELLER_ID,
+			ord.DELIVERY_DATE,
+			ord.RECEIVED_APPROVED_BY,
+			ord.ALLOCATION_FINALIZED_BY,
+			rec.ORDER_RECEIVED_ID,
+			rec.SKU_ID,
+			rec.QUANTITY,
+			rec.ISAPPROVED,
+			REC.SKU_BA_ID
+		FROM
+			EON_ORDER ord,
+			EON_ORDER_RECEIVED rec
+		WHERE
+			ord.ORDER_ID = rec.ORDER_ID AND
+			ord.ORDER_ID IN <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate> AND
+			rec.SKU_ID IN <iterate property="skuIds" open="(" close=")" conjunction=",">#skuIds[]#</iterate>
+			<isNotNull property="hasQty">AND rec.QUANTITY is NOT NULL AND rec.QUANTITY != 0</isNotNull>
+	</select>
+	
+	<select id="getBuyerTotalPricesProfitWTax" parameterClass="java.util.Map" resultMap="OrderSheet.totalPricesWProfit">
+	
+		SELECT   SUM (PRICE_WITHOUT_TAX) AS PRICE_WITHOUT_TAX,
+		         SUM (PRICE_WITH_TAX) AS PRICE_WITH_TAX,
+		         SUM (SELLING_PRICE) AS SELLING_PRICE,
+		         SUM (PROFIT) AS PROFIT,
+                 0 AS PROFIT_PERCENTAGE
+		  FROM   (SELECT   SKU_ID,
+		                   SKU_BA_ID,
+		                   ROUND(PRICE_WITHOUT_TAX * QUANTITY) AS PRICE_WITHOUT_TAX,
+		                   ROUND(PRICE_WITH_TAX * QUANTITY) AS PRICE_WITH_TAX,
+                   		   ROUND(ROUND(SELLING_PRICE*PACKAGE_QUANTITY,1)*QUANTITY,1) AS SELLING_PRICE,
+		                   ROUND(ROUND((SELLING_PRICE - ROUND(PRICE_WITH_TAX / PACKAGE_QUANTITY,1))
+		                    * PACKAGE_QUANTITY,1)
+		                    * QUANTITY,1)
+		                      AS PROFIT,                               
+		                   ROUND(ROUND(ROUND(ROUND((SELLING_PRICE - ROUND(PRICE_WITH_TAX / PACKAGE_QUANTITY,1))
+		                    * PACKAGE_QUANTITY,1)
+		                    * QUANTITY,1)/ROUND (ROUND(SELLING_PRICE * PACKAGE_QUANTITY,1) * QUANTITY,1),4)*100,1)
+		                      AS PROFIT_PERCENTAGE
+		            FROM   (  SELECT   EON_ORDER_RECEIVED.SKU_ID,
+		                               EON_ORDER_RECEIVED.SKU_BA_ID,
+		                               SUM (EON_ORDER_RECEIVED.QUANTITY) AS QUANTITY,
+		                               EON_SKU.PRICE_WITHOUT_TAX,
+		                               ROUND (EON_SKU.PRICE_WITHOUT_TAX * #tax#)
+		                                  AS PRICE_WITH_TAX,
+		                               EON_SKU.PACKAGE_QUANTITY,
+		                               EON_SKU_BA.SELLING_PRICE
+		                        FROM  EON_ORDER_RECEIVED
+		                                  INNER JOIN
+		                                     EON_SKU
+		                                      ON EON_ORDER_RECEIVED.sku_id = EON_SKU.sku_id
+		                                   LEFT JOIN
+		                                      EON_SKU_BA
+		                                   ON EON_SKU_BA.sku_ba_id = EON_ORDER_RECEIVED.sku_ba_id
+		                       WHERE       PRICE_WITHOUT_TAX &gt; 0
+		                       		   AND PACKAGE_QUANTITY &gt; 0
+		                               AND QUANTITY &gt; 0
+		                               AND SKU_CATEGORY_ID = #categoryId#
+		                               AND ORDER_ID IN 
+		                                        (SELECT   ORDER_ID
+		                                           FROM   EON_ORDER
+		                                          WHERE   BUYER_ID IN <iterate property="buyerId" open="(" close=")" conjunction=",">#buyerId[]#</iterate>
+		                                                  AND SELLER_ID IN <iterate property="sellerId" open="(" close=")" conjunction=",">#sellerId[]#</iterate>
+		                                                  AND DELIVERY_DATE = #deliveryDate#)
+		                    GROUP BY   EON_ORDER_RECEIVED.SKU_ID,
+		                               EON_ORDER_RECEIVED.SKU_BA_ID,
+		                               EON_SKU.PRICE_WITHOUT_TAX,
+		                               EON_SKU.PACKAGE_QUANTITY,
+		                               EON_SKU_BA.SELLING_PRICE
+		                   )
+				 )
+	
+	</select>
+	
+	<select id="getBuyerPricesPerSKU" parameterClass="java.util.Map" resultMap="OrderSheet.totalPricesWProfit">
+	
+		SELECT   EON_ORDER_RECEIVED.SKU_ID,
+                EON_ORDER_RECEIVED.SKU_BA_ID,
+                SUM (EON_ORDER_RECEIVED.QUANTITY) AS QUANTITY,
+                EON_SKU.PRICE_WITHOUT_TAX,
+                ROUND (EON_SKU.PRICE_WITHOUT_TAX * #tax#)
+                   AS PRICE_WITH_TAX,
+                EON_SKU.PACKAGE_QUANTITY,
+                EON_SKU_BA.SELLING_PRICE
+         FROM  EON_ORDER_RECEIVED
+                   INNER JOIN
+                      EON_SKU
+                       ON EON_ORDER_RECEIVED.sku_id = EON_SKU.sku_id
+                    LEFT JOIN
+                       EON_SKU_BA
+                    ON EON_SKU_BA.sku_ba_id = EON_ORDER_RECEIVED.sku_ba_id
+        WHERE       QUANTITY != 0
+                AND SKU_CATEGORY_ID = #categoryId#
+                AND ORDER_ID IN 
+                         (SELECT   ORDER_ID
+                            FROM   EON_ORDER
+                           WHERE   BUYER_ID IN <iterate property="buyerId" open="(" close=")" conjunction=",">#buyerId[]#</iterate>
+                                   AND SELLER_ID IN <iterate property="sellerId" open="(" close=")" conjunction=",">#sellerId[]#</iterate>
+                                   AND DELIVERY_DATE = #deliveryDate#)
+     GROUP BY   EON_ORDER_RECEIVED.SKU_ID,
+                EON_ORDER_RECEIVED.SKU_BA_ID,
+                EON_SKU.PRICE_WITHOUT_TAX,
+                EON_SKU.PACKAGE_QUANTITY,
+                EON_SKU_BA.SELLING_PRICE
+	
+	</select>
+	
+</sqlMap>

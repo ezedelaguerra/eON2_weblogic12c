@@ -1,0 +1,35 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="sheetType">
+	<resultMap
+		id="sheets"
+		class="com.freshremix.model.Sheets">
+		<result property="sheetTypeId" column="SHEET_TYPE_ID" />
+		<result property="description" column="DESCRIPTION" />
+		<result property="roleId" column="ROLE_ID" />
+	</resultMap>
+
+	<select id="getSheetType" resultMap="sheets">
+		SELECT 
+			ROLE_ID, SHEET_TYPE_ID, DESCRIPTION 
+		FROM 
+			EON_SHEET_TYPE 
+		WHERE 
+			ROLE_ID = #roleId#
+		ORDER BY SHEET_TYPE_ID
+	</select>
+	
+	<select id="getAllSheetType" resultMap="sheets">
+		SELECT 
+			DISTINCT(DESCRIPTION), '' AS SHEET_TYPE_ID, '' AS ROLE_ID
+		FROM 
+			EON_SHEET_TYPE ORDER BY DESCRIPTION
+	</select>
+	
+	<select id="getSheetTypeByRoleAndDesc" resultMap="sheets">
+		SELECT * FROM EON_SHEET_TYPE 
+			WHERE ROLE_ID = #roleId# AND DESCRIPTION = #description#
+	</select>
+	
+</sqlMap>

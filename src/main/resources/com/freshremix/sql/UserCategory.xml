@@ -1,0 +1,44 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="UserCategory">
+	<resultMap
+		id="usercategory-result"
+		class="UserCategory">
+		<result property="categoryId" column="USERS_CATEGORY_ID" />
+		<result property="userId" column="USER_ID" />
+		<result property="categoryAvailable" column="CATEGORY_AVAILABLE" />
+	</resultMap>
+	
+	<select id="getCategoryListByUserId" resultMap="usercategory-result">
+		<!-- SELECT * FROM EON_USERS_CATEGORY WHERE USER_ID = #userId# -->
+		<!--SELECT CAT.SKU_CATEGORY_ID AS USERS_CATEGORY_ID,UC.USER_ID,UC.CATEGORY_AVAILABLE 
+		 FROM EON_USERS_CATEGORY UC,EON_CATEGORY CAT 
+		 WHERE USER_ID = #userId# AND UC.CATEGORY_AVAILABLE = CAT.DESCRIPTION -->
+		 
+		 SELECT UC.CATEGORY_ID AS USERS_CATEGORY_ID,UC.USER_ID,CAT.DESCRIPTION AS CATEGORY_AVAILABLE  
+		 FROM EON_USERS_CATEGORY UC,EON_CATEGORY CAT 
+		 WHERE USER_ID = #userId# AND UC.CATEGORY_ID = CAT.SKU_CATEGORY_ID 
+		 ORDER BY UC.SORT_ID ASC, UC.CATEGORY_ID ASC
+		 
+	</select>
+
+	<delete id="deleteCategoryById">
+		DELETE FROM EON_USERS_CATEGORY WHERE USER_ID = #userId#
+	</delete>
+	
+	<insert id="insertUserCategory">
+		<!--INSERT INTO EON_USERS_CATEGORY(USERS_CATEGORY_ID, USER_ID, CATEGORY_AVAILABLE)
+		VALUES(EON_USERS_CATEGORY_SEQ.nextVal, #userId#,#categoryAvailable#)-->
+		INSERT INTO EON_USERS_CATEGORY(USER_ID, CATEGORY_ID, SORT_ID)
+		VALUES(#userId#, #categoryId#, #sortId#)
+	</insert>
+	
+	<select id="getCategoryListBySelectedIds" resultMap="usercategory-result">
+		 SELECT UC.CATEGORY_ID AS USERS_CATEGORY_ID,UC.USER_ID,CAT.DESCRIPTION AS CATEGORY_AVAILABLE  
+		 FROM EON_USERS_CATEGORY UC,EON_CATEGORY CAT 
+		 WHERE USER_ID IN  <iterate property="listUserIds" open="(" close=")" conjunction=",">#listUserIds[]#</iterate>
+		 AND UC.CATEGORY_ID = CAT.SKU_CATEGORY_ID ORDER BY CAT.SKU_CATEGORY_ID 
+	</select>  
+
+</sqlMap>

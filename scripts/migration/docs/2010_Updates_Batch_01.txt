@@ -1,0 +1,82 @@
+Module/Task:   Initial Check-in of Migration Scripts
+Date:          July 06, 2010
+Developer:     Ogie
+----------------------
+RevNo       FileName
+1.1         01_run.sql
+1.1         02_run.sql
+1.1         03_run.sql
+1.1         2010_Updates_Batch_01
+1.1         log_timestamp.sql
+1.1         proc_call_populate_users.sql
+1.1         proc_execute_migration.sql
+1.1         proc_execute_once.sql
+1.1         proc_populate_comments_inbox.sql
+1.1         proc_populate_dealing_pattern.sql
+1.1         proc_populate_order_alloc.sql
+1.1         proc_populate_order_billing.sql
+1.1         proc_populate_order_item_old.sql
+1.1         proc_populate_order_item_visibility.sql
+1.1         proc_populate_order_item.sql
+1.1         proc_populate_order_received.sql
+1.1         proc_populate_order.sql
+1.1         proc_populate_sku_group.sql
+1.1         proc_populate_sku.sql
+1.1         proc_populate_sort_buyers_admin.sql
+1.1         proc_populate_sort_buyers.sql
+1.1         proc_populate_sort_category.sql
+1.1         proc_populate_sort_sku_group.sql
+1.1         proc_populate_sort_sku.sql
+1.1         proc_populate_users.sql
+1.1         alter\alter_table_datatype.sql
+1.1         alter\create_db_obj.sql
+1.1         alter\create_table.sql
+1.1         Batch_01_Pilot\Batch_01_Company.sql
+1.1         Batch_01_Pilot\Batch_01_CompanyDealingPattern.sql
+1.1         Batch_01_Pilot\Batch_01_UserDealingPattern.sql
+1.1         Batch_01_Pilot\Batch_01_Users.sql
+
+Module/Task:   Modified Order.sql
+Date:          July 07, 2010
+Developer:     Ogie
+----------------------
+1.2         proc_populate_order.sql
+
+Module/Task:   Fix scripts and added prompts
+Date:          July 08, 2010
+Developer:     Ogie
+----------------------
+1.2         01_run.sql
+1.2         03_run.sql
+1.2         proc_populate_order_item.sql
+1.2         proc_populate_sku_group.sql
+1.2         proc_populate_sort_sku.sql
+
+Module/Task:   New Set of Pilot Users
+Date:          Sept 24, 2010
+Developer:     Ogie
+----------------------
+1.4         Batch_01_Pilot\Batch_01_Company.sql
+1.3         Batch_01_Pilot\Batch_01_CompanyDealingPattern.sql
+1.3         Batch_01_Pilot\Batch_01_UserDealingPattern.sql
+1.3         Batch_01_Pilot\Batch_01_Users.sql
+1.2         proc_populate_comments_inbox.sql
+1.2         proc_populate_excel_settings.sql
+1.3         proc_populate_sku.sql
+1.3         proc_populate_sort_buyers_admin.sql
+
+Module/Task:   Bug fix on Comment procedure
+Date:          Sept 24, 2010
+Developer:     Ogie
+----------------------
+1.3         proc_populate_comments_inbox.sql
+
+Module/Task:   New Set of Pilot Users (Again! Batch 01)
+Date:          Sept 29, 2010
+Developer:     Ogie
+----------------------
+1.5         Batch_01_Pilot\Batch_01_Company.sql
+1.4         Batch_01_Pilot\Batch_01_CompanyDealingPattern.sql
+1.4         Batch_01_Pilot\Batch_01_UserDealingPattern.sql
+1.4         Batch_01_Pilot\Batch_01_Users.sql
+1.4         01_run_Batch_01.sql

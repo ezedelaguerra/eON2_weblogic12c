@@ -1,0 +1,61 @@
+=======================================================
+=======================================================
+VERSION 13.00
+=======================================================
+=======================================================
+Module/Task: Redmine 1070 - Seller can unfinalize the Order Sheet after Seller finalized Allocation Sheet
+Date:       Oct 11, 2012
+Developer:  Rhoda
+	Refactor string to boolean for concurrency indicator
+1.4			ConcurrencyResponse.java
+1.19		ConcurrencyUtil.java	
+	Change error message
+1.88		en.js
+1.100		ja.js
+1.119		order_sheet.js	
+=======================================================
+Module/Task: Redmine 1105 filter select button does not work in Received sheet 
+Date:       Oct 11, 2012
+Developer:  Rhoda
+1.2			SheetState.java
+	Refactor redmine 880
+1.64		index.jsp		
+=======================================================
+Module/Task: Redmine 1123 - Can't Open Allocation Sheet When check Auto-Publish Allocation sheet check box. 
+Date:       Oct 15, 2012
+Developer:  Rhoda
+1.5			SaveUserPreferences.java
+=======================================================
+Module/Task: Redmine 1069 - Can't Open Allocation Sheet When check Auto-Publish Allocation sheet check box. 
+Date:       Oct 15, 2012
+Developer:  Rhoda
+1.129		buyerAdmin_orderTable.jsp
+1.109		buyer_orderTable.jsp
+=======================================================
+Module/Task: Version 13.00 release
+Date:       Oct 17, 2012
+Developer:  Rhoda
+1.105		web.xml
+=======================================================
+=======================================================
+VERSION 13.01
+=======================================================
+=======================================================
+Module/Task: Redmine 1070 - Seller can unfinalize the Order Sheet after Seller finalized Allocation Sheet
+Date:       Oct 19, 2012
+Developer:  Rhoda
+	Unfinalize button activity
+1.74		OrderSheetLoadController.java
+1.134		OrderSheetServiceImpl.java	
+1.24		OrderSheetUnfinalizeController.java
+1.249		sigmaTable.jsp
+	Change of message 
+1.101		ja.js
+=======================================================
+Module/Task: Version 13.01 release
+Date:       Oct 19, 2012
+Developer:  Rhoda
+1.105		web.xml
+
+
+

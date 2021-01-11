@@ -1,0 +1,7 @@
+Edit startWebLogic.cmd located in %WEBLOGIC_HOME%\user_projects\domains\eon_domain\bin
+
+After line 35, that is, "@REM Call setDomainEnv here." insert the statement below.
+
+set USER_MEM_ARGS=-Xms256m -Xmx1024m -XX:CompileThreshold=8000 -XX:PermSize=48m  -XX:MaxPermSize=128m
+
+Save the file and start the server.

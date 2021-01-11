@@ -1,0 +1,14 @@
+SELECT table_name, num_rows, blocks, avg_row_len    
+FROM user_tables
+WHERE table_name='FFT_ORDER_ITEM';
+
+
+SELECT table_name, LAST_ANALYZED, num_rows, blocks, avg_row_len    
+FROM user_tables
+ORDER BY table_name;
+
+SELECT table_name, a.*
+FROM user_tables a
+WHERE table_name='FFT_ORDER_ITEM';
+
+exec DBMS_STATS.GATHER_SCHEMA_STATS('EON_PROD3',DBMS_STATS.AUTO_SAMPLE_SIZE);

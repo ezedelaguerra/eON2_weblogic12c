@@ -1,0 +1,28 @@
+===============================================================
+Module/Task: WebService - Change Seller input required from seller name to seller id
+Date:       July 27, 2011 
+Developer:  Rhoda
+RevNo       FileName
+1.16		FreshRemixServiceAdapter.java
+1.2			ItemSheetInfo.java
+1.22		OldFreshRemixServiceEndpoint.java
+1.2			SKUInformationWS.java
+1.7			WebService.java
+1.26		WebServiceImpl.java
+1.18		WebServiceValidator.java
+1.25		error_en.properties
+1.26		error_ja.properties
+
+Date:       July 28, 2011 
+Developer:  Rhoda
+RevNo       FileName
+1.19,20		WebServiceValidator.java
+1.2			webserivcecontract_addSkuAllocation.xls
+1.2			webserivcecontract_createSheet.xls
+1.2			ItemSheetInfoForAllocation.java
+1.23		OldFreshRemixServiceEndpoint.java
+===============================================================
+Module/Task: Added additional checking on WeeklyQuantityLimit
+Date:       July 28, 2011 
+Developer:  Lele
+1.2			WeeklyQuantityLimitController.java

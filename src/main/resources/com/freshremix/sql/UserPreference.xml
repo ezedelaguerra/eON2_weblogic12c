@@ -1,0 +1,238 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="UserPreference">
+	<resultMap id="hideColumn" class="com.freshremix.model.HideColumn" >
+		<result property="userId" column="USER_ID" />
+		<result property="companyName" column="COMPANY_NAME" />
+		<result property="sellerName" column="SELLER_NAME" />
+		<result property="groupName" column="GROUP_NAME" />
+		<result property="marketCondition" column="MARKET_CONDITION" />
+		<result property="skuName" column="SKU_NAME" />
+		<result property="areaProduction" column="AREA_PRODUCTION" />
+		<result property="clazz1" column="CLASS_1" />
+		<result property="clazz2" column="CLASS_2" />
+		<result property="price1" column="PRICE_1" />
+		<result property="price2" column="PRICE_2" />
+		<result property="priceWOTax" column="PRICE_WO_TAX" />
+		<result property="priceWTax" column="PRICE_W_TAX" />
+		<result property="purchasePrice" column="PURCHASE_PRICE" />
+		<result property="sellingPrice" column="SELLING_PRICE" />
+		<result property="sellingUom" column="SELLING_UOM" />
+		<result property="profitPercentage" column="PROFIT_PERCENTAGE" />
+		<result property="packageQty" column="PACKAGE_QUANTITY" />
+		<result property="packageType" column="PACKAGE_TYPE" />
+		<result property="uom" column="UOM" />
+		<result property="skuComment" column="SKU_COMMENT" />
+		<result property="skuMaxLimit" column="SKU_MAX_LIMIT" />
+		<result property="rowQty" column="ROW_QTY" />
+		<result property="column01" column="COLUMN_01" />
+		<result property="column02" column="COLUMN_02" />
+		<result property="column03" column="COLUMN_03" />
+		<result property="column04" column="COLUMN_04" />
+		<result property="column05" column="COLUMN_05" />
+		<result property="column06" column="COLUMN_06" />
+		<result property="column07" column="COLUMN_07" />
+		<result property="column08" column="COLUMN_08" />
+		<result property="column09" column="COLUMN_09" />
+		<result property="column10" column="COLUMN_10" />
+		<result property="column11" column="COLUMN_11" />
+		<result property="column12" column="COLUMN_12" />
+		<result property="column13" column="COLUMN_13" />
+		<result property="column14" column="COLUMN_14" />
+		<result property="column15" column="COLUMN_15" />
+		<result property="column16" column="COLUMN_16" />
+		<result property="column17" column="COLUMN_17" />
+		<result property="column18" column="COLUMN_18" />
+		<result property="column19" column="COLUMN_19" />
+		<result property="column20" column="COLUMN_20" />
+	</resultMap>
+	
+	<resultMap id="UserPreferenceObject" class="com.freshremix.model.EONUserPreference" >
+		<result property="userPreferenceId" column="USER_PREF_ID" />
+		<result property="userId" column="USER_ID" />
+		<result property="viewUnpublisheAlloc" column="VIEW_UNPUBLISH_ALLOC" />
+		<result property="viewUnfinalizeBilling" column="VIEW_UNFINALIZE_BILLING" />
+		<result property="enableBAPublish" column="ENABLE_BA_PUBLISH_ORDER" />
+		<result property="autoPublishAlloc" column="AUTO_PUBLISH_ALLOC" />
+		<result property="displayAllocQty" column="DISPLAY_ALLOC_QTY" />
+		<result property="unfinalizeReceived" column="UNFINALIZE_RECEIVED" />
+	</resultMap>
+	
+	<resultMap id="widthColumnMap" class="java.util.HashMap" >
+	   <result property="key" column="HEADER_KEY"/>
+	   <result property="value" column="WIDTH"/>
+	</resultMap>
+	
+	<resultMap id="ProfitPreference" class="com.freshremix.model.ProfitPreference" >
+		<result property="userId" column="FK_ID_USER" />
+		<result property="totalSellingPrice" column="TOTAL_SELLING_PRICE" />
+		<result property="totalProfit" column="TOTAL_PROFIT" />
+		<result property="totalProfitPercent" column="TOTAL_PROFIT_PERCENT" />
+		<result property="priceTaxOption" column="PRICE_TAX_OPTION" />
+		<result property="withPackageQuantity" column="WITH_PACKAGE_QUANTITY" />
+	</resultMap>
+	
+	<resultMap id="LockButtonStatus" class="com.freshremix.model.LockButtonStatus" >
+		<result property="userId" column="USER_ID" />
+		<result property="lockButtonStatus" column="LOCK_BUTTON_STATUS" />
+	</resultMap>
+	
+	<select id="getUserPreference" parameterClass="java.util.Map" resultMap="UserPreferenceObject">
+		SELECT * FROM EON_USER_PREF_FLAGS WHERE USER_ID = #userId#
+	</select>
+	
+	<insert id="insertUserPreference" parameterClass="com.freshremix.model.EONUserPreference">
+		INSERT INTO EON_USER_PREF_FLAGS 
+		  (USER_PREF_ID, 
+		   USER_ID,
+		   VIEW_UNPUBLISH_ALLOC,
+		   VIEW_UNFINALIZE_BILLING,
+		   ENABLE_BA_PUBLISH_ORDER,
+		   AUTO_PUBLISH_ALLOC,
+		   DISPLAY_ALLOC_QTY) 
+		VALUES 
+		  (EON_USER_PREF_FLAGS_SEQ.nextVal, 
+		   #userId#,
+		   #viewUnpublisheAlloc#,
+		   #viewUnfinalizeBilling#,
+		   #enableBAPublish#,
+		   #autoPublishAlloc#,
+		   #displayAllocQty#)
+	</insert>
+	
+	<insert id="insertUserPrefUnfinalizeReceived" parameterClass="com.freshremix.model.EONUserPreference">
+		INSERT INTO EON_USER_PREF_FLAGS 
+		  (USER_PREF_ID, 
+		   USER_ID,
+		   UNFINALIZE_RECEIVED) 
+		VALUES 
+		  (EON_USER_PREF_FLAGS_SEQ.nextVal, 
+		   #userId#,
+		   #unfinalizeReceived#)
+	</insert>
+
+	<update id="updateUserPrefUnfinalizeReceived" parameterClass="com.freshremix.model.EONUserPreference">
+		UPDATE EON_USER_PREF_FLAGS SET
+			UNFINALIZE_RECEIVED = #unfinalizeReceived#
+		WHERE USER_ID = #userId#
+	</update>
+
+	<delete id="deleteUserPreference" parameterClass="java.lang.Integer">
+		DELETE EON_USER_PREF_FLAGS WHERE WHERE USER_ID = #userId#
+	</delete>
+
+	<update id="updateUserPreferenceById" parameterClass="com.freshremix.model.EONUserPreference">
+		UPDATE EON_USER_PREF_FLAGS SET
+			VIEW_UNPUBLISH_ALLOC = #viewUnpublisheAlloc#, 
+			VIEW_UNFINALIZE_BILLING = #viewUnfinalizeBilling#, 
+			ENABLE_BA_PUBLISH_ORDER = #enableBAPublish#,
+			AUTO_PUBLISH_ALLOC = #autoPublishAlloc#,
+			DISPLAY_ALLOC_QTY = #displayAllocQty#
+		WHERE USER_PREF_ID = #userPreferenceId#
+	</update>
+
+	<update id="updateUserPreferenceByUserId" parameterClass="com.freshremix.model.EONUserPreference">
+		UPDATE EON_USER_PREF_FLAGS SET
+			VIEW_UNPUBLISH_ALLOC = #viewUnpublisheAlloc#, 
+			VIEW_UNFINALIZE_BILLING = #viewUnfinalizeBilling#, 
+			ENABLE_BA_PUBLISH_ORDER = #enableBAPublish#,
+			DISPLAY_ALLOC_QTY = #displayAllocQty#
+			WHERE USER_ID = #userId#
+	</update>
+	
+	<insert id="insertHideColumn" parameterClass="com.freshremix.model.HideColumn">
+		INSERT INTO EON_SHOW_HIDE_COLUMN 
+		  (USER_ID, COMPANY_NAME, SELLER_NAME, GROUP_NAME, 
+		   MARKET_CONDITION, SKU_NAME, AREA_PRODUCTION, CLASS_1, CLASS_2, 
+		   PRICE_1, PRICE_2, PRICE_WO_TAX, PRICE_W_TAX, PURCHASE_PRICE, 
+		   SELLING_PRICE, SELLING_UOM, PROFIT_PERCENTAGE, PACKAGE_QUANTITY,
+		   PACKAGE_TYPE, UOM, SKU_COMMENT, ROW_QTY, SKU_MAX_LIMIT,
+		   COLUMN_01, COLUMN_02, COLUMN_03, COLUMN_04, COLUMN_05,  
+		   COLUMN_06, COLUMN_07, COLUMN_08, COLUMN_09, COLUMN_10, 
+		   COLUMN_11, COLUMN_12, COLUMN_13, COLUMN_14, COLUMN_15, 
+		   COLUMN_16, COLUMN_17, COLUMN_18, COLUMN_19, COLUMN_20) 
+		VALUES 
+		  (#userId#, #companyName#, #sellerName#, #groupName#,
+		   #marketCondition#, #skuName#, #areaProduction#, #clazz1#, #clazz2#,
+		   #price1#, #price2#, #priceWOTax#, #priceWTax#, #purchasePrice#,
+		   #sellingPrice#, #sellingUom#, #profitPercentage#, #packageQty#,
+		   #packageType#, #uom#, #skuComment#, #rowQty#, #skuMaxLimit#,
+		   #column01#,#column02#,#column03#,#column04#,#column05#,
+		   #column06#,#column07#,#column08#,#column09#,#column10#,
+		   #column11#,#column12#,#column13#,#column14#,#column15#,
+		   #column16#,#column17#,#column18#,#column19#,#column20#)
+	</insert>
+	
+	<delete id="deleteHideColumn" parameterClass="java.lang.Integer">
+		DELETE EON_SHOW_HIDE_COLUMN WHERE USER_ID = #userId#
+	</delete>
+	
+	<select id="getHideColumn" parameterClass="java.lang.Integer" resultMap="hideColumn">
+		SELECT * FROM EON_SHOW_HIDE_COLUMN WHERE USER_ID = #userId#
+	</select>
+	
+	<select id="getWidthColumn" parameterClass="java.lang.Integer" resultMap="widthColumnMap">
+		SELECT HEADER_KEY, WIDTH FROM EON_COLUMN_WIDTH WHERE FK_USER_ID = #userId#
+	</select>
+	
+	<insert id="inesrtWidthColumn" parameterClass="java.util.Map">
+		INSERT INTO EON_COLUMN_WIDTH
+			(FK_USER_ID, HEADER_KEY, WIDTH)
+		VALUES
+			(#userId#, #columnId#, #width#)
+	</insert>
+	
+	<update id="updateWidthColumn" parameterClass="java.util.Map">
+		UPDATE EON_COLUMN_WIDTH SET
+			WIDTH = #width#
+		WHERE
+			FK_USER_ID = #userId# AND
+			HEADER_KEY = #columnId#
+	</update>
+
+	<select id="getProfitPreference" parameterClass="java.lang.Integer" resultMap="ProfitPreference">
+		SELECT * FROM EON_PROFIT_PREFERENCE WHERE FK_ID_USER = #userId#
+	</select>
+	
+	<insert id="insertProfitPreference" parameterClass="com.freshremix.model.ProfitPreference">
+		INSERT INTO EON_PROFIT_PREFERENCE 
+		  (FK_ID_USER,
+		   TOTAL_SELLING_PRICE,
+		   TOTAL_PROFIT,
+		   TOTAL_PROFIT_PERCENT,
+		   PRICE_TAX_OPTION,
+		   WITH_PACKAGE_QUANTITY) 
+		VALUES 
+		  (#userId#,
+		   #totalSellingPrice#,
+		   #totalProfit#,
+		   #totalProfitPercent#,
+		   #priceTaxOption#,
+		   #withPackageQuantity#)
+	</insert>
+
+	<delete id="deletetProfitPreference" parameterClass="java.lang.Integer">
+		DELETE EON_PROFIT_PREFERENCE WHERE FK_ID_USER = #userId#
+	</delete>
+	
+	<select id="getLockButtonStatus" parameterClass="java.lang.Integer" resultMap="LockButtonStatus">
+		SELECT * FROM EON_LOCK_BUTTON_STATUS WHERE USER_ID = #userId#
+	</select>
+	
+	<insert id="insertLockButtonStatus" parameterClass="com.freshremix.model.LockButtonStatus">
+		INSERT INTO EON_LOCK_BUTTON_STATUS 
+		  (USER_ID,
+		   LOCK_BUTTON_STATUS) 
+		VALUES 
+		  (#userId#,
+		   #lockButtonStatus#)
+	</insert>
+	
+	<update id="updateLockButtonStatusByUserId" parameterClass="com.freshremix.model.LockButtonStatus">
+		UPDATE EON_LOCK_BUTTON_STATUS SET
+			LOCK_BUTTON_STATUS = #lockButtonStatus#
+		WHERE USER_ID = #userId#
+	</update>
+
+</sqlMap>

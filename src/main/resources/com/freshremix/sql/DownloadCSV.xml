@@ -1,0 +1,181 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="downloadCSV">
+		
+	<resultMap
+		id="order"
+		class="com.freshremix.model.Order">
+		<result property="orderId" column="ORDER_ID" />
+		<result property="orderSavedBy" column="ORDER_SAVED_BY" />
+		<result property="orderPublishedBy" column="ORDER_PUBLISHED_BY" />
+		<result property="orderFinalizedBy" column="ORDER_FINALIZED_BY" />
+		<result property="orderUnfinalizedBy" column="ORDER_UNFINALIZED_BY" />
+		<result property="allocationSavedBy" column="ALLOCATION_SAVED_BY" />
+		<result property="allocationPublishedBy" column="ALLOCATION_PUBLISHED_BY" />
+		<result property="allocationFinalizedBy" column="ALLOCATION_FINALIZED_BY" />
+		<result property="allocationUnfinalizedBy" column="ALLOCATION_UNFINALIZED_BY" />
+		<result property="buyerId" column="BUYER_ID" />
+		<result property="orderLockedBy" column="ORDER_LOCKED_BY" />
+		<result property="orderUnlockedBy" column="ORDER_UNLOCKED_BY" />
+		<result property="deliveryDate" column="DELIVERY_DATE" />
+		<result property="sellerId" column="SELLER_ID" />
+	</resultMap>
+	
+	<resultMap
+		id="akadensku"
+		class="com.freshremix.model.AkadenSKU">
+		<result property="skuId" column="SKU_ID" />
+		<result property="skuName" column="SKU_NAME" />
+		<result property="typeFlag" column="TYPE_FLAG" />
+		<result property="skuCategoryId" column="SKU_CATEGORY_ID" />
+		<result property="skuGroup.skuGroupId" column="SKU_GROUP_ID" />
+		<result property="skuGroup.description" column="DESCRIPTION" />
+		<result property="user.userId" column="USER_ID" />
+		<result property="user.userName" column="USER_NAME" />
+		<result property="user.shortName" column="USER_SHORTNAME" />
+		<result property="user.company.companyId" column="COMPANY_ID" />
+		<result property="user.company.companyName" column="COMPANY_NAME" />
+		<result property="user.company.shortName" column="COMPANY_SHORTNAME" />
+		<result property="location" column="LOCATION" />
+		<result property="market" column="MARKET" />
+		<result property="grade" column="GRADE" />
+		<result property="clazz" column="CLASS" />
+		<result property="price1" column="PRICE1" />
+		<result property="price2" column="PRICE2" />
+		<result property="priceWithoutTax" column="PRICE_WITHOUT_TAX" />
+		<result property="packageQuantity" column="PACKAGE_QUANTITY" />
+		<result property="packageType" column="PACKAGE_TYPE" />
+		<result property="orderUnit.orderUnitId" column="ORDER_UNIT_ID" />
+		<result property="orderUnit.orderUnitName" column="ORDER_UNIT_NAME" />
+		<result property="akadenSkuId" column="AKADEN_SKU_ID" />	
+		<!-- <result property="comments" column="COMMENTS" />
+		<result property="isNewSKU" column="isNewSKU" /> -->
+	</resultMap>
+	
+	<resultMap
+		id="orderItem"
+		class="com.freshremix.model.OrderItem">
+		<result property="order.orderId" column="ORDER_ID" />
+		<result property="order.buyerId" column="BUYER_ID" />
+		<result property="order.deliveryDate" column="DELIVERY_DATE" />
+		<result property="sku.skuId" column="SKU_ID" />
+		<result property="quantity" column="QUANTITY" />
+	</resultMap>
+	
+	<resultMap
+		id="akadenItem"
+		class="com.freshremix.model.AkadenItem">
+		<result property="order.orderId" column="ORDER_ID" />
+		<result property="order.buyerId" column="BUYER_ID" />
+		<result property="order.deliveryDate" column="DELIVERY_DATE" />
+		<result property="quantity" column="QUANTITY" />
+		<result property="comments" column="COMMENTS" />
+	</resultMap>
+	
+	<resultMap
+		id="csvUsersList"
+		class="User">
+		<result property="userId" column="ID" />
+		<result property="name" column="NAME" />
+	</resultMap>
+	
+	<!-- Seller Akaden sheet -->
+	<select id="selectSellerAkadenDistinctSKUs" resultMap="akadensku">
+		SELECT * FROM (
+			SELECT ROWNUM  row_num, res_sku.* from (
+				SELECT sku.SKU_ID, sku.SKU_NAME, sku.TYPE_FLAG, sku.akaden_sku_id, sku.SKU_CATEGORY_ID,
+					grp.SKU_GROUP_ID, grp.DESCRIPTION, users.USER_ID, users.NAME USER_NAME, users.SHORTNAME USER_SHORTNAME, 
+					company.COMPANY_ID, company.COMPANY_NAME COMPANY_NAME, company.SHORT_NAME COMPANY_SHORTNAME,
+					sku.MARKET, sku.LOCATION, sku.GRADE, sku.CLASS, sku.PRICE1, sku.PRICE2, sku.PRICE_WITHOUT_TAX,
+					sku.PACKAGE_QUANTITY, sku.PACKAGE_TYPE, uom.ORDER_UNIT_ID, uom.ORDER_UNIT_NAME,
+		            prop_user.USER_ID PROPOSED_BY, prop_user.NAME PROPOSED_NAME, prop_user.SHORTNAME PROPOSED_SHORTNAME,
+		            prop_company.COMPANY_ID PROPOSED_COMPANY_ID, prop_company.COMPANY_NAME PROPOSED_COMPANY_NAME, 
+		            prop_company.SHORT_NAME PROPOSED_COMPANY_SHORTNAME
+				FROM EON_USERS users, EON_COMPANY company, EON_SKU_GROUP grp, EON_ORDER_UNIT uom,
+					(
+					SELECT DISTINCT AKADEN_SKU_ID
+						FROM
+							EON_ORDER_AKADEN
+						WHERE
+							ORDER_ID IN <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate> 
+					) ord_sku,
+		            EON_AKADEN_SKU sku
+		            left join EON_USERS prop_user on sku.PROPOSED_BY = prop_user.USER_ID
+		            left join EON_COMPANY prop_company on prop_user.COMPANY_ID = prop_company.COMPANY_ID
+				WHERE
+					ord_sku.AKADEN_SKU_ID = sku.AKADEN_SKU_ID AND
+					sku.SELLER_ID = users.USER_ID AND
+					users.COMPANY_ID = company.COMPANY_ID AND
+					sku.SKU_GROUP_ID = grp.SKU_GROUP_ID AND
+					sku.ORDER_UNIT_ID = uom.ORDER_UNIT_ID AND
+					sku.sku_category_id = #categoryId#
+				ORDER BY sku.SKU_ID, sku.TYPE_FLAG
+			) res_sku
+		)
+	</select>
+	
+	<select id="getBuyerCSVUsersList" parameterClass="java.util.Map" resultMap="csvUsersList">
+		SELECT 
+	        USER_ID as ID,
+	        NAME
+		FROM EON_USERS
+		WHERE 
+        	USER_ID IN <iterate property="userId" open="(" close=")" conjunction=",">#userId[]#</iterate>
+	</select>
+	 
+	<!-- Seller Order Quantity Mapping by deliverydates -->
+	<select id="getSellerOrderItemsMapOfSkuDates" parameterClass="java.util.Map" resultMap="orderItem">
+		SELECT 
+			ord.ORDER_ID,
+			ord.BUYER_ID,
+			ord.DELIVERY_DATE,
+			item.SKU_ID,
+			item.QUANTITY
+		FROM
+			EON_ORDER ord,
+			EON_ORDER_ITEM item
+		WHERE
+			ord.ORDER_ID = item.ORDER_ID AND
+			ord.DELIVERY_DATE = #deliveryDates# AND
+			ord.BUYER_ID = #buyerId# AND
+			item.SKU_ID = #skuId#  
+	</select>
+	
+	<!-- Seller Akaden Quantity Mapping by deliverydates -->
+	<select id="getSellerAkadenItemsMapOfSkuDate" parameterClass="java.util.Map" resultMap="akadenItem">
+		SELECT 
+			ord.ORDER_ID,
+			ord.BUYER_ID,
+			ord.DELIVERY_DATE,
+			item.QUANTITY,
+			item.COMMENTS
+		FROM
+			EON_ORDER ord,
+			EON_ORDER_AKADEN item
+		WHERE
+			ord.ORDER_ID = item.ORDER_ID AND
+			ord.DELIVERY_DATE = #deliveryDate# AND
+			ord.BUYER_ID = #buyerId# AND
+			item.AKADEN_SKU_ID = #akadenSkuId# 
+	</select>
+	
+	<!-- Buyer Order Quantity Mapping by deliverydates -->
+	<select id="getBuyerOrderItemsMapOfSkuDates" parameterClass="java.util.Map" resultMap="orderItem">
+		SELECT 
+			ord.ORDER_ID,
+			ord.BUYER_ID,
+			ord.DELIVERY_DATE,
+			item.SKU_ID,
+			item.QUANTITY
+		FROM
+			EON_ORDER ord,
+			EON_ORDER_ITEM item
+		WHERE
+			ord.ORDER_ID = item.ORDER_ID AND
+			ord.DELIVERY_DATE = #deliveryDates# AND
+			ord.BUYER_ID = #buyerId# AND
+			item.SKU_ID = #skuId#  
+	</select>
+	
+</sqlMap>

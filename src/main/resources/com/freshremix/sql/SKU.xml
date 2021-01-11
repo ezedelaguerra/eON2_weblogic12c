@@ -1,0 +1,205 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="SKU">
+	<resultMap
+		id="sku"
+		class="com.freshremix.model.SKU">
+		<result property="skuId" column="SKU_ID" />
+		<result property="skuName" column="SKU_NAME" />
+		<result property="skuGroup.skuGroupId" column="SKU_GROUP_ID" />
+		<result property="skuGroup.description" column="DESCRIPTION" />
+		<result property="user.userId" column="USER_ID" />
+		<result property="user.name" column="USER_NAME" />
+		<result property="user.shortName" column="USER_SHORTNAME" />
+		<result property="user.company.companyId" column="COMPANY_ID" />
+		<result property="user.company.companyName" column="COMPANY_NAME" />
+		<result property="user.company.shortName" column="COMPANY_SHORTNAME" />
+		<result property="location" column="LOCATION" />
+		<result property="market" column="MARKET" />
+		<result property="grade" column="GRADE" />
+		<result property="clazz" column="CLASS" />
+		<result property="price1" column="PRICE1" />
+		<result property="price2" column="PRICE2" />
+		<result property="priceWithoutTax" column="PRICE_WITHOUT_TAX" />
+		<result property="packageQuantity" column="PACKAGE_QUANTITY" />
+		<result property="packageType" column="PACKAGE_TYPE" />
+		<result property="orderUnit.orderUnitId" column="ORDER_UNIT_ID" />
+		<result property="orderUnit.orderUnitName" column="ORDER_UNIT_NAME" />
+		<result property="origSkuId" column="ORIGINAL_SKU_ID" />
+		<result property="skuCategoryId" column="SKU_CATEGORY_ID" />
+		<result property="sheetType" column="SHEET_TYPE_ID" />
+		<result property="skuMaxLimit" column="SKU_MAX_LIMIT" />
+		<result property="externalSkuId" column="EXTERNAL_SKU_ID" />
+		<result property="column01" column="COLUMN_01" />
+		<result property="column02" column="COLUMN_02" />
+		<result property="column03" column="COLUMN_03" />
+		<result property="column04" column="COLUMN_04" />
+		<result property="column05" column="COLUMN_05" />
+		<result property="column06" column="COLUMN_06" />
+		<result property="column07" column="COLUMN_07" />
+		<result property="column08" column="COLUMN_08" />
+		<result property="column09" column="COLUMN_09" />
+		<result property="column10" column="COLUMN_10" />
+		<result property="column11" column="COLUMN_11" />
+		<result property="column12" column="COLUMN_12" />
+		<result property="column13" column="COLUMN_13" />
+		<result property="column14" column="COLUMN_14" />
+		<result property="column15" column="COLUMN_15" />
+		<result property="column16" column="COLUMN_16" />
+		<result property="column17" column="COLUMN_17" />
+		<result property="column18" column="COLUMN_18" />
+		<result property="column19" column="COLUMN_19" />
+		<result property="column20" column="COLUMN_20" />
+	</resultMap>
+
+	<resultMap
+		id="simpleSKU"
+		class="com.freshremix.model.SKU">
+		<result property="skuId" column="SKU_ID" />
+		<result property="skuName" column="SKU_NAME" />
+		<result property="location" column="LOCATION" />
+		<result property="market" column="MARKET" />
+		<result property="grade" column="GRADE" />
+		<result property="clazz" column="CLASS" />
+		<result property="price1" column="PRICE1" />
+		<result property="price2" column="PRICE2" />
+		<result property="priceWithoutTax" column="PRICE_WITHOUT_TAX" />
+		<result property="packageQuantity" column="PACKAGE_QUANTITY" />
+		<result property="packageType" column="PACKAGE_TYPE" />
+		<result property="origSkuId" column="ORIGINAL_SKU_ID" />
+		<result property="skuCategoryId" column="SKU_CATEGORY_ID" />
+		<result property="sheetType" column="SHEET_TYPE_ID" />
+		<result property="skuMaxLimit" column="SKU_MAX_LIMIT" />
+		<result property="externalSkuId" column="EXTERNAL_SKU_ID" />
+		<result property="column01" column="COLUMN_01" />
+		<result property="column02" column="COLUMN_02" />
+		<result property="column03" column="COLUMN_03" />
+		<result property="column04" column="COLUMN_04" />
+		<result property="column05" column="COLUMN_05" />
+		<result property="column06" column="COLUMN_06" />
+		<result property="column07" column="COLUMN_07" />
+		<result property="column08" column="COLUMN_08" />
+		<result property="column09" column="COLUMN_09" />
+		<result property="column10" column="COLUMN_10" />
+		<result property="column11" column="COLUMN_11" />
+		<result property="column12" column="COLUMN_12" />
+		<result property="column13" column="COLUMN_13" />
+		<result property="column14" column="COLUMN_14" />
+		<result property="column15" column="COLUMN_15" />
+		<result property="column16" column="COLUMN_16" />
+		<result property="column17" column="COLUMN_17" />
+		<result property="column18" column="COLUMN_18" />
+		<result property="column19" column="COLUMN_19" />
+		<result property="column20" column="COLUMN_20" />
+	</resultMap>
+
+	<resultMap
+		id="skuProposed"
+		class="com.freshremix.model.SKU" extends="sku">
+		<result property="proposedBy.userId" column="PROPOSED_BY" />
+		<result property="proposedBy.userName" column="PROPOSED_NAME" />
+		<result property="proposedBy.shortName" column="PROPOSED_SHORTNAME" />
+		<result property="proposedBy.company.companyId" column="PROPOSED_COMPANY_ID" />
+		<result property="proposedBy.company.companyName" column="PROPOSED_COMPANY_NAME" />
+		<result property="proposedBy.company.shortName" column="PROPOSED_COMPANY_SHORTNAME" />
+	</resultMap>
+	
+	<insert id="insertSKU" parameterClass="com.freshremix.model.SKU">
+		INSERT INTO EON_SKU 
+			(SKU_ID, SKU_NAME, SHEET_TYPE_ID, ORIGINAL_SKU_ID, SKU_CATEGORY_ID, 
+			 SELLER_ID, LOCATION, MARKET, GRADE, CLASS, PRICE1, PRICE2, 
+			 PRICE_WITHOUT_TAX, PACKAGE_QUANTITY, PACKAGE_TYPE, ORDER_UNIT_ID, 
+			 SKU_GROUP_ID, PROPOSED_BY, SKU_MAX_LIMIT, EXTERNAL_SKU_ID,
+			 COLUMN_01, COLUMN_02, COLUMN_03, COLUMN_04, COLUMN_05,  
+			 COLUMN_06, COLUMN_07, COLUMN_08, COLUMN_09, COLUMN_10, 
+			 COLUMN_11, COLUMN_12, COLUMN_13, COLUMN_14, COLUMN_15, 
+			 COLUMN_16, COLUMN_17, COLUMN_18, COLUMN_19, COLUMN_20)
+  			VALUES (EON_SKU_ID_SEQ.nextVal, #skuName#, #sheetType#, #origSkuId#, #skuCategoryId#, 
+  			 #user.userId#, #location#, #market#, #grade#, #clazz#, #price1#, #price2#, 
+  			 #priceWithoutTax#, #packageQuantity#, #packageType#, #orderUnit.orderUnitId#, 
+  			 #skuGroup.skuGroupId#, #proposedBy.userId#, #skuMaxLimit#, #externalSkuId#,
+  			 #column01#,#column02#,#column03#,#column04#,#column05#,
+			 #column06#,#column07#,#column08#,#column09#,#column10#,
+			 #column11#,#column12#,#column13#,#column14#,#column15#,
+			 #column16#,#column17#,#column18#,#column19#,#column20#
+  			 )
+  		<selectKey keyProperty="skuId" resultClass="java.lang.Integer">
+            SELECT EON_SKU_ID_SEQ.currval FROM DUAL
+        </selectKey>
+	</insert>
+	
+	<update id="updateSKU" parameterClass="com.freshremix.model.SKU">
+		UPDATE EON_SKU
+			SET SKU_NAME = #skuName#, 
+				LOCATION = #location#, 
+				MARKET = #market#, 
+				GRADE = #grade#, 
+				CLASS = #clazz#, 
+				PRICE1 = #price1#, 
+				PRICE2 = #price2#, 
+				PRICE_WITHOUT_TAX = #priceWithoutTax#, 
+				PACKAGE_QUANTITY = #packageQuantity#, 
+				PACKAGE_TYPE = #packageType#, 
+				ORDER_UNIT_ID = #orderUnit.orderUnitId#, 
+				SKU_GROUP_ID = #skuGroup.skuGroupId#,
+				SKU_MAX_LIMIT = #skuMaxLimit#,
+				EXTERNAL_SKU_ID = #externalSkuId#,
+				COLUMN_01 = #column01#, 
+				COLUMN_02 = #column02#, 
+				COLUMN_03 = #column03#, 
+				COLUMN_04 = #column04#, 
+				COLUMN_05 = #column05#,  
+				COLUMN_06 = #column06#, 
+				COLUMN_07 = #column07#, 
+				COLUMN_08 = #column08#, 
+				COLUMN_09 = #column09#, 
+				COLUMN_10 = #column10#, 
+				COLUMN_11 = #column11#, 
+				COLUMN_12 = #column12#, 
+				COLUMN_13 = #column13#, 
+				COLUMN_14 = #column14#, 
+				COLUMN_15 = #column15#, 
+			 	COLUMN_16 = #column16#, 
+			 	COLUMN_17 = #column17#, 
+			 	COLUMN_18 = #column18#, 
+			 	COLUMN_19 = #column19#, 
+			 	COLUMN_20 = #column20#
+			WHERE SKU_ID = #skuId#
+	</update>
+	
+	<select id="selectSKU" parameterClass="java.lang.Integer" resultMap="sku">
+		SELECT
+			sku.SKU_ID, users.USER_ID, users.NAME USER_NAME, users.SHORTNAME USER_SHORTNAME,
+			comp.COMPANY_ID, comp.COMPANY_NAME, comp.SHORT_NAME COMPANY_SHORTNAME,
+			grp.SKU_GROUP_ID, grp.DESCRIPTION, sku.MARKET, sku.SKU_NAME, sku.LOCATION,
+			sku.GRADE, sku.CLASS, sku.PRICE1, sku.PRICE2, sku.PRICE_WITHOUT_TAX,
+			sku.PACKAGE_QUANTITY, sku.PACKAGE_TYPE, uom.ORDER_UNIT_ID, uom.ORDER_UNIT_NAME,
+			sku.ORIGINAL_SKU_ID, sku.SHEET_TYPE_ID, sku.SKU_CATEGORY_ID, sku.SKU_MAX_LIMIT,
+			sku.EXTERNAL_SKU_ID,
+			sku.COLUMN_01, sku.COLUMN_02, sku.COLUMN_03, sku.COLUMN_04, sku.COLUMN_05,  
+			sku.COLUMN_06, sku.COLUMN_07, sku.COLUMN_08, sku.COLUMN_09, sku.COLUMN_10, 
+			sku.COLUMN_11, sku.COLUMN_12, sku.COLUMN_13, sku.COLUMN_14, sku.COLUMN_15, 
+			sku.COLUMN_16, sku.COLUMN_17, sku.COLUMN_18, sku.COLUMN_19, sku.COLUMN_20
+		FROM
+			EON_SKU sku,
+			EON_USERS users,
+			EON_COMPANY comp,
+			EON_SKU_GROUP grp,
+			EON_ORDER_UNIT uom
+		WHERE
+			SKU_ID = #skuId# AND
+			sku.SELLER_ID = users.USER_ID AND
+			users.COMPANY_ID = comp.COMPANY_ID AND
+			sku.SKU_GROUP_ID = grp.SKU_GROUP_ID AND
+			sku.ORDER_UNIT_ID = uom.ORDER_UNIT_ID
+	</select>
+	
+	<select id="isSKUExisting" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		SELECT count(*) FROM EON_SKU WHERE SKU_ID = #skuId# AND SELLER_ID = #sellerId# AND SHEET_TYPE_ID = #sheetType#
+	</select>
+	
+	<select id="findSKU" parameterClass="java.lang.Integer" resultMap="simpleSKU">
+		SELECT * FROM EON_SKU WHERE SKU_ID = #skuId#
+	</select>
+</sqlMap>

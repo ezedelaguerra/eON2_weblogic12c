@@ -1,0 +1,85 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+    
+<sqlMap namespace="OrderUnit">
+	<resultMap id="OrderUnitList" class="com.freshremix.model.OrderUnit" >
+		<result property="orderUnitId" column="ORDER_UNIT_ID" />
+		<result property="orderUnitName" column="ORDER_UNIT_NAME" />
+		<result property="categoryId" column="CATEGORY_ID" />
+	</resultMap>
+
+	<select id="getOrderUnitList" parameterClass="java.util.Map" resultMap="OrderUnitList">
+		SELECT * FROM EON_ORDER_UNIT WHERE CATEGORY_ID = #categoryId#
+	</select>
+	
+	<select id="getSellingUomList" parameterClass="java.lang.Integer" resultMap="OrderUnitList">
+		SELECT ID_SELLING_UOM ORDER_UNIT_ID, 
+			SELLING_UOM_NAME ORDER_UNIT_NAME, 
+			CATEGORY_ID CATEGORY_ID  
+		FROM EON_SELLING_UOM 
+		WHERE CATEGORY_ID = #categoryId# 
+		ORDER BY ORDER_UNIT_NAME
+	</select>
+	
+	<select id="getOrderUnitByCategoryId" parameterClass="java.lang.Integer" resultMap="OrderUnitList">
+		SELECT * FROM EON_ORDER_UNIT WHERE CATEGORY_ID = #categoryId# ORDER BY ORDER_UNIT_NAME
+	</select>
+	
+	<select id="getOrderUnitCaseId" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+		SELECT ORDER_UNIT_ID FROM EON_ORDER_UNIT WHERE CATEGORY_ID = #categoryId# AND ORDER_UNIT_NAME = 'C/S'
+	</select>
+	
+	<insert id="insertOrderUnit" parameterClass="java.util.Map">
+		INSERT INTO EON_ORDER_UNIT 
+		  (ORDER_UNIT_ID, ORDER_UNIT_NAME,CATEGORY_ID) 
+		VALUES 
+		  (EON_ORDER_UNIT_SEQ.nextVal, #orderUnitName#,#categoryId#)
+	</insert>
+	
+	<delete id="deletePmfSkuById" parameterClass="java.lang.Integer">
+		DELETE FROM EON_ORDER_UNIT 
+		WHERE ORDER_UNIT_ID = #orderUnitId#
+	</delete>
+	
+	<select id="getOrderUnitIdByName" parameterClass="java.lang.String" resultClass="java.lang.Integer">
+		SELECT ORDER_UNIT_ID FROM EON_ORDER_UNIT 
+		WHERE ORDER_UNIT_NAME = #orderUnitName#
+		AND ROWNUM = 1
+	</select>
+	
+	<select id="checkOrderUnitIfExist" parameterClass="java.util.Map" resultClass="int">
+		SELECT COUNT(*) FROM EON_ORDER_UNIT WHERE UPPER(ORDER_UNIT_NAME) = #orderUnitName# AND CATEGORY_ID =#categoryId#
+	</select>
+	
+	<select id="checkOrderUnitIfInUse" resultClass="int">
+		SELECT COUNT(*) FROM EON_SKU WHERE ORDER_UNIT_ID = #orderUnitId#
+	</select>
+	
+	<select id="checkOrderUnitInPmfSku" resultClass="int">
+		SELECT COUNT(*) FROM EON_PRODUCT_MASTER_FILE_SKU WHERE ORDER_UNIT_ID = #orderUnitId#
+	</select>
+	
+	<insert id="insertUOM" parameterClass="java.util.Map">
+		INSERT INTO EON_ORDER_UNIT 
+		  (ORDER_UNIT_ID, ORDER_UNIT_NAME,CATEGORY_ID) 
+		VALUES 
+		  (EON_ORDER_UNIT_SEQ.nextVal, #orderUnitName#,#categoryId#)
+		
+		  <selectKey keyProperty="orderId" resultClass="java.lang.Integer">
+            SELECT EON_ORDER_UNIT_SEQ.currval FROM DUAL
+        </selectKey>
+	</insert>
+	
+	<select id="getAllOrderUnitList" resultMap="OrderUnitList">
+		SELECT * FROM EON_ORDER_UNIT
+	</select>
+	
+	
+	<select id="getAllSellingUomList" resultMap="OrderUnitList">
+		SELECT ID_SELLING_UOM ORDER_UNIT_ID, 
+			SELLING_UOM_NAME ORDER_UNIT_NAME, 
+			CATEGORY_ID CATEGORY_ID  
+		FROM EON_SELLING_UOM
+	</select>
+	
+</sqlMap>

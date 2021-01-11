@@ -1,0 +1,119 @@
+=======================================================
+=======================================================
+VERSION 14.00
+=======================================================
+=======================================================
+Module/Task: chrome	Redmine 880 - Chrome compatibility (scroll bar)
+Date:       Oct 29, 2012
+Developer:  Rhoda
+1.34		buyer_home.js
+1.39		header.js	
+1.47		home.js
+=======================================================
+=======================================================
+VERSION 14.01
+=======================================================
+Module/Task: Redmine 856 - Download excel issue with [bejifurufood]
+Date:       Nov 13, 2012
+Developer:  Mikes
+1.25        DownloadExcelView.java
+1.20        DownloadExcelUtil.java
+=======================================================
+Module/Task: Redmine 1110 - Change the position of each strings in cells
+Date:       Nov 13, 2012
+Developer:  Mikes
+1.26        DownloadExcelView.java
+=======================================================
+Module/Task: Redmine 961 - Selleradmin can't use seller sorting
+Date:       Nov 14, 2012
+Developer:  Mikes
+1.3        CompanySellersSort.xml
+1.3        CompanySellersSortDaoImpl.java
+=======================================================
+Module/Task: Redmine 1109 - the announcement is different after unpublish
+Date:       Nov 15, 2012
+Developer:  Melissa
+1.250       SigmaTable.jsp
+=======================================================
+Module/Task: Redmine 1029 - Redmine 1029 - seller can change quantity in seller order sheet after Buyer Order Sheet finalize
+Date:       Nov 21, 2012
+Developer:  Melissa
+1.75        OrderSheetLoadController.java
+=======================================================
+Module/Task: Redmine 1049 - seller-selleradmin conccurency on finalize in order sheet
+Date:       Nov 21, 2012
+Developer:  Mikes
+1.37        OrderDao.java
+1.46        OrderDaoImpl.java
+1.28        error_en.properties
+1.31        error_ja.properties
+1.64        OrderSheetService.java
+1.135       OrderSheetServiceImpl.java
+1.141       OrderSheet.xml
+1.23        OrderSheetFinalizeController.java
+=======================================================
+=======================================================
+VERSION 14.02
+=======================================================
+Module/Task: Redmine 1110 - Change the position of each strings in cells
+Date:       Nov 26, 2012
+Developer:  Melissa/Mikes
+1.110		buyer_orderTable.jsp
+1.91		buyer_receivedTable.jsp
+1.130		buyerAdmin_orderTable.jsp
+1.251       sigmaTable.jsp
+1.135       allocationTable.jsp
+=======================================================
+Module/Task: Redmine 1206 - Change the default keyboard to Number Keys on iPad
+Date:       Nov 26, 2012
+Developer:  Mikes
+1.130       buyerAdmin_orderTable.jsp
+1.110       buyer_orderTable.jsp
+=======================================================
+Module/Task: Redmine 880 - Chrome Compatibility (Allocation Table does not load in ie)
+Date:       Nov 27, 2012
+Developer:  Mel
+1.46      	gt_grid_all.js
+1.2       	gt_ie9.js
+=======================================================
+Module/Task: Redmine 1208 - Can enter quantity in full pitch character
+Date:       Nov 29, 2012
+Developer:  Mikes
+1.252       sigmaTable.jsp
+1.132       buyerAdmin_orderTable.jsp
+1.112       buyer_orderTable.jsp
+=======================================================
+Module/Task: Redmine 961 - Selleradmin can't use seller sorting (additional fix for duplicate entry in filter page)
+Date:       Nov 29, 2012
+Developer:  Mikes
+1.31        DealingPattern.xml
+1.4         CompanyBuyersSort.xml
+=======================================================
+=======================================================
+VERSION 14.03
+=======================================================
+Module/Task: Redmine 1110 - Change the position of each strings in cells
+Date:       Dec 4, 2012
+Developer:  Mikes
+1.27        DownloadExcelView.java
+1.253       sigmaTable.jsp
+1.136       allocationTable.jsp
+1.133       buyerAdmin_orderTable.jsp
+1.92        buyer_receivedTable.jsp
+1.113       buyer_orderTable.jsp
+=======================================================
+Module/Task: Redmine 1110 - Change the position of each strings in cells (additional corrections)
+Date:       Dec 5, 2012
+Developer:  Mikes
+1.28        DownloadExcelView.java
+1.254       sigmaTable.jsp
+1.137       allocationTable.jsp
+1.134       buyerAdmin_orderTable.jsp
+1.93        buyer_receivedTable.jsp
+1.114       buyer_orderTable.jsp
+=======================================================
+Module/Task: Redmine 1049 - seller-selleradmin conccurency on finalize in order sheet
+Date:       Dec 6, 2012
+Developer:  Mikes
+1.255       sigmaTable.jsp
+1.24        OrderSheetFinalizeController.java

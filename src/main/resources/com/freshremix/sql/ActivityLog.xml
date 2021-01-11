@@ -1,0 +1,59 @@
+<!-- Copyright Freshremix Asia Software Corporation date name version changes -->
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+    
+<sqlMap namespace="ActivityLog">
+
+    <resultMap id="activityLogMap" class="com.freshremix.model.ActivityLog">
+		<result property="activityLogId" column="ACTIVITY_LOG_ID" />
+		<result property="userId" column="USER_ID" />
+		<result property="username" column="USERNAME" />
+		<result property="timestamp" column="ACTIVITY_TIMESTAMP" />
+		<result property="date" column="ACTIVITY_DATE" />
+		<result property="sheetName" column="SHEET_NAME" />
+		<result property="action" column="ACTION" />
+		<result property="deliveryDate" column="DELIVERY_DATE" />
+		<result property="targetBuyerId" column="TARGET_BUYER_ID" />
+		<result property="targetSellerId" column="TARGET_SELLER_ID" />
+		
+	</resultMap>
+	
+	
+	<select id="selectActivityLogList" parameterClass="java.util.Map" resultMap="activityLogMap">
+		SELECT ACTIVITY_LOG_ID ,USER_ID ,USERNAME ,ACTIVITY_TIMESTAMP ,ACTIVITY_DATE ,SHEET_NAME ,ACTION,
+		DELIVERY_DATE, TARGET_BUYER_ID, TARGET_SELLER_ID   
+		FROM 
+			(SELECT A.*, ROW_NUMBER () OVER (PARTITION BY USER_ID ORDER BY A.ACTIVITY_TIMESTAMP ASC) RN FROM EON_ACTIVITY_LOG A
+			WHERE USERNAME LIKE #username#||'%'
+			AND USER_ID LIKE #userId#||'%'
+			AND SHEET_NAME LIKE #sheetName#||'%'
+			AND ACTION LIKE #action#||'%'
+			AND TARGET_SELLER_ID LIKE '%'||#targetSellerId#||'%'
+			AND TARGET_BUYER_ID LIKE '%'||#targetBuyerId#||';%'
+			AND TO_DATE(DELIVERY_DATE, 'YYYY/MM/DD') = TO_DATE(#deliveryDate#, 'YYYY/MM/DD')
+			AND TO_DATE(ACTIVITY_DATE, 'YYYY/MM/DD') BETWEEN TO_DATE(#dateFrom#, 'YYYY/MM/DD') AND TO_DATE(#dateTo#, 'YYYY/MM/DD')
+			ORDER BY ACTIVITY_TIMESTAMP DESC)
+		WHERE RN &gt;= #startCount# AND RN &lt; #endCount#
+	</select>
+	
+	<select id="selectActivityLogCount" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		SELECT COUNT(*) FROM EON_ACTIVITY_LOG
+		WHERE USERNAME LIKE #username#||'%'
+		AND USER_ID LIKE #userId#||'%'
+		AND SHEET_NAME LIKE #sheetName#||'%'
+		AND ACTION LIKE #action#||'%'
+		AND TARGET_SELLER_ID LIKE '%'||#targetSellerId#||'%'
+		AND TARGET_BUYER_ID LIKE '%'||#targetBuyerId#||';%'
+		AND TO_DATE(DELIVERY_DATE, 'YYYY/MM/DD') = TO_DATE(#deliveryDate#, 'YYYY/MM/DD')
+		AND TO_DATE(ACTIVITY_DATE, 'YYYY/MM/DD') BETWEEN TO_DATE(#dateFrom#, 'YYYY/MM/DD') AND TO_DATE(#dateTo#, 'YYYY/MM/DD')
+	</select>
+	
+	<insert id="insertActivityLogList" parameterClass="com.freshremix.model.ActivityLog">
+		INSERT INTO EON_ACTIVITY_LOG 
+		(ACTIVITY_LOG_ID, USER_ID, USERNAME, ACTIVITY_TIMESTAMP, ACTIVITY_DATE, SHEET_NAME, ACTION, DELIVERY_DATE, TARGET_BUYER_ID, TARGET_SELLER_ID)
+		VALUES
+		(EON_ACTIVITY_LOG_SEQ.nextVal, #userId#, #username#,CURRENT_TIMESTAMP,#date#,#sheetName#,#action#,#deliveryDate#,#targetBuyerId#,#targetSellerId#)
+	</insert>
+</sqlMap>

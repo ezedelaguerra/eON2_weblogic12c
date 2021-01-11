@@ -1,0 +1,84 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="SKUGroupSort">
+	
+	<resultMap
+		id="skuGroupSort"
+		class="com.freshremix.model.SKUGroupSort">
+		<result property="userId" column="USER_ID" />
+<!--		<result property="userName" column="USER_NAME" />-->
+		<result property="skuCategoryId" column="SKU_CATEGORY_ID" />
+		<result property="skuGroupId" column="SKU_GROUP_ID" />
+		<result property="skuGroupName" column="DESCRIPTION" />
+		<result property="sorting" column="SORTING" />
+	</resultMap>
+	
+<!--	<select id="getSortSKUGroup" parameterClass="java.util.Map" resultMap="skuGroupSort">-->
+<!--		SELECT-->
+<!--			skugrp.COMPANY_SELLER_ID USER_ID,-->
+<!--			users.NAME USER_NAME,-->
+<!--			skugrp.SKU_CATEGORY_ID,-->
+<!--			skugrp.SKU_GROUP_ID,-->
+<!--			skugrp.DESCRIPTION,-->
+<!--			grpsort.SORTING-->
+<!--		FROM-->
+<!--			EON_SKU_GROUP skugrp LEFT JOIN-->
+<!--			EON_SORT_SKU_GROUP grpsort-->
+<!--		ON-->
+<!--			skugrp.COMPANY_SELLER_ID = grpsort.USER_ID AND-->
+<!--			skugrp.SKU_CATEGORY_ID = grpsort.SKU_CATEGORY_ID,-->
+<!--			EON_USERS users-->
+<!--		WHERE-->
+<!--	        users.USER_ID = skugrp.COMPANY_SELLER_ID AND-->
+<!--			skugrp.COMPANY_SELLER_ID IN <iterate property="sellerIds" open="(" close=")" conjunction=",">#sellerIds[]#</iterate> AND-->
+<!--			skugrp.SKU_CATEGORY_ID = #skuCategoryId# AND-->
+<!--			skugrp.END_DATE IS NULL-->
+<!--		ORDER BY-->
+<!--			grpsort.SORTING, skugrp.COMPANY_SELLER_ID, skugrp.SKU_GROUP_ID-->
+<!--	</select>-->
+	
+	<select id="getSortSKUGroup" parameterClass="java.util.Map" resultMap="skuGroupSort">
+		SELECT
+			grpsort.user_id USER_ID,
+            skugrp.SKU_CATEGORY_ID,
+            skugrp.SKU_GROUP_ID,
+            skugrp.DESCRIPTION,
+            grpsort.SORTING
+       FROM
+            (SELECT ESG.SKU_GROUP_ID SKU_GROUP_ID,
+                ESG.ORIG_SKU_GROUP_ID ORIG_SKU_GROUP_ID, 
+                ESG.SELLER_ID SELLER_ID,                 
+                ESG.SKU_CATEGORY_ID SKU_CATEGORY_ID, 
+                ESG.DESCRIPTION DESCRIPTION
+            FROM EON_SKU_GROUP ESG
+            WHERE ESG.SELLER_ID IN <iterate property="sellerIds" open="(" close=")" conjunction=",">#sellerIds[]#</iterate>
+                AND ESG.SKU_CATEGORY_ID = #skuCategoryId#
+                AND ESG.END_DATE IS NULL) skugrp 
+        LEFT JOIN
+            (SELECT essg.USER_ID, essg.SKU_GROUP_ID, essg.SORTING, essg.SKU_CATEGORY_ID
+            FROM EON_SORT_SKU_GROUP essg
+            WHERE essg.USER_ID = #userId#) grpsort
+        ON
+            skugrp.SKU_GROUP_ID = grpsort.SKU_GROUP_ID AND
+            skugrp.SKU_CATEGORY_ID = grpsort.SKU_CATEGORY_ID
+        ORDER BY
+            grpsort.SORTING, skugrp.SELLER_ID, skugrp.DESCRIPTION           
+	</select>
+		
+	<insert id="insertSortSKUGroup" parameterClass="java.util.Map">
+		INSERT INTO
+			EON_SORT_SKU_GROUP (USER_ID, SKU_CATEGORY_ID, SKU_GROUP_ID, SORTING)
+		VALUES
+			(#userId#, #skuCategoryId#, #skuGroupId#, #sorting#)
+	</insert>
+	
+	<delete id="deleteSortSKUGroup" parameterClass="java.util.Map">
+		DELETE FROM
+			EON_SORT_SKU_GROUP
+		WHERE
+			USER_ID = #userId# AND
+			SKU_CATEGORY_ID = #skuCategoryId#
+	</delete>
+	
+</sqlMap>

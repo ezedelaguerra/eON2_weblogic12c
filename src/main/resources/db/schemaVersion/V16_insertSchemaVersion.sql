@@ -1,0 +1,1 @@
+Insert into "schema_version" ("version_rank","installed_rank","version","description","type","script","checksum","installed_by","installed_on","execution_time","success") values (16,16,'16.0','createTermsOfService','SQL','V16_0__createTermsOfService.sql',654048505,'EON01',to_timestamp('23-JAN-13 04.57.12.765000000 PM','DD-MON-RR HH.MI.SS.FF AM'),742,1);

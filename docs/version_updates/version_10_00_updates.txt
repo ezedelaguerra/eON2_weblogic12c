@@ -1,0 +1,171 @@
+Module/Task: Production Error: Filter page
+Date:       April 10, 2012
+Developer:  Lele
+RevNo       FileName
+1.16		DateFormatter.java
+============================================================================
+Module/Task: Production Error: Weekly Quantity save
+Date:       April 10, 2012
+Developer:  Lele
+RevNo       FileName
+1.232		sigmaTable.jsp
+============================================================================
+Module/Task: Performance logs
+Date:       April 11, 2012
+Developer:  Ogie
+1.1         PerformanceAOP.java
+1.11-1.12   log4j.properties
+1.59        applicationContext.xml
+1.11        StringUtil.java
+1.2			AuditTrailFilter.java
+===============================================================
+Module/Task: Redmine 449: SKU max limit message with NAN 
+
+Date:       Apr. 10, 2012
+Developer:  Rhoda
+RevNo       FileName
+1.234		sigmaTable.jsp
+1.21		gt_msg_en.js
+1.24		gt_msg_ja.js
+============================================================================
+Module/Task: Redmine 150
+Date:       April 11, 2012
+Developer:  Lele
+1.12		CompanyDealingPatternDao.java
+1.36		OrderDao.java
+1.13		CompanyDealingPatternDaoImpl.java
+1.44		OrderDaoImpl.java
+1.3			UserDealingPattern.java
+1.27		error_en.properties
+1.29		error_ja.properties
+1.12		CompanyDealingPatternService.java
+1.12		CompanyDealingPatternServiceImpl.java
+1.138		OrderSheet.xml
+1.20		UserInformation.xml
+1.17		DateFormatter.java
+1.14		AdminSaveUsersDealingPatternController.java
+1.93		company.js
+============================================================================
+Module/Task: Redmine 558 External sku id should not be delete when meta info has changed
+Date:       April 19, 2012
+Developer:  Rhoda
+1.41		AllocationSheetLoadController.java
+1.33		OrderForm.java
+1.22		OrderItemUI.java
+1.71		OrderSheetLoadController.java
+1.72		OrderSheetUtil.java
+1.22		SKU.xml
+1.113		allocationTable.jsp
+1.235		sigmaTable.jsp
+============================================================================
+Module/Task: Redmine 102 Allocation SKUs with quantity only
+Date:       April 26, 2012
+Developer:  Rhoda
+1.1			2012_Version_10_00.sql
+1.9			EONUserPreference.java
+1.4			SaveUserPreferences.java
+1.27		SheetDataServiceImpl.java
+1.14		UserPreference.xml
+1.2			UserPreferencesController.java
+1.82		en.js
+1.34		header.js
+1.60		index.jsp(seller)
+1.93		ja.js
+1.65		menu.js
+1.36		menuItems_util.js
+1.39		index.jsp(buyer)
+1.12		UserPreferenceServiceImpl.java
+============================================================================
+Module/Task: Redmine 236 Allocation Published Rule to restrict only with quantity
+Date:       April 30, 2012
+Developer:  Rhoda
+1.47		AllocationSheetServiceImpl.java
+1.28		ReceivedSheetDaoImpl.java
+============================================================================
+Module/Task: Received Sheet Disable Quantity
+Date:       April 30, 2012
+Developer:  Rhoda
+1.43		ReceivedSheetLoadController.java
+1.85		buyer_receivedTable.jsp
+============================================================================
+Module/Task: Autodownload - Add column LAST_RUN_DATE
+Date:       May 05, 2012
+Developer:  Lele
+1.12		CSVDownloader.java
+1.4			AutoDownloadDao.java
+1.4			AutoDownloadDaoImpl.java
+1.7			AutoDownloadService.java
+1.13		AutoDownloadServiceImpl.java
+1.4			AutoDownload.xml
+1.2			2012_Version_10_00.sql
+============================================================================
+Module/Task: Concurrency - Save Alloc and Finalize Received
+Date:       May 08, 2012
+Developer:  Rhoda
+1.7 		AllocationSheetUpdateController.java
+1.3			ConcurrencyUtil.java
+1.1			OrderConstants.java
+1.44		ReceivedSheetLoadController.java
+1.7			ReceivedSheetLockUnlockController.java
+1.114		allocationTable.jsp
+1.75		allocation_sheet.js
+1.86		buyer_receivedTable.jsp
+1.82		en.js
+1.94		ja.js
+1.61		received_sheet.js
+============================================================================
+Module/Task: Redmine 350 - Company Dealing Pattern delete
+Date:       May 14, 2012
+Developer:  Lele
+1.14		DealingPatternDao.java
+1.29		UserDao.java
+1.16		DealingPatternDaoImpl.java
+1.34		UserDaoImpl.java
+1.13		CompanyDealingPatternService.java
+1.13		CompanyDealingPatternServiceImpl.java
+1.29		DealingPattern.xml
+1.22		User.xml
+1.6-1.7		AdminRemoveCDPController.java
+1.94		company.js
+1.14		CompanyDealingPatternServiceImpl.java
+============================================================================
+Module/Task: Performance merge
+Date:       May 14, 2012
+Developer:  Lele
+1.20		UsersInformationService.java
+1.25		UsersInformationServiceImpl.java
+1.139		OrderSheet.xml
+1.4-1.5		UserUtil.java (reverted)
+1.54		OrderSheetController.java
+1.41		gt_grid_all.js
+1.1			2012_Version_10_00.sql
+1.45		OrderDaoImpl.java
+============================================================================
+Module/Task: Change condition of unfinalize Allocaiton & Received sheet
+Date:       May 15, 2012
+Developer:  Rhoda
+1.4 		2012_Version_10_00.sql
+1.3			AdminUsers.java
+1.42		AllocationSheetLoadController.java
+1.48		AllocationSheetServiceImpl.java
+1.11		EONUserPreference.java
+1.45		ReceivedSheetLoadController.java
+1.8			ReceivedSheetLockUnlockController.java
+1.35		UserDaoImpl.java
+1.15		UserPreference.xml
+1.13		UserPreferenceServiceImpl.java
+1.26		UsersInformationServiceImpl.java
+1.115		allocationTable.jsp
+1.95		company.js
+1.83		en.js
+1.35		header.js
+1.61		index.jsp
+1.40		index.jsp
+1.95		ja.js
+1.62		received_sheet.js
+============================================================================
+Module/Task: Dev server issue (validation of company and user dp not working)
+Date:       May 19, 2012
+Developer:  Lele
+1.15-1.16	CompanyDealingPatternServiceImpl.java (revert)
+1.8-1.9		AdminRemoveCDPController.java (revert)

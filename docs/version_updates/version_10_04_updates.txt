@@ -1,0 +1,7 @@
+Module/Task: Redmine #906 – SKU doesn't appear on Received after SKU Qty input 
+					and metainfo edit on a published Alloc.
+
+Date:       July 04, 2012
+Developer:  Rhoda
+1.51		AllocationSheetServiceImpl
+============================================================================

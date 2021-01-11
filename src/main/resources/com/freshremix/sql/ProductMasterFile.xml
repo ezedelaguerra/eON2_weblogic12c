@@ -1,0 +1,133 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+    
+<sqlMap namespace="ProductMasterFile">
+	<resultMap id="PmfSkus"
+		class="com.freshremix.model.PmfSkuList">
+		<result property="skuId" column="SKU_ID" />
+		<result property="pmfId" column="PROD_MASTER_ID" />
+<!-- 		<result property="skuGroup" column="SKU_GROUP_NAME" /> -->
+		<result property="skuGroup" column="SKU_GROUP_ID" />
+		<result property="skuName" column="SKU_NAME" />
+		<result property="sellerProdCode" column="SELLER_PRODUCT_CODE" />
+		<result property="buyerProdCode" column="BUYER_PRODUCT_CODE" />
+		<result property="commentA" column="COMMENTA" />
+		<result property="commentB" column="COMMENTB" />
+		<result property="location" column="LOCATION" />
+		<result property="market" column="MARKET" />
+		<result property="grade" column="GRADE" />
+		<result property="pmfClass" column="CLASS" />
+		<result property="price1" column="PRICE1" />
+		<result property="price2" column="PRICE2" />
+		<result property="priceNoTax" column="PRICE_WITHOUT_TAX" />
+<!-- 		<result property="pricewTax" column="PRICEWTAX" /> -->
+		<result property="pkgQuantity" column="PACKAGE_QUANTITY" />
+		<result property="pkgType" column="PACKAGE_TYPE" />
+<!-- 		<result property="unitOrder" column="UNIT_OF_ORDER" />  -->
+		<result property="unitOrder" column="ORDER_UNIT_ID" />
+		<result property="sellerName" column="SELLERNAME" />
+		<result property="categoryId" column="SKU_CATEGORY_ID" />
+		<result property="sellerId" column="SELLER_ID" />
+	</resultMap>
+	
+	<resultMap id="PmfList" class="com.freshremix.model.PmfList" >
+		<result property="pmfId" column="PROD_MASTER_ID" />
+		<result property="pmfName" column="NAME" />
+		<result property="pmfUserId" column="USER_ID" />
+	</resultMap>
+
+	<select id="getPmfList" resultMap="PmfList">
+		SELECT * FROM EON_PRODUCT_MASTER_FILE
+		<!-- 
+		WHERE USER_ID = #userId#
+		 -->
+		WHERE USER_ID IN
+		<iterate property="userIds" open="(" close=")" conjunction=",">#userIds[]#</iterate>
+	</select>
+	
+	<insert id="insertNewPmf" parameterClass="com.freshremix.model.PmfList">
+		INSERT INTO EON_PRODUCT_MASTER_FILE 
+		  (PROD_MASTER_ID, NAME, USER_ID) 
+		VALUES 
+		  (#pmfId#, #pmfName#, #pmfUserId#)
+	</insert>
+	
+	<insert id="insertPmfSku" parameterClass="com.freshremix.model.PmfSkuList">
+		INSERT INTO EON_PRODUCT_MASTER_FILE_SKU 
+		  (SKU_ID, PROD_MASTER_ID, SKU_NAME, SELLER_PRODUCT_CODE, BUYER_PRODUCT_CODE,
+		   COMMENTA, COMMENTB, LOCATION, MARKET, GRADE, CLASS, PRICE1, PRICE2, PRICE_WITHOUT_TAX,
+		   PACKAGE_QUANTITY, PACKAGE_TYPE, ORDER_UNIT_ID, SKU_GROUP_ID, SKU_CATEGORY_ID, SELLER_ID) 
+		VALUES 
+		  (#skuId#, #pmfId#, #skuName#, #sellerProdCode#, #buyerProdCode#,
+		   #commentA#, #commentB#, #location#, #market#, #grade#, #pmfClass#, #price1#, #price2#, 
+		   #priceNoTax#, #pkgQuantity#, #pkgType#, #unitOrder#, #skuGroup#, #categoryId#, #sellerId#)
+	</insert>
+	
+	<select id="getMaxSkuId" resultClass="java.lang.Integer">
+		SELECT MAX(SKU_ID) FROM EON_SKU
+	</select>
+	
+	<select id="getMaxPmfSkuId" resultClass="java.lang.Integer">
+		SELECT MAX(SKU_ID) FROM EON_PRODUCT_MASTER_FILE_SKU
+	</select>
+	
+	<delete id="deletePmfSkuById" parameterClass="java.util.Map">
+		DELETE FROM EON_PRODUCT_MASTER_FILE_SKU 
+		WHERE SKU_ID = #skuId# AND PROD_MASTER_ID = #pmfId#
+	</delete>
+	
+	<update id="updatePmfSku" parameterClass="com.freshremix.model.PmfSkuList">
+		UPDATE EON_PRODUCT_MASTER_FILE_SKU
+		SET SKU_NAME = #skuName#, SELLER_PRODUCT_CODE = #sellerProdCode#,  
+			BUYER_PRODUCT_CODE = #buyerProdCode#, COMMENTA = #commentA#, COMMENTB = #commentB#, 
+			LOCATION = #location#, MARKET = #market#, GRADE = #grade#, CLASS = #pmfClass#, 
+			PRICE1 = #price1#, PRICE2 = #price2#, PRICE_WITHOUT_TAX = #priceNoTax#,  
+			PACKAGE_QUANTITY = #pkgQuantity#, PACKAGE_TYPE = #pkgType#, 
+			ORDER_UNIT_ID = #unitOrder#, SKU_GROUP_ID = #skuGroup#
+		WHERE SKU_ID = #skuId# AND PROD_MASTER_ID = #pmfId#  
+	</update>
+
+	<select id="getPmfSkus" resultMap="PmfSkus">
+		SELECT * FROM (
+			SELECT ROWNUM  row_num, res_sku.* from (
+				SELECT pmfsku.*, users.SHORTNAME  AS SELLERNAME
+				FROM EON_PRODUCT_MASTER_FILE_SKU pmfsku, EON_USERS users, EON_PRODUCT_MASTER_FILE pmf 
+				WHERE pmfsku.PROD_MASTER_ID = #pmfId#
+		  			AND users.USER_ID = #userId#
+		  			AND pmf.USER_ID = users.USER_ID
+		  			AND pmf.PROD_MASTER_ID = pmfsku.PROD_MASTER_ID
+					AND pmfsku.SKU_CATEGORY_ID = #categoryId#
+					<isNotNull property="searchName">
+		  			AND (UPPER(pmfsku.SKU_NAME) LIKE #searchName#)
+		  			</isNotNull>
+  			) res_sku
+		)
+		WHERE row_num BETWEEN #rowStart# AND #rowEnd#
+	</select>
+	
+	<select id="getMaxPmfId" resultClass="java.lang.Integer">
+		SELECT MAX(PROD_MASTER_ID) FROM EON_PRODUCT_MASTER_FILE
+	</select>
+	
+	<delete id="deletePmfById" parameterClass="java.util.Map">
+		DELETE FROM EON_PRODUCT_MASTER_FILE 
+		WHERE PROD_MASTER_ID = #pmfId#
+	</delete>
+	
+	<select id="getPmfNameCount" resultClass="java.lang.Integer">
+		SELECT COUNT(*) FROM EON_PRODUCT_MASTER_FILE
+		WHERE USER_ID = #userId#
+			AND NAME = #pmfName#
+	</select>
+	
+	<select id="getUserIdByPmfId" resultClass="java.lang.Integer">
+		SELECT USER_ID FROM EON_PRODUCT_MASTER_FILE
+		WHERE PROD_MASTER_ID = #pmfId#
+	</select>
+	
+	<delete id="deletePmfbyUserId" parameterClass="java.util.Map">
+		DELETE 
+		FROM EON_PRODUCT_MASTER_FILE 
+		WHERE USER_ID = #userId#
+	</delete>
+</sqlMap>

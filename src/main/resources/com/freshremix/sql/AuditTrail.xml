@@ -1,0 +1,76 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AuditTrail">
+
+	<resultMap id="AuditTrail-result" class="com.freshremix.model.AuditTrail">
+		<result property="log_id" column="HISTORY_LOG_ID" />
+		<result property="user_id" column="USER_ID" />
+		<result property="process_id" column="PROCESS_ID" />
+		<result property="log_type" column="LOG_TYPE" />
+		<result property="ip_address" column="IP_ADDRESS" />
+		<result property="url" column="URL_PATH" />
+		<result property="user_agent" column="USER_AGENT" />
+		<result property="url_referer" column="HTTP_REFERER" />
+		<result property="sys_date" column="SYSTEM_DATE" />
+		<result property="db_date" column="DB_DATE" />
+	</resultMap>
+
+	<insert id="insertAuditStart" parameterClass="com.freshremix.model.AuditTrail">
+		INSERT INTO 
+		EON_AUDIT_TRAIL	(ID, 
+		                 USER_ID, 
+		                 USERNAME, 
+		                 PROCESS_ID, 
+		                 LOG_TYPE, 
+		                 IP_ADDRESS, 
+		                 URL_PATH,
+		                 URL_REFERER,
+		                 USER_AGENT,  
+		                 SYSTEM_DATE, 
+		                 DB_DATE)
+		VALUES (EON_AUDIT_TRAIL_ID_SEQ.nextval, 
+		        #user_id#, 
+		        #username#, 
+		        EON_AUDIT_TRAIL_PROCESS_ID_SEQ.nextval,
+		        #log_type#, 
+		        #ip_address#, 
+		        #url#,  
+		        #url_referer#,
+		        #user_agent#,
+		        #sys_date#, 
+		        CURRENT_TIMESTAMP )
+		        
+		<selectKey keyProperty="process_id" resultClass="java.lang.Long">
+			SELECT EON_AUDIT_TRAIL_PROCESS_ID_SEQ.currval FROM DUAL
+        </selectKey>
+	</insert>
+	
+	<insert id="insertAuditFinish" parameterClass="com.freshremix.model.AuditTrail">
+		INSERT INTO 
+		EON_AUDIT_TRAIL	(ID, 
+		                 USER_ID, 
+		                 USERNAME, 
+		                 PROCESS_ID, 
+		                 LOG_TYPE, 
+		                 IP_ADDRESS, 
+		                 URL_PATH, 
+		                 URL_REFERER, 
+		                 USER_AGENT,
+		                 SYSTEM_DATE, 
+		                 DB_DATE)
+		VALUES (EON_AUDIT_TRAIL_ID_SEQ.nextval, 
+		        #user_id#, 
+		        #username#, 
+		        #process_id#,
+		        #log_type#, 
+		        #ip_address#, 
+		        #url#, 
+		        #url_referer#,
+		        #user_agent#, 
+		        #sys_date#, 
+		        CURRENT_TIMESTAMP )
+	</insert>
+
+
+</sqlMap>

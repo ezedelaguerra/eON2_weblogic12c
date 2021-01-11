@@ -1,0 +1,424 @@
+===============================================================
+Module/Task: Bug #18 - When user select Category=All, CSV would be empty
+Date:       Apr. 19, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.30		downloadcsv.js
+1.15		downloadcsv_admin.js
+1.2			downloadcsv_admin_buyer.js
+===============================================================
+Module/Task: Bug #13 - Login as A, Press Backspace to logout, login as b,
+		actual user and displayed username would be different(it's A instead of B)
+Date:       Apr. 19, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.7			LoginSubmitController.java
+===============================================================
+Module/Task: getSortedBuyers new DAO
+Date:       Apr. 26, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.3			CompanyBuyersSort.xml
+1.3			CompanyBuyersSortDao.java
+1.3			CompanyBuyersSortServiceImpl.java
+===============================================================
+Module/Task: Download CSV Module
+Date:       Apr. 26, 2011
+Developer:  Ogie
+RevNo       FileName
+1.14        DownloadCSVDao.java
+1.13        DownloadCSVDaoImpl.java
+1.1         DownloadCSVSettings.java
+1.14        DownloadCSVService.java
+1.8         CategoryServiceImpl.java
+1.18        DownloadCSVServiceImpl.java
+1.8         UserCategory.xml
+1.1         DownloadCSVInitController.java
+1.1         DownloadCSVLoadSellerBuyerListController.java
+1.8         DownloadCSVLoadSheetsController.java
+1.1         download_csv.js
+1.51        index.jsp (seller)
+1.87        dispatcher-json-servlet.xml
+
+Module/Task: Download CSV Module Con't
+Developer:  Rhoda
+RevNo       FileName
+1.2         DownloadCSVLoadSellerBuyerListController.java
+1.19        DownloadCSVServiceImpl.java
+1.5			SortingUtil.java
+1.2         download_csv.js
+1.64		en.js
+
+Module/Task: Refactor Download CSV (seller)
+Date:       Apr. 27, 2011
+Developer:  Ogie
+RevNo       FileName
+1.20        DownloadCSVServiceImpl.java
+1.6         SortingUtil.java
+1.3         download_csv.js
+1.52        index.jsp (seller)
+
+Module/Task: Download CSV Module (seller) initialize data from the sheet
+Date:       Apr. 28, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.2         DownloadCSVInitController.java
+1.21        DownloadCSVServiceImpl.java
+1.5         download_csv.js
+
+Module/Task: Download CSV Module (seller) Con't
+Date:       Apr. 28, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.40        DownloadCSVController.java
+1.4         download_csv.js
+
+Module/Task: Download CSV Module (Sheet Data)
+Date:       Apr. 29, 2011
+Developer:  Ogie
+RevNo       FileName
+1.1-1.4     SheetData.java
+1.1-1.3     SheetDataService.java
+1.1-1.6     SheetDataServiceImpl.java
+1.1         SheetDataUtil.java
+1.41-1.43   DownloadCSVController.java
+1.49        applicationContext.xml
+
+1.6         WebService.java
+1.15        WebServiceImpl.java
+
+Module/Task: Download CSV Module (Util to create csv list)
+Date:       Apr. 29, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.44-1.45	DownloadCSVController.java
+1.8-1.9		DownloadCSVUtil.java
+
+Module/Task: Download CSV Module
+Date:       Apr. 30, 2011
+Developer:  Ogie
+1.1-1.2     DownloadCSVLoadBuyerListController.java
+remove      DownloadCSVLoadSellerBuyerListController.java
+1.7         download_csv.js
+1.88        dispatcher-json-servlet.xml
+
+Module/Task: Download CSV Module (Seller Admin)
+Date:       Apr. 30, 2011
+Developer:  Rhoda
+1.0         DownloadCSVLoadSellerListController.java
+1.15        DownloadCSVService.java
+1.22        DownloadCSVServiceImpl.java
+1.7			SortingUtil.java
+1.89        dispatcher-json-servlet.xml
+1.0         download_csv_admin.js
+1.53		index.jsp
+
+Module/Task: Download CSV Module (Seller Admin - Refactor)
+Date:       May 2, 2011
+Developer:  Ogie
+1.23        DownloadCSVServiceImpl.java
+1.2         ArrayUtil.java
+1.10        DownloadCSVUtil.java
+1.46        DownloadCSVController.java
+1.3         DownloadCSVLoadBuyerListController.java
+1.2         DownloadCSVLoadSellerListController.jaba
+1.2         download_csv_admin.js
+
+Module/Task: Download CSV Module (Buyer/ Buyer Admin UI)
+Date:       May 2, 2011
+Developer:  Rhoda  
+1.0         download_csv.js(Buyer)
+1.0         download_csv_admin.js (Buyer Admin)
+1.31		index.jsp (Buyer)
+
+Module/Task: Download CSV Module (Refactor)
+Date:       May 2, 2011
+Developer:  Ogie
+1.5         SheetData.java
+1.7         SheetDataServiceImpl.java
+1.4         DownloadCSVLoadBuyerListController.java
+
+Module/Task: Download CSV Module (Refactor)
+            rename selectedSellersIds -> selectedSellerIds
+            rename selectedBuyersId -> selectedBuyerIds
+Date:       May 2, 2011
+Developer:  Ogie
+1.2         DownloadCSVSettings.java
+1.6         SheetData.java
+1.4         SheetDataService.java
+1.24        DownloadCSVServiceImpl.java
+1.8         SheetDataServiceImpl.java
+1.11        DownloadCSVUtil.java
+1.47        DownloadCSVController.java
+1.5         DownloadCSVLoadBuyerListController.java
+1.3         download_csv_admin.js (seller)
+1.8         download_csv.js (seller)
+
+Module/Task: Download CSV Module (Sku Sorting)
+Date:       May 2, 2011
+Developer:  Ogie
+1.5         SheetDataService.java
+1.9         SheetDataServiceImpl.java
+1.48        DownloadCSVController.java
+
+Module/Task: Download CSV Module (Buyer UI) Cont.
+Date:       May 2, 2011
+Developer:  Rhoda  
+1.28		DealingPattern.xml
+1.3			DownloadCSVLoadSellerListController.java
+1.25		DownloadCSVServiceImpl.java
+1.34		OrderDaoImpl.java
+1.2         download_csv.js(Buyer)
+
+Module/Task: Download CSV Module (Refactor)
+            rename selectedSellersIds -> selectedSellerIds
+            rename selectedBuyersId -> selectedBuyerIds
+Date:       May 2, 2011
+Developer:  Rhoda
+1.9         download_csv.js(Seller)
+
+Module/Task: Download CSV Module (BuyerAdmin)
+Date:       May 2, 2011
+Developer:  Lele
+1.2         download_csv_admin.js >> apply BuyerAdmin changes (source from SellerAdmin)
+1.26		DownloadCSVServiceImpl.java 
+1.10		SheetDataServiceImpl.java >> changed null param to 0 (zero) [rowStart, pageSize]
+
+Module/Task: Download CSV Module (Refactor) Remove "/" on dates from UI
+Date:       May 2, 2011
+Developer:  Rhoda
+1.6         DownloadCSVLoadBuyerListController.java
+1.4			DownloadCSVLoadSellerListController.java
+
+Module/Task: Download CSV Module (SellerAdmin) 
+Date:       May 3, 2011
+Developer:  Ogie
+1.16        SheetTypeConstants.java
+1.11        SheetDataServiceImpl.java
+
+Module/Task: Download CSV Module (all users)
+Date:       May 3, 2011
+Developer:  Lele
+1.4         download_csv.js(Buyer)
+1.3			download_csv_admin.js(BuyerAdmin)
+1.10        download_csv.js(Seller)
+1.4        	download_csv_admin.js(SellerAdmin)
+
+Module/Task: Download CSV Module (hasQty) 
+Date:       May 3, 2011
+Developer:  Ogie
+Order
+1.31-1.32   OrderSheetDao.java
+1.35-1.36    OrderSheetDaoImpl.java
+1.55        OrderSheetService.java
+1.113       OrderSheetServiceImpl.java
+1.106-1.107 OrderSheet.xml
+1.38        DownloadExcelController.java
+1.61        OrderSheetLoadController.java
+1.25        BuyerOrderSheetServiceImpl.java
+Allocation
+1.12        AllocationDao.java
+1.14        AllocationDaoImpl.java
+1.34        AllocationSheetServiceImpl.java
+1.32        OrderAllocation.xml
+Received
+1.15        ReceivedSheetDao.java
+1.15        ReceivedSheetDaoImpl.java
+1.21        ReceivedSheetServiceImpl.java
+1.25        ReceivedSheet.xml
+Billing
+1.17        OrderBillingDao.java
+1.19        OrderBillingDaoImpl.java
+1.30        BillingSheetServiceImpl.java
+1.15        SheetDataServiceImpl.java
+1.38        BillingSheet.xml
+
+Module/Task: Download CSV Module (has quantity, buyer name, display flag)
+Date:       May 3, 2011
+Developer:  Rhoda
+1.49        DownloadCSVController.java
+1.12		DownloadCSVUtil.java
+1.6         SheetDataService.java
+1.12       	SheetDataServiceImpl.java
+
+Module/Task: Download CSV Module (clear OrderSheetParams session on buyer pages)
+Date:       May 3, 2011
+Developer:  Rhoda
+1.38        buyer_menu.js
+1.76		buyer_ordersheet.js
+
+Module/Task: Download CSV Module (date picker and Seller Admin init from sheet)
+Date:       May 3, 2011
+Developer:  Rhoda
+1.5         download_csv.js(Buyer)
+1.4			download_csv_admin.js(BuyerAdmin)
+1.11        download_csv.js(Seller)
+1.5        	download_csv_admin.js(SellerAdmin)
+
+Module/Task: Download CSV Module (all users)
+Date:       May 3, 2011
+Developer:  Lele
+1.15		AkadenSKU.java
+1.4			BillingItem.java
+1.0			Item.java
+1.8			OrderItem.java
+1.3			OrderReceived.java
+1.7			SheetData.java
+1.13		SheetDataServiceImpl.java
+1.13		DownloadCSVUtil.java
+1.46		OrderSheetUtil.java
+1.8			SortingUtil.java
+1.50		DownloadCSVController.java
+
+Module/Task: Download CSV Module (Seller get order items)
+Date:       May 3, 2011
+Developer:  Ogie
+1.33        OrderSheetDao.java
+1.37        OrderSheetDaoImpl.java
+1.14        SheetDataServiceImpl.java
+
+Module/Task: Download CSV Module (Akaden)
+Date:       May 3, 2011
+Developer:  Ogie
+1.51        DownloadCSVController.java
+
+Module/Task: Download CSV Module (Add csvSheetTypeId on OrderSheetParam for allocation)
+Date:       May 3, 2011
+Developer:  Rhoda
+1.11        AllocationSheetController.java
+1.27		DownloadCSVServiceImpl.java
+1.9			OrderSheetParam.java		
+
+Module/Task: Download CSV Module (Auto-select All)
+Date:       May 3, 2011
+Developer:  Ogie
+1.52        DownloadCSVController.java
+1.5         download_csv_admin.js (buyer)
+1.6         download_csv.js       (buyer)
+1.6         download_csv_admin.js (seller)
+1.12        download_csv.js       (seller)
+
+Module/Task: Download CSV Module (Auto-select All)
+Date:       May 5, 2011
+Developer:  Lele
+1.9         download_csv_admin.js (buyer)
+
+Module/Task: Download CSV Module (Auto-select All)
+Date:       May 6, 2011
+Developer:  Lele
+1.10        download_csv_admin.js (seller admin)
+
+===============================================================
+Module/Task: Removed all files under app/common/util-min
+Date:       Apr. 26, 2011
+Files:      12 javascript files
+===============================================================
+Module/Task: Bug #34
+   1.  Add new SKU (don't press Apply button)
+   2. Delete newly created SKU (don't press Apply button)
+   3. Press Home/Search (or any other buttons)
+   4. alert occurs 
+Date:       May 3, 2011
+Developer:  Ogie
+RevNo       FileName
+1.188       sigmaTable.jsp
+1.26        gt_grid_all.js
+
+Date:       May 4, 2011
+Developer:  Ogie
+1.27        gt_grid_all.js
+===============================================================
+Module/Task: Bug #18 Download CSV Module (all categories)
+Date:       May 4, 2011
+Developer:  Rhoda
+1.7         download_csv.js(Buyer)
+1.6			download_csv_admin.js(BuyerAdmin)
+1.13        download_csv.js(Seller)
+1.7        	download_csv_admin.js(SellerAdmin)
+
+Date:       May 5, 2011
+1.8         SheetData.java
+1.16        SheetDataServiceImpl.java
+1.15        DownloadCSVUtil.java
+===============================================================
+Module/Task: Bug #86 Sku max limit for seller and selleradmin only
+Date:       May 3, 2011
+Developer:  Ogie
+1.14        DownloadCSVUtil.java
+===============================================================
+Module/Task: eONv3_004 buyer admin received sheet download csv file name 
+Date:       May 4, 2011
+Developer:  Ogie
+1.17        SheetTypeConstants.java
+===============================================================
+===============================================================
+Module/Task: download csv filter page using calendar
+Date:       May 4, 2011
+Developer:  Ogie
+1.7         download_csv_admin.js (buyer)
+1.8         download_csv.js       (buyer)
+1.8         download_csv_admin.js (seller)
+1.14        download_csv.js       (seller)
+===============================================================
+Module/Task: Bugfix #71 sheet type appear as sheet type id
+Date:       May 5, 2011
+Developer:  Rhoda
+1.20        AkadenSheetController.java
+1.12        BillingSheetController.java
+1.10        BuyerBillingSheetController.java
+1.28        DownloadCSVServiceImpl.java
+1.52		OrderSheetController.java(seller)
+1.21		OrderSheetController.java(Buyer)
+1.15		ReceivedSheetController.java
+===============================================================
+Module/Task: Bugfix Category List with Akaden
+Date:       May 5, 2011
+Developer:  Rhoda
+1.8         download_csv_admin.js (buyer)
+1.9         download_csv.js       (buyer)
+1.9         download_csv_admin.js (seller)
+1.15        download_csv.js       (seller)
+===============================================================
+Module/Task: Bugfix download CSV - Comments, Finalize, Publish, Lock and Approved
+Date:       May 5, 2011
+Developer:  Rhoda
+1.5         BillingItem.java
+1.29        DownloadCSVServiceImpl.java
+1.16        DownloadCSVUtil.java
+1.2			Item.java
+1.9			OrderItem.java
+1.4			OrderReceived.java
+1.9			StringUtil.java
+===============================================================
+Module/Task: Bugfix - UI validation on seller list selection
+Date:       May 6, 2011
+Developer:  Rhoda
+1.11         download_csv_admin.js (buyer)
+1.10         download_csv_admin.js (seller)
+===============================================================
+Module/Task: Redmine # 55 - [akaden&billing] if unit price is null
+             eONv3_008
+Date:       May 9, 2011
+Developer:  Ogie
+1.53        DownloadCSVController.java
+===============================================================
+Module/Task: eONv3_012
+Date:       May 9, 2011
+Developer:  Ogie
+1.11        download_csv_admin.js (buyer)
+1.10        download_csv.js       (buyer)
+1.12        download_csv_admin.js (seller)
+1.16        download_csv.js       (seller)
+===============================================================
+Module/Task: [Null pointer]No sku on other category
+Date:       May 9, 2011
+Developer:  Ogie
+1.17        DownloadCSVUtil.java
+===============================================================
+Module/Task: Duplicate results on download csv filter page
+Date:       May 12, 2011
+Developer:  Ogie
+1.12        download_csv_admin.js (buyer)
+1.11        download_csv.js       (buyer)
+1.13        download_csv_admin.js (seller)
+1.17        download_csv.js       (seller)

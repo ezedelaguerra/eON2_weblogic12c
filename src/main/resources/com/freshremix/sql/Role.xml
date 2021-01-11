@@ -1,0 +1,37 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Role">
+	<resultMap
+		id="Role-result"
+		class="Role">
+		<result property="roleId" column="ROLE_ID" />
+		<result property="roleName" column="ROLE_NAME" />
+		<result property="sellerFlag" column="SELLER_FLAG" />
+		<result property="sellerAdminFlag" column="SELLER_ADMIN_FLAG" />
+		<result property="buyerFlag" column="BUYER_FLAG" />
+		<result property="buyerAdminFlag" column="BUYER_ADMIN_FLAG" />
+		<result property="adminFlag" column="ADMIN_FLAG" />
+		<result property="companyTypeFlag" column="COMPANY_TYPE_FLAG" />
+	</resultMap>
+	
+	<select id="getAllRoles" resultMap="Role-result">
+		SELECT * FROM EON_ROLES WHERE COMPANY_TYPE_FLAG = #companyFlagType#
+	</select>
+	
+	<select id="getRolesById" resultMap="Role-result">
+		SELECT * 
+		FROM EON_ROLES
+		WHERE ROLE_ID = #roleId#
+	</select>
+	
+	<insert id="insertRole" parameterClass="Role">
+		INSERT INTO eon_roles 
+		  (ROLE_ID, ROLE_NAME, SELLER_FLAG, SELLER_ADMIN_FLAG, BUYER_FLAG, BUYER_ADMIN_FLAG, ADMIN_FLAG, COMPANY_TYPE_FLAG) 
+		  	VALUES 
+		  (#roleId#, #roleName#, #sellerFlag#, #sellerAdminFlag#, #buyerFlag#, #buyerAdminFlag#, #adminFlag#, #companyTypeFlag#)
+        <!-- <selectKey keyProperty="role_id" resultClass="int">
+            SELECT EON_ROLES_ID_SEQ.currval FROM DUAL
+        </selectKey> -->		  
+	</insert>
+</sqlMap>

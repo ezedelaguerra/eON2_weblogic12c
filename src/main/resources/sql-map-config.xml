@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMapConfig
+PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+
+	<settings useStatementNamespaces="true" /> 
+
+	<!-- Login bean -->
+	<typeAlias alias="Category" type="com.freshremix.model.Category" />
+	<typeAlias alias="UserCategory" type="com.freshremix.model.UsersCategory" />
+	<typeAlias alias="User" type="com.freshremix.model.User" />
+	<typeAlias alias="AdminUsers" type="com.freshremix.model.AdminUsers" />
+	<typeAlias alias="Company" type="com.freshremix.model.Company" />
+	<typeAlias alias="Role"	type="com.freshremix.model.Role" />
+	<typeAlias alias="LoginInquiry"	type="com.freshremix.model.LoginInquiry" />
+	<typeAlias alias="UserDealingPattern" type="com.freshremix.model.UserDealingPattern" />
+	<typeAlias alias="Order" type="com.freshremix.model.Order"/>
+	<typeAlias alias="forgotPasswordObj" type="com.freshremix.model.ForgotPasswordLinkObject"/>
+	<typeAlias alias="TermsOfService" type="com.freshremix.model.TermsOfService" />
+    <typeAlias alias="UsersTOS" type="com.freshremix.model.UsersTOS" />
+	
+	<sqlMap resource="com/freshremix/sql/SKU.xml" />
+	<sqlMap resource="com/freshremix/sql/SKUBA.xml" />
+	<sqlMap resource="com/freshremix/sql/User.xml" />
+	<sqlMap resource="com/freshremix/sql/Company.xml" />
+	<sqlMap resource="com/freshremix/sql/Role.xml" />
+	<sqlMap resource="com/freshremix/sql/Login.xml" />
+	<sqlMap resource="com/freshremix/sql/CompanyInformation.xml" />
+	<sqlMap resource="com/freshremix/sql/AdminUsers.xml" />
+	<sqlMap resource="com/freshremix/sql/Category.xml" />
+	<sqlMap resource="com/freshremix/sql/UserCategory.xml" />
+	<sqlMap resource="com/freshremix/sql/UserInformation.xml" />
+	<sqlMap resource="com/freshremix/sql/TermsOfService.xml" />
+    <sqlMap resource="com/freshremix/sql/UsersTOS.xml" />
+    <sqlMap resource="com/freshremix/sql/ActivityLog.xml" />
+	<!-- Order Sheet: start -->
+	<sqlMap resource="com/freshremix/sql/SKUGroup.xml" />
+	<sqlMap resource="com/freshremix/sql/DealingPattern.xml" />
+	<sqlMap resource="com/freshremix/sql/OrderSheet.xml" />
+	<sqlMap resource="com/freshremix/sql/ReceivedSheet.xml" />
+	<sqlMap resource="com/freshremix/sql/ProductMasterFile.xml" />
+	<!-- Order Sheet: end -->
+	<sqlMap resource="com/freshremix/sql/OrderAllocation.xml" />
+	<sqlMap resource="com/freshremix/sql/Akaden.xml" />
+	<sqlMap resource="com/freshremix/sql/BillingSheet.xml" />
+	<sqlMap resource="com/freshremix/sql/CommentsInbox.xml" />
+	<sqlMap resource="com/freshremix/sql/CommentsOutbox.xml" />
+	<sqlMap resource="com/freshremix/sql/OrderUnit.xml" />
+	<sqlMap resource="com/freshremix/sql/SKUSort.xml" />
+	<sqlMap resource="com/freshremix/sql/SKUGroupSort.xml" />
+	<sqlMap resource="com/freshremix/sql/SKUMaxLimit.xml" />
+	<sqlMap resource="com/freshremix/sql/SheetTypes.xml" />
+	<sqlMap resource="com/freshremix/sql/CompanyBuyersSort.xml" />
+	<sqlMap resource="com/freshremix/sql/DownloadExcel.xml" />
+	<!-- Download Reports: start -->
+	<sqlMap resource="com/freshremix/sql/DownloadCSV.xml" />
+	<!-- Download Reports: end -->	
+	<!-- UserPreference: start -->
+	<sqlMap resource="com/freshremix/sql/UserPreference.xml" />
+	<!-- UserPreference: end -->	
+	<sqlMap resource="com/freshremix/sql/ForgotPasswordLink.xml" />
+	<sqlMap resource="com/freshremix/sql/AuditTrail.xml" />
+	<sqlMap resource="com/freshremix/sql/CompanySellersSort.xml" />
+	<sqlMap resource="com/freshremix/sql/AutoDownload.xml" />
+</sqlMapConfig>

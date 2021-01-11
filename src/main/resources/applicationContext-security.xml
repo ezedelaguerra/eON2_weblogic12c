@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.1.xsd">
+ 
+	<global-method-security secured-annotations="disabled">
+	</global-method-security>
+
+	<http auto-config="true" access-denied-page="/accessDenied.jsp" session-fixation-protection="newSession">
+		
+		<form-login
+			default-target-url="/afterLogin.do"
+			login-page="/app/login/jsp/login.jsp"
+			authentication-failure-url="/app/login/jsp/login.jsp?error=true"
+			always-use-default-target="true"/> 
+		<intercept-url pattern="/app/admin/**" access="ROLE_ADMIN, ROLE_KEN" />
+		<intercept-url pattern="/app/seller/**" access="ROLE_SELLER, ROLE_SELLER_ADMIN, ROLE_CHOUAI, ROLE_KEN" />
+		<intercept-url pattern="/app/buyer/**" access="ROLE_BUYER, ROLE_BUYER_ADMIN, ROLE_KEN"/>
+		
+		<intercept-url pattern="/app/login/jsp/login.jsp" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/app/login/jsp/redirect.jsp" access="ROLE_ADMIN, ROLE_BUYER, ROLE_BUYER_ADMIN, ROLE_SELLER, ROLE_SELLER_ADMIN, ROLE_CHOUAI, ROLE_KEN" />
+		<intercept-url pattern="/app/login/jsp/exception.jsp" access="ROLE_ADMIN, ROLE_BUYER, ROLE_BUYER_ADMIN, ROLE_SELLER, ROLE_SELLER_ADMIN, ROLE_CHOUAI, ROLE_KEN" />
+		<intercept-url pattern="/accessDenied.jsp" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<logout logout-success-url="/app/login/jsp/login.jsp"/>
+<!--		<concurrent-session-control max-sessions="1" exception-if-maximum-exceeded="true" />-->
+	</http>
+	
+	<authentication-provider>
+		<jdbc-user-service
+			data-source-ref="dataSource"
+			authorities-by-username-query="SELECT eu.username, 'ROLE_'||er.role_name AS role FROM EON_ROLES er JOIN EON_USERS eu ON er.role_id = eu.role_id WHERE eu.username = ?"
+			users-by-username-query="SELECT username, password, 1 FROM EON_USERS eu WHERE eu.username = ?"/>
+	</authentication-provider>
+</beans:beans>

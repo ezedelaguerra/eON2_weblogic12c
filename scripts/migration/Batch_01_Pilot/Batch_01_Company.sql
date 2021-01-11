@@ -1,0 +1,4 @@
+insert into EON_COMPANY (company_id, company_name, short_name, company_type_id, contact_person, sox_flag, company_address1, company_address2, company_address3, telephone_number, email_address, fax_number, comments) VALUES (EON_COMPANY_SEQ.NEXTVAL, '田村商事株式会社', '田村商事', '2', '', '0', '212-0055', '神奈川県川崎市幸区南加瀬', '3-4-20', '044-588-2032', '', '044-599-3897', '');
+insert into EON_COMPANY (company_id, company_name, short_name, company_type_id, contact_person, sox_flag, company_address1, company_address2, company_address3, telephone_number, email_address, fax_number, comments) VALUES (EON_COMPANY_SEQ.NEXTVAL, 'フレッシュリミックス株式会社（京急）', '京急', '3', '', '0', '101-0031', '東京都千代田区東神田', '2丁目5番12号　龍角散ビル8F', '03-5822-1352', '', '03-5822-1360', '');
+
+commit;

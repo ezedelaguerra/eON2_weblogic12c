@@ -1,0 +1,28 @@
+insert into migration_dealing_pattern(batch_number, user1, user2, relation) values (1, 'gyoumukanri', 'hinode', 'BUYERADMIN-BUYER');
+insert into migration_dealing_pattern(batch_number, user1, user2, relation) values (1, 'gyoumukanri', 'tomioka', 'BUYERADMIN-BUYER');
+insert into migration_dealing_pattern(batch_number, user1, user2, relation) values (1, 'gyoumukanri', 'nobi', 'BUYERADMIN-BUYER');
+insert into migration_dealing_pattern(batch_number, user1, user2, relation) values (1, 'gyoumukanri', 'tsukui', 'BUYERADMIN-BUYER');
+insert into migration_dealing_pattern(batch_number, user1, user2, relation) values (1, 'gyoumukanri', 'ashina', 'BUYERADMIN-BUYER');
+insert into migration_dealing_pattern(batch_number, user1, user2, relation) values (1, 'hirata', 'hinode', 'BUYERADMIN-BUYER');
+insert into migration_dealing_pattern(batch_number, user1, user2, relation) values (1, 'hirata', 'tomioka', 'BUYERADMIN-BUYER');
+insert into migration_dealing_pattern(batch_number, user1, user2, relation) values (1, 'hirata', 'nobi', 'BUYERADMIN-BUYER');
+insert into migration_dealing_pattern(batch_number, user1, user2, relation) values (1, 'hirata', 'tsukui', 'BUYERADMIN-BUYER');
+insert into migration_dealing_pattern(batch_number, user1, user2, relation) values (1, 'hirata', 'ashina', 'BUYERADMIN-BUYER');
+insert into migration_dealing_pattern(batch_number, user1, user2, relation) values (1, 'ushidakanri', 'hinode', 'BUYERADMIN-BUYER');
+insert into migration_dealing_pattern(batch_number, user1, user2, relation) values (1, 'ushidakanri', 'tomioka', 'BUYERADMIN-BUYER');
+insert into migration_dealing_pattern(batch_number, user1, user2, relation) values (1, 'ushidakanri', 'nobi', 'BUYERADMIN-BUYER');
+insert into migration_dealing_pattern(batch_number, user1, user2, relation) values (1, 'ushidakanri', 'tsukui', 'BUYERADMIN-BUYER');
+insert into migration_dealing_pattern(batch_number, user1, user2, relation) values (1, 'ushidakanri', 'ashina', 'BUYERADMIN-BUYER');
+insert into migration_dealing_pattern(batch_number, user1, user2, relation) values (1, 'takanagaif', 'keikyusp', 'SELLERADMIN-SELLER');
+insert into migration_dealing_pattern(batch_number, user1, user2, relation) values (1, 'keikyusp', 'hinode', 'SELLER-BUYER');
+insert into migration_dealing_pattern(batch_number, user1, user2, relation) values (1, 'keikyusp', 'tomioka', 'SELLER-BUYER');
+insert into migration_dealing_pattern(batch_number, user1, user2, relation) values (1, 'keikyusp', 'nobi', 'SELLER-BUYER');
+insert into migration_dealing_pattern(batch_number, user1, user2, relation) values (1, 'keikyusp', 'tsukui', 'SELLER-BUYER');
+insert into migration_dealing_pattern(batch_number, user1, user2, relation) values (1, 'keikyusp', 'ashina', 'SELLER-BUYER');
+insert into migration_dealing_pattern(batch_number, user1, user2, relation) values (1, 'kzaiko', 'hinode', 'SELLER-BUYER');
+insert into migration_dealing_pattern(batch_number, user1, user2, relation) values (1, 'kzaiko', 'tomioka', 'SELLER-BUYER');
+insert into migration_dealing_pattern(batch_number, user1, user2, relation) values (1, 'kzaiko', 'nobi', 'SELLER-BUYER');
+insert into migration_dealing_pattern(batch_number, user1, user2, relation) values (1, 'kzaiko', 'tsukui', 'SELLER-BUYER');
+insert into migration_dealing_pattern(batch_number, user1, user2, relation) values (1, 'kzaiko', 'ashina', 'SELLER-BUYER');
+
+commit;

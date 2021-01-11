@@ -1,0 +1,59 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="DownloadExcel">
+		
+	<resultMap
+		id="excelSetting"
+		class="com.freshremix.model.DownloadExcelSetting">
+		<result property="userId" column="USER_ID" />
+		<result property="weeklyFlag" column="WEEKLY_FLAG" />
+		<result property="dateOpt" column="DATE_OPTION" />
+		<result property="sellerOpt" column="SELLER_OPTION" />
+		<result property="buyerOpt" column="BUYER_OPTION" />
+		<result property="hasQty" column="HAS_QTY" />
+		<result property="priceComputeOpt" column="PRICE_COMPUTE_OPTION" />
+	</resultMap>
+	
+	<select id="getExcelSetting" parameterClass="java.lang.Integer" resultMap="excelSetting">
+		SELECT
+			USER_ID,
+			WEEKLY_FLAG,
+			DATE_OPTION,
+			SELLER_OPTION,
+			BUYER_OPTION,
+			HAS_QTY,
+			PRICE_COMPUTE_OPTION
+		FROM
+			EON_EXCEL_SETTING
+		WHERE
+			USER_ID = #userId#
+	</select>
+	
+	<insert id="insertExcelSetting" parameterClass="com.freshremix.model.DownloadExcelSetting">
+		INSERT INTO EON_EXCEL_SETTING
+			(USER_ID,
+			WEEKLY_FLAG,
+			DATE_OPTION,
+			SELLER_OPTION,
+			BUYER_OPTION,
+			HAS_QTY,
+			PRICE_COMPUTE_OPTION)
+		VALUES
+			(#userId#,
+			#weeklyFlag#,
+			#dateOpt#,
+			#sellerOpt#,
+			#buyerOpt#,
+			#hasQty#,
+			#priceComputeOpt#)
+	</insert>
+	
+	<delete id="deleteExcelSetting" parameterClass="java.lang.Integer">
+		DELETE FROM
+			EON_EXCEL_SETTING
+		WHERE
+			USER_ID = #userId#
+	</delete>
+	
+</sqlMap>

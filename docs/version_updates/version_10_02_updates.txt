@@ -1,0 +1,33 @@
+Module/Task: Redmine 865 – Expiry date "From" and "To" textboxes in user dealing pattern page
+				is enabled even if no UserID is selected
+Date:       May 31, 2012
+Developer:  Rhoda
+
+1.95		company.js
+============================================================================
+Module/Task: Redmine 868 - Removed dirty mark
+Date:       June 01, 2012
+Developer:  Lele
+1.97		company.js
+============================================================================
+Module/Task: Redmine 150 – User Dealing Pattern delete 
+Date:       June 01, 2012
+Developer:  Rhoda/Lele
+1.17		CompanyDealingPatternServiceImpl.java
+1.30		error_ja.properties
+============================================================================
+Module/Task: Redmine  867 – Concurrency (message)
+Date:       June 04, 2012
+Developer:  Rhoda
+1.84		en.js
+1.96		ja.js
+
+			Concurrency (Finalized Alloc, cannot Finalize Received)
+1.4			ConcurrencyUtil.java
+============================================================================
+Module/Task: Redmine 236 Allocation Published Rule to restrict only with quantity
+Date:       June 05, 2012
+Developer:  Rhoda
+1.49		AllocationSheetServiceImpl.java
+1.46		ReceivedSheetLoadController.java
+============================================================================

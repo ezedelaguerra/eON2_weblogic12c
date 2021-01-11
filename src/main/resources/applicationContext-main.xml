@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd"
+	default-autowire="byName">
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:eon.properties</value>
+			</list>
+		</property>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>		
+	</bean>
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+ 
+		<property name="location">
+			<ref local="taxConfigPath"/>
+		</property>
+	</bean>
+	<bean id="taxConfigPath" class="org.springframework.core.io.FileSystemResource">
+
+		<constructor-arg><value>C:\eon\config\eONTax.properties</value></constructor-arg>
+    </bean>  	
+   
+	<import resource="classpath:datasource.xml" />
+	<import resource="classpath:applicationContext-i18n.xml" />
+	<!-- <import resource="classpath:applicationContext.xml" /> -->
+    <import resource="classpath:mailContext.xml" />
+    <import resource="classpath:applicationContext-ws.xml" />
+	<import resource="classpath:applicationContext-datalayer.xml" />
+	<import resource="classpath:applicationContext-servicelayer.xml" />
+	<import resource="classpath:applicationContext-security.xml" />
+	<import resource="classpath:applicationContext-scheduler.xml" />
+
+	<bean id="appSettingService" class="com.freshremix.service.impl.AppSettingServiceImpl" />
+
+
+
+</beans>

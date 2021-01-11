@@ -1,0 +1,36 @@
+=======================================================
+=======================================================
+VERSION 16.00
+=======================================================
+=======================================================
+Module/Task: Redmine 1212 - Terms of Service
+Date:       Jan 25, 2013
+Developer:  Mikes, Melissa
+Note: versions not mentioned as there were lots of changes made
+- Incorporated maven for build and test automation
+- Incorporated flyway for db auditing and for test environment deployment
+- Incorporated Selenium and TestNG  for testing
+- Developed TOS maintenance page
+=======================================================
+VERSION 16.01
+=======================================================
+Module/Task: Redmine 1212 -  Terms of Service
+             Redmine 1289 -  Admin: Incorrect erro message is displayed when entering more than 300 characters in [メール] email text area
+Date:       Feb 7, 2013
+Developer:  Mikes, Melissa
+Note: versions not mentioned as there were lots of changes made
+- Developed TOS Display page
+  - TOS displayed on login
+  - prevents user from continuing if 30days has passed
+  - Sends email to email list once user either clicks on agree/disagree
+=======================================================
+Module/Task: Redmine 1247 - Comma is not put in Price without tax
+Date:       Feb 7, 2013
+Developer:  Mikes
+1.94.2.1    buyer_receivedTable.jsp
+=======================================================
+Module/Task: Redmine 1285 - Admin: [登録] Submit button in [利用規約] Terms of Service Maintenance page is not working when using IE as browser
+Date:       Feb 7, 2013
+Developer:  Mikes
+1.18.16.2    /admin/index.jsp
+

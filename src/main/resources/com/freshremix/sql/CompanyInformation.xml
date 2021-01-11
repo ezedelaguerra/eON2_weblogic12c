@@ -1,0 +1,145 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="CompanyInfo">
+	<resultMap
+		id="CompanyInfo"
+		class="com.freshremix.model.AdminCompanyInformation">
+		<result property="companyId" column="COMPANY_ID" />
+		<result property="companyName" column="COMPANY_NAME" />
+		<result property="shortName" column="SHORT_NAME" />
+		<result property="companyType.companyTypeId" column="COMPANY_TYPE_ID" />
+		<result property="companyType.description" column="DESCRIPTION" />
+		<result property="contactPerson" column="CONTACT_PERSON" />
+		<result property="address1" column="COMPANY_ADDRESS1" />
+		<result property="address2" column="COMPANY_ADDRESS2" />
+		<result property="address3" column="COMPANY_ADDRESS3" />
+		<result property="telNumber" column="TELEPHONE_NUMBER" />
+		<result property="faxNumber" column="FAX_NUMBER" />
+		<result property="emailAdd" column="EMAIL_ADDRESS" />
+		<result property="soxFlag" column="SOX_FLAG" />
+		<result property="comments" column="COMMENTS" />
+	</resultMap>
+	
+	<resultMap
+		id="AllCompanyName"
+		class="com.freshremix.model.AdminCompanyInformation">
+		<result property="companyId" column="COMPANY_ID" />
+		<result property="companyName" column="COMPANY_NAME" />
+	</resultMap>
+	
+	<select id="getAllCompanyName" resultMap="AllCompanyName">
+		SELECT COMPANY_ID, COMPANY_NAME FROM EON_COMPANY ORDER BY LOWER(COMPANY_NAME) ASC 
+	</select>
+	
+	<select id="getAllCompanyNameByDealingPattern" resultMap="AllCompanyName">
+		SELECT c.COMPANY_ID, c.COMPANY_NAME 
+			FROM EON_COMPANY c, EON_COMPANY_TYPE ct
+			WHERE c.COMPANY_TYPE_ID = ct.COMPANY_TYPE_ID AND
+		 	LOWER(ct.DESCRIPTION) &lt;&gt; #companyType# ORDER BY LOWER(c.COMPANY_NAME) ASC 
+	</select>
+	
+	<select id="getCompanyNameByWildCard" resultMap="AllCompanyName">
+		SELECT COMPANY_ID, COMPANY_NAME FROM EON_COMPANY WHERE LOWER(COMPANY_NAME) LIKE #companyName#||'%' ORDER BY LOWER(COMPANY_NAME) ASC 
+	</select>
+	
+	<select id="getCompanyInformationByCompanyId" resultMap="CompanyInfo">
+		SELECT * FROM EON_COMPANY c, EON_COMPANY_TYPE ct
+			WHERE c.COMPANY_TYPE_ID = ct.COMPANY_TYPE_ID AND
+			COMPANY_ID = #companyId#
+	</select>
+	
+	<select id="checkCompanyIfExist" resultClass="int">
+		SELECT COUNT(*) FROM EON_COMPANY WHERE COMPANY_NAME = #companyName#
+	</select>
+	
+	<insert id="insertNewCompany">
+		INSERT INTO EON_COMPANY 
+		  (COMPANY_ID, COMPANY_NAME, SHORT_NAME, COMPANY_TYPE_ID, CONTACT_PERSON, SOX_FLAG, COMPANY_ADDRESS1, COMPANY_ADDRESS2, COMPANY_ADDRESS3, TELEPHONE_NUMBER, EMAIL_ADDRESS, FAX_NUMBER, COMMENTS) 
+		  	VALUES 
+		  (EON_COMPANY_SEQ.nextVal, #companyName#, #shortName#, #companyType#, #contactPerson#, #soxFlag#, #address1#, #address2#, #address3#, #telNumber#, #emailAdd#, #faxNumber#, #comments#)
+		  <selectKey keyProperty="COMPANY_ID" resultClass="int"> 
+		  	SELECT EON_COMPANY_SEQ.currval FROM DUAL </selectKey>
+	</insert>
+	
+
+	<insert id="insertCompanyDealingPattern">
+		INSERT INTO EON_COMPANY_DEALING_PATTERN(COMPANY_DEALING_PATTERN_ID, COMPANY_01,COMPANY_02, DEALING_PATTERN_RELATION_ID)
+		VALUES(EON_COMPANY_DEALINGPATTERN_SEQ.nextVal, #companyId#, #selectedCompId#, #relationId#)
+		<selectKey keyProperty="COMPANY_ID" resultClass="int"> 
+		  	SELECT EON_COMPANY_DEALINGPATTERN_SEQ.currval FROM DUAL </selectKey>
+	</insert>
+	
+	<update id="resetCDPByCompanyId">
+		UPDATE EON_COMPANY_DEALING_PATTERN SET ISACTIVE = #isActive# WHERE COMPANY_01 = #companyId#
+	</update>
+	
+	<select id="getCompanySelectedDealingPattern" resultMap="AllCompanyName">
+		SELECT COMPANY_ID, COMPANY_NAME FROM EON_COMPANY WHERE COMPANY_ID IN 
+			(SELECT COMPANY_02 FROM EON_COMPANY_DEALING_PATTERN WHERE COMPANY_01 = #companyId# AND ISACTIVE='1')
+	</select>
+	
+	<select id="getBuyerCompanySelectedDealingPattern" resultMap="AllCompanyName">
+		SELECT COMPANY_ID, COMPANY_NAME FROM EON_COMPANY WHERE COMPANY_ID IN 
+			(SELECT COMPANY_01 FROM EON_COMPANY_DEALING_PATTERN WHERE COMPANY_02 = #companyId# AND ISACTIVE='1')
+	</select>
+	
+	<select id="searchCompDPByName" resultMap="AllCompanyName">
+		SELECT COMPANY_ID, COMPANY_NAME FROM EON_COMPANY WHERE LOWER(COMPANY_NAME) LIKE #companyName#||'%' AND COMPANY_ID &lt;&gt; #companyId# AND LOWER(COMPANY_TYPE) &lt;&gt; #companyType# ORDER BY LOWER(COMPANY_NAME) ASC
+	</select>
+	
+	<update id="updateCompany">
+		UPDATE EON_COMPANY 
+			SET COMPANY_NAME=#companyName#, 
+				SHORT_NAME=#shortName#, 
+				COMPANY_TYPE_ID=#companyType#, 
+				CONTACT_PERSON=#contactPerson#, 
+				SOX_FLAG=#soxFlag#, 
+				COMPANY_ADDRESS1=#address1#, 
+				COMPANY_ADDRESS2=#address2#, 
+				COMPANY_ADDRESS3=#address3#, 
+				TELEPHONE_NUMBER=#telNumber#, 
+				EMAIL_ADDRESS=#emailAdd#, 
+				FAX_NUMBER=#faxNumber#, 
+				COMMENTS=#comments#
+			WHERE COMPANY_ID=#companyId#
+	</update>
+	
+	<select id="getCDPByCompanyId" resultClass="int">
+		SELECT COUNT(*) FROM EON_USER_DEALING_PATTERN userdp, EON_COMPANY_DEALING_PATTERN company, EON_USERS users 
+		WHERE userdp.COMPANY_DEALING_PATTERN_ID = company.COMPANY_DEALING_PATTERN_ID
+		AND company.COMPANY_01 = #company01#  AND company.COMPANY_02 = #company02#
+		AND users.user_id = userdp.user_01
+		AND COALESCE(userdp.END_DATE,'99999999') > TO_CHAR(CURRENT_DATE, 'YYYYMMDD')
+	</select>
+	
+	<select id="getCDPIdFromCompany" resultClass="int">
+		SELECT COMPANY_DEALING_PATTERN_ID FROM EON_COMPANY_DEALING_PATTERN
+		WHERE COMPANY_01 = #companyId# AND COMPANY_02 = #userId#
+	</select>
+	
+	<select id="checkIfCDPExist" resultClass="int">
+		SELECT COUNT(*) 
+		FROM EON_COMPANY_DEALING_PATTERN 
+		WHERE COMPANY_01 = #companyId# AND COMPANY_02 = #selectedId#
+	</select>
+	
+	<update id="updateCDPActive">
+		UPDATE EON_COMPANY_DEALING_PATTERN SET ISACTIVE = #isActive#
+		WHERE COMPANY_01 = #companyId# AND COMPANY_02 = #selectedId#
+	</update>
+	
+	<select id="cntCompanynameShortnameForInsert" resultClass="int">
+		SELECT COUNT(*) 
+		FROM EON_COMPANY 
+		WHERE COMPANY_NAME = #companyName# or SHORT_NAME = #shortName#
+	</select>
+	
+	<select id="cntCompanynameShortnameForUpdate" resultClass="int">
+		SELECT COUNT(*) 
+		FROM EON_COMPANY 
+		WHERE COMPANY_ID != #companyId# and
+			(COMPANY_NAME = #companyName# or SHORT_NAME = #shortName#)
+	</select>
+	
+</sqlMap>

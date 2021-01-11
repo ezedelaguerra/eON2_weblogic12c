@@ -1,0 +1,45 @@
+﻿-- create table EON_AUDIT_TRAIL
+CREATE TABLE EON_AUDIT_TRAIL
+(
+  ID              NUMBER(9)               NOT NULL,  
+  USER_ID         NUMBER(9)               NOT NULL,
+  USERNAME        VARCHAR2(32 CHAR)       NOT NULL,
+  PROCESS_ID      NUMBER(9)               NOT NULL,
+  LOG_TYPE        VARCHAR2(16 CHAR)       NOT NULL,
+  IP_ADDRESS      VARCHAR2(15 CHAR),
+  URL_PATH        VARCHAR2(300 CHAR)      NOT NULL,
+  URL_REFERER     VARCHAR2(300 CHAR),
+  USER_AGENT      VARCHAR2(300 CHAR),
+  SYSTEM_DATE     VARCHAR2(30 CHAR)       NOT NULL,
+  DB_DATE         TIMESTAMP(6)            NOT NULL
+)
+TABLESPACE EON_DATA1 LOGGING  
+NOCOMPRESS 
+NOCACHE
+NOPARALLEL
+NOMONITORING;
+
+CREATE SEQUENCE EON_AUDIT_TRAIL_ID_SEQ
+  START WITH 1
+  MAXVALUE 999999999
+  MINVALUE 0
+  NOCYCLE
+  NOCACHE
+  NOORDER;
+  
+  
+CREATE SEQUENCE EON_AUDIT_TRAIL_PROCESS_ID_SEQ
+  START WITH 1
+  MAXVALUE 999999999
+  MINVALUE 0
+  NOCYCLE
+  NOCACHE
+  NOORDER;
+
+-- add auto-publish allocation flag as a user preference
+ALTER TABLE EON_USER_PREF_FLAGS ADD (AUTO_PUBLISH_ALLOC  CHAR(1 BYTE) DEFAULT 0);
+
+-- add Japanese name for external sku id
+update eon_sku_column set sku_column_name_j = '外部連携コード' where sku_column_key = 'externalskuid';
+
+COMMIT;

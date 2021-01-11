@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html style="height:100%" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Login Help</title>
+	<link rel="stylesheet" href="../../css/styles.css" type="text/css">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta name="keywords" content="javascript framework, RIA, SPA, client SOA, linb, jsLinb, RAD, IDE, Web IDE, widgets, javascript OOP, opensource, open-source, Ajax, cross-browser, prototype, web2.0, platform-independent, language-independent" />
+    <meta name="description" content="Web application created by Visual JS, powered by Sigma Visual framework" />
+    <meta name="copyright" content="copyright@www.sigmawidgets.com" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <title>eON Application Multilingual version (Main)</title>
+
+<script type="text/javascript">
+
+	function shortcut() {	
+		var browserName=navigator.appName;
+		if (browserName=="Microsoft Internet Explorer") {
+			document.location.href = "http://localhost:8083/sigma-visual-2.2/VisualJS/projects/login/eON.url"
+		}
+		else {
+			document.location = "http://localhost:8083/sigma-visual-2.2/VisualJS/projects/eON.url"
+		}
+	}
+	
+	function favorite() {
+		url = 'http://localhost:8080/eON';
+		title= 'eON';
+		if (window.sidebar) {
+			window.sidebar.addPanel(title, url,"");
+		}
+		else {
+			window.external.AddFavorite( url, title);
+		}
+	}
+	
+</script>
+</head>
+<body>
+	<br><br>
+	<table align="center">
+		<tr>
+			<td class="font-help">
+				<a href="#" onClick="favorite();"> Add to Favorite </a>
+			</td>
+		</tr>
+		<tr>
+			<td height="30">
+				
+			</td>
+		</tr>
+		<tr>
+			<td class="font-help">
+				<a href="#" onclick="shortcut();"> Shortcut </a>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

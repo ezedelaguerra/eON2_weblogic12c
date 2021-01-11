@@ -1,0 +1,81 @@
+<!-- 
+	Copyright Freshremix Asia Software Corporation
+	
+	date		name		version	changes
+	==============================================
+	20120725	Lele		v11		Redmine 131 - Change of display in address bar of Comments
+-->
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Company">
+	<resultMap
+		id="Company-result"
+		class="Company">
+		<result property="companyId" column="COMPANY_ID" />
+		<result property="companyName" column="COMPANY_NAME" />
+		<result property="shortName" column="SHORT_NAME" />
+		<result property="companyType.companyTypeId" column="COMPANY_TYPE_ID" />
+		<result property="companyType.description" column="DESCRIPTION" />
+		<result property="contactPerson" column="CONTACT_PERSON" />
+		<result property="soxFlag" column="SOX_FLAG" />
+		<result property="address1" column="COMPANY_ADDRESS1" />
+		<result property="address2" column="COMPANY_ADDRESS2" />
+		<result property="address3" column="COMPANY_ADDRESS3" />
+		<result property="telNumber" column="TELEPHONE_NUMBER" />
+		<result property="emailAdd" column="EMAIL_ADDRESS" />
+		<result property="faxNumber" column="FAX_NUMBER" />
+		<result property="comments" column="COMMENTS" />
+	</resultMap>
+	
+	<!-- ENHANCEMENT START 20120725: Lele - Redmine 131 -->
+	<resultMap
+		id="companyIdNameMap"
+		class="Company">
+		<result property="companyId" column="COMPANY_ID" />
+		<result property="companyName" column="COMPANY_NAME" />
+	</resultMap>
+	<!-- ENHANCEMENT END 20120725: -->
+	
+	<select id="getAllCompanies" resultMap="Company-result">
+		SELECT * FROM EON_COMPANY c
+			JOIN EON_COMPANY_TYPE ct ON ct.COMPANY_TYPE_ID = c.COMPANY_TYPE_ID
+	</select>
+	
+	<select id="getCompanyById" resultMap="Company-result">
+		SELECT * FROM EON_COMPANY c
+			JOIN EON_COMPANY_TYPE ct ON ct.COMPANY_TYPE_ID = c.COMPANY_TYPE_ID
+			WHERE c.COMPANY_ID = #companyId#
+	</select>
+	
+	<!--
+	<select id="getCompanyById" resultMap="Company-result">
+		SELECT
+			company.*
+		FROM
+			EON_COMPANY_DEALING_PATTERN dp,
+			EON_COMPANY company
+		WHERE
+			dp.SELECTED_COMPANY_IDS = company.COMPANY_ID AND
+			dp.COMPANY_DEALING_PATTERN_ID = #companyId#
+	</select>
+	-->
+	
+	<insert id="insertCompany" parameterClass="Company">
+		INSERT INTO eon_company 
+		  (COMPANY_ID, COMPANY_NAME, SHORT_NAME, COMPANY_TYPE, CONTACT_PERSON, SOX_FLAG, COMPANY_ADDRESS1, COMPANY_ADDRESS2, COMPANY_ADDRESS3, TELEPHONE_NUMBER, EMAIL_ADDRESS, FAX_NUMBER, COMMENTS) 
+		  	VALUES 
+		  (#companyId#, #companyName#, #shortName#, #companyType#, #contactPerson#, #soxFlag#, #address1#, #address2#, #address3#, #telNumber#, #emailAdd#, #faxNumber#, #comments#)
+       <!-- <selectKey keyProperty="company_id" resultClass="int">
+            SELECT EON_COMPANY_ID_SEQ.currval FROM DUAL
+        </selectKey>
+-->		  
+	</insert>
+	
+	<!-- ENHANCEMENT START 20120725: Lele - Redmine 131 -->
+	<select id="getCompanyList" resultMap="companyIdNameMap">
+		SELECT * FROM EON_COMPANY WHERE COMPANY_ID IN <iterate property="companyId" open="(" close=")" conjunction=",">#companyId[]#</iterate>
+	</select>
+	<!-- ENHANCEMENT END 20120725: -->
+</sqlMap>

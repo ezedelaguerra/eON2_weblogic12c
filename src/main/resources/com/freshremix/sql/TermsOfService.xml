@@ -1,0 +1,62 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="TermsOfService">
+	<resultMap id="TermsOfService-result" class="TermsOfService">
+		<result property="tosId" column="ID" />
+		<result property="version" column="VERSION" />
+		<result property="content" column="CONTENT" jdbcType="CLOB" />
+		<result property="emailList" column="EMAILLIST" />
+		<result property="createdDate" column="CREATEDDATE" />
+		<result property="createdBy" column="CREATEDBY" />
+		<result property="modifiedDate" column="MODIFIEDDATE" />
+		<result property="modifiedBy" column="MODIFIEDBY" />
+	</resultMap>
+
+
+	<select id="getLatestTOS" resultMap="TermsOfService-result">
+		SELECT *
+		FROM EON_TERMS_OF_SERVICE 
+		WHERE CREATEDDATE=(SELECT MAX(CREATEDDATE)
+		                   FROM EON_TERMS_OF_SERVICE)
+	</select>
+
+	<select id="getByPK" resultMap="TermsOfService-result">
+		SELECT *
+		FROM EON_TERMS_OF_SERVICE
+		WHERE ID = #value#
+	</select>
+	<insert id="save" parameterClass="TermsOfService">
+
+		INSERT INTO EON_TERMS_OF_SERVICE 
+		(ID, VERSION, CONTENT, EMAILLIST,
+		CREATEDDATE,CREATEDBY)
+		VALUES
+		(#tosId#, 1, #content#, #emailList#,
+		#createdDate#,
+		#createdBy#)
+		<selectKey keyProperty="tosId" resultClass="java.lang.String"
+			type="pre">
+			SELECT RAWTONHEX(SYS_GUID()) FROM DUAL
+		</selectKey>
+
+	</insert>
+
+	<update id="update" parameterClass="java.util.Map">
+		UPDATE
+		EON_TERMS_OF_SERVICE SET
+		VERSION=#newVersion#,
+		CONTENT=#entity.content#,
+		EMAILLIST=#entity.emailList#,
+		MODIFIEDDATE=#entity.modifiedDate#,
+		MODIFIEDBY=#entity.modifiedBy#
+		WHERE ID=#entity.tosId# AND
+		VERSION=#oldVersion#
+
+	</update>
+	
+		<delete id="deleteAll">
+		DELETE 
+		FROM EON_TERMS_OF_SERVICE
+	</delete>
+</sqlMap>

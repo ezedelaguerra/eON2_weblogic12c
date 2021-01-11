@@ -1,0 +1,31 @@
+===============================================================
+Module/Task: Web Service Production Issue - Duplicate SKUs on Received Sheet
+Date:       Aug. 03, 2011
+Developer:  rhoda
+RevNo       FileName
+1.27		ReceivedSheet.xml
+1.16		ReceivedSheetDao.java
+1.17		ReceivedSheetDaoImpl.java
+1.26		WebServiceImpl.java
+===============================================================
+Module/Task: Redmine #321 - Buyer Admin added SKU should be able to deleted 
+				- from BuyerAdmin/SellerAdmin/Seller 
+Date:       Aug. 05, 2011
+Developer:  rhoda
+RevNo       FileName
+1.41		OrderSheetLoadController.java (buyer)
+1.63		OrderSheetLoadController.java (seller)
+1.77		buyerAdmin_orderTable.jsp
+1.196		sigmaTable.jsp
+
+Date:       Aug. 08, 2011
+Developer:  rhoda
+RevNo       FileName
+1.26		BuyerOrderSheetServiceImpl.java
+1.16		OrderItemDao.java
+1.18		OrderItemDaoImpl.java
+1.112		OrderSheet.xml
+1.42		OrderSheetLoadController.java (buyer)
+1.77		buyerAdmin_orderTable.jsp
+1.68		buyer_orderTable.jsp
+===============================================================

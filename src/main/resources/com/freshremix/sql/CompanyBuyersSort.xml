@@ -1,0 +1,163 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="CompanyBuyersSort">
+	<resultMap
+		id="companySort"
+		class="com.freshremix.model.CompanySort">
+		<result property="user.userId" column="USER_ID" />
+		<result property="company.companyId" column="ID" />
+		<result property="company.companyName" column="NAME" />
+		<result property="sorting" column="SORTING" />
+	</resultMap>
+	<resultMap
+		id="buyersSort"
+		class="com.freshremix.model.BuyersSort">
+		<result property="user.userId" column="USER_ID" />
+		<result property="buyer.userId" column="ID" />
+		<result property="buyer.name" column="NAME" />
+		<result property="buyer.company.companyId" column="COMPANY_ID" />
+		<result property="sorting" column="SORTING" />
+	</resultMap>
+	
+	<resultMap
+		id="filterIds"
+		class="com.freshremix.ui.model.FilteredIDs">
+		<result property="id" column="ID" />
+		<result property="caption" column="NAME" />
+	</resultMap>
+	
+	<select id="getSortedCompanyForUserPref" parameterClass="java.util.Map" resultMap="companySort">
+		SELECT compsort.USER_ID, company.ID, company.NAME, compsort.SORTING 
+		FROM
+		    (SELECT DISTINCT E.COMPANY_ID AS ID, E.COMPANY_NAME AS NAME
+		    FROM EON_USER_DEALING_PATTERN B JOIN EON_USERS D ON B.USER_02 = D.USER_ID
+		        JOIN EON_COMPANY E ON D.COMPANY_ID = E.COMPANY_ID
+		    WHERE B.USER_01 IN <iterate property="sellerIds" open="(" close=")" conjunction=","> #sellerIds[]# </iterate>
+<!--		        AND ((COALESCE(B.START_DATE, '00000000') &lt;= #dateFrom# or COALESCE(B.START_DATE, '00000000') &lt;= #dateTo#) -->
+<!--		                and (COALESCE(B.END_DATE, '99999999') &gt;= #dateFrom# or COALESCE(B.END_DATE, '99999999') &gt;=  #dateTo#))-->
+		    ) company
+		    LEFT JOIN
+		    (SELECT ESC.USER_ID, C.COMPANY_ID AS ID, C.COMPANY_NAME AS NAME, ESC.SORTING
+		    FROM EON_SORT_COMPANY_BUYERS ESC JOIN EON_COMPANY C ON ESC.COMPANY_ID = C.COMPANY_ID
+		    WHERE ESC.USER_ID = #userId#
+		    ) compsort  
+		    ON
+		    company.ID = compsort.ID
+		ORDER BY compsort.SORTING, company.NAME 
+	</select>
+		
+	<insert id="insertSortCompany" parameterClass="com.freshremix.model.CompanySort">
+		INSERT INTO
+			EON_SORT_COMPANY_BUYERS (USER_ID, COMPANY_ID, SORTING)
+		VALUES
+			(#user.userId#, #company.companyId#, #sorting#)
+	</insert>
+	
+	<delete id="deleteSortCompany" parameterClass="java.lang.Integer">
+		DELETE FROM
+			EON_SORT_COMPANY_BUYERS
+		WHERE
+			USER_ID = #userId#
+	</delete>
+	
+	<select id="getSortedBuyersForUserPref" parameterClass="java.util.Map" resultMap="buyersSort">
+		SELECT buysort.USER_ID, buyers.ID, buyers.NAME, buyers.COMPANY_ID, buysort.SORTING
+		
+		FROM
+		    (SELECT DISTINCT D.USER_ID AS ID, D.NAME AS NAME, D.COMPANY_ID 
+		        FROM EON_USER_DEALING_PATTERN B JOIN EON_USERS D ON B.USER_02 = D.USER_ID
+		        WHERE B.USER_01 IN <iterate property="sellerIds" open="(" close=")" conjunction=","> #sellerIds[]# </iterate>
+		            AND D.COMPANY_ID = #companyId#
+<!--		            AND ((COALESCE(B.START_DATE, '00000000') &lt;= #dateFrom# or COALESCE(B.START_DATE, '00000000') &lt;= #dateTo#) -->
+<!--		                    and (COALESCE(B.END_DATE, '99999999') &gt;= #dateFrom# or COALESCE(B.END_DATE, '99999999') &gt;=  #dateTo#))-->
+		    ) buyers
+		    LEFT JOIN
+		    (SELECT ESB.USER_ID, EU.USER_ID AS ID, EU.NAME AS NAME, ESB.SORTING
+		        FROM EON_SORT_BUYERS ESB JOIN EON_USERS EU ON ESB.BUYER_ID = EU.USER_ID
+		        WHERE ESB.USER_ID = #userId#
+            		AND EU.COMPANY_ID = #companyId#
+		    ) buysort  
+		    ON
+		    buyers.ID = buysort.ID
+		ORDER BY buysort.SORTING, buyers.NAME 
+	</select>
+	
+	<select id="getSortedMembersByBuyerAdminId" parameterClass="java.lang.Integer" resultMap="buyersSort">
+		SELECT buysort.USER_ID, buyers.ID, buyers.NAME, buysort.COMPANY_ID, buysort.SORTING
+		
+		FROM
+		    (SELECT DISTINCT D.USER_ID AS ID, D.NAME AS NAME 
+				FROM EON_ADMIN_MEMBER B JOIN EON_USERS D ON B.MEMBER_ID = D.USER_ID
+				WHERE B.ADMIN_ID = #userId#
+					AND B.DEALING_PATTERN_RELATION_ID = 10002
+			) buyers
+		    LEFT JOIN
+		    (SELECT ESB.USER_ID, EU.USER_ID AS ID, EU.NAME AS NAME, EU.COMPANY_ID, ESB.SORTING
+		        FROM EON_SORT_BUYERS ESB JOIN EON_USERS EU ON ESB.BUYER_ID = EU.USER_ID
+		        WHERE ESB.USER_ID = #userId#
+		    ) buysort  
+		    ON
+		    buyers.ID = buysort.ID
+		ORDER BY buysort.SORTING, buyers.NAME 
+	</select>	
+		
+	<insert id="insertSortBuyers" parameterClass="com.freshremix.model.BuyersSort">
+		INSERT INTO
+			EON_SORT_BUYERS (USER_ID, BUYER_ID, SORTING)
+		VALUES
+			(#user.userId#, #buyer.userId#, #sorting#)
+	</insert>
+	
+	<delete id="deleteSortBuyers" parameterClass="com.freshremix.model.BuyersSort">
+		DELETE FROM
+			EON_SORT_BUYERS
+		WHERE
+			USER_ID = #user.userId#
+			AND BUYER_ID = #buyer.userId#
+	</delete>
+
+	<select id="getSortedCompany" parameterClass="java.lang.Integer" resultMap="filterIds">
+		SELECT C.COMPANY_ID AS ID, C.COMPANY_NAME AS NAME
+	    FROM EON_SORT_COMPANY_BUYERS ESC JOIN EON_COMPANY C ON ESC.COMPANY_ID = C.COMPANY_ID
+	    WHERE ESC.USER_ID = #userId#
+	    ORDER BY ESC.SORTING
+	</select>	
+
+	<select id="getSortedBuyers" parameterClass="java.lang.Integer" resultMap="filterIds">
+	Select BUYER_ID ID, BUYER_NAME NAME
+	from
+	( 
+     SELECT DISTINCT dealpattern.COMPANY_ID, dealpattern.COMPANY_NAME, sortcompany.COMPANY_SORTING, 
+            dealpattern.BUYER_ID, dealpattern.BUYER_NAME, sortbuyer.BUYER_SORTING 
+      FROM
+          (SELECT DISTINCT EC.COMPANY_ID, EC.COMPANY_NAME, DP.USER_02 AS BUYER_ID, D.NAME BUYER_NAME
+          FROM EON_USER_DEALING_PATTERN DP JOIN EON_USERS D ON DP.USER_02 = D.USER_ID
+              JOIN EON_COMPANY EC ON D.COMPANY_ID = EC.COMPANY_ID
+          WHERE
+          	DP.USER_01 = #userId# OR
+          	DP.USER_01 IN ( select adm.MEMBER_ID from EON_ADMIN_MEMBER adm where adm.ADMIN_ID = #userId#)
+          ) dealpattern
+          
+          LEFT JOIN
+          
+          (SELECT DISTINCT ESC.COMPANY_ID,  ESC.SORTING COMPANY_SORTING
+          FROM EON_SORT_COMPANY_BUYERS ESC
+          WHERE ESC.USER_ID = #userId#
+          ) sortcompany
+          ON
+         dealpattern.COMPANY_ID = sortcompany.COMPANY_ID
+          
+          LEFT JOIN
+          
+          (SELECT DISTINCT ESB.BUYER_ID, ESB.SORTING BUYER_SORTING
+          FROM EON_SORT_BUYERS ESB
+          WHERE ESB.USER_ID = #userId#
+          ) sortbuyer 
+          ON
+         dealpattern.BUYER_ID = sortbuyer.BUYER_ID    
+     ORDER BY sortcompany.COMPANY_SORTING, dealpattern.COMPANY_NAME, sortbuyer.BUYER_SORTING, dealpattern.BUYER_NAME
+	) 
+	</select>	
+
+</sqlMap>

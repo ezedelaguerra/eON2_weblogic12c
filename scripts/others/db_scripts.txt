@@ -1,0 +1,183 @@
+select     username oruser
+   ,osuser osuser
+   ,decode(substr(machine,1,7),'TENFOLD',substr(machine,9),machine) computer
+   ,''''||s.sid||','||s.serial#||'''' ss
+   ,status
+   ,process
+   ,to_char(s.logon_time,'yyyy/mm/dd hh24:mi:ss') time
+   ,program, SID, SERIAL#
+from       gv$session s
+where username = 'EON01'
+order by time
+
+
+select username oruser,osuser osuser, SID, SERIAL# from gv$session s where username = 'EON01'
+ALTER SYSTEM KILL SESSION '244,55722'
+ALTER SYSTEM KILL SESSION '263,37380'
+
+
+
+-- to see existing users
+SELECT distinct(Owner) FROM DBA_TABLES WHERE Tablespace_Name = 'USERS';
+
+
+
+==============================================================
+=====                   OLDEON                            ====
+==============================================================
+sqlplus sys/system@eondev2 as sysdba
+
+DROP USER oldeon CASCADE;
+
+create user oldeon identified by oldeon;
+grant connect,resource, dba to oldeon identified by oldeon;
+alter user oldeon default tablespace users;
+alter user oldeon temporary tablespace temp;
+
+Command Prompt:
+time /t
+imp oldeon/oldeon@eondev2 statistics=none file=EON20110902.dmp log=EON20110902.dmp.log fromuser=eon01 touser=oldeon grants=y indexes=y rows=y commit=n buffer=64000
+time /t
+
+sqlplus sys/system@eondev2 as sysdba
+exec dbms_stats.gather_schema_stats('OLDEON');
+==============================================================
+
+
+
+
+
+
+==============================================================
+=====                   EON01                             ====
+==============================================================
+
+sqlplus sys/system@eondev2 as sysdba
+DROP USER eon01 CASCADE;
+
+create user eon01 identified by eon01;
+grant connect,resource, dba to eon01 identified by eon01;
+alter user eon01 default tablespace users;
+alter user eon01 temporary tablespace temp;
+
+Command Prompt:
+time /t
+imp eon01/eon01@eondev2 statistics=none file=EON2Thu062011.dmp log=EON2Thu062011.dmp.log fromuser=eon01 touser=eon01 grants=y indexes=y rows=y commit=n buffer=64000
+time /t
+
+sqlplus sys/system@eondev2 as sysdba
+exec DBMS_STATS.GATHER_SCHEMA_STATS('EON01');
+exit
+sqlplus eon01/eon01@eondev2
+@C:\reeng\change_passwords.sql
+==============================================================
+
+
+
+
+==============================================================
+=====                   EON02                             ====
+==============================================================
+
+sqlplus sys/system@eondev2 as sysdba
+DROP USER eon02 CASCADE;
+
+create user eon02 identified by eon02;
+grant connect,resource, dba to eon02 identified by eon02;
+alter user eon02 default tablespace users;
+alter user eon02 temporary tablespace temp;
+
+Command Prompt:
+time /t
+imp eon02/eon02@eondev2 statistics=none file=EON2Thu062011.dmp log=EON2Thu062011.dmp.log fromuser=eon01 touser=eon02 grants=y indexes=y rows=y commit=n buffer=64000
+time /t
+
+sqlplus sys/system@eondev2 as sysdba
+exec DBMS_STATS.GATHER_SCHEMA_STATS('EON02');
+exit
+sqlplus eon02/eon02@eondev2
+@C:\reeng\change_passwords.sql
+
+==============================================================
+
+
+
+==============================================================
+=====                   EON03                             ====
+==============================================================
+
+sqlplus sys/system@eondev2 as sysdba
+DROP USER eon03 CASCADE;
+
+create user eon03 identified by eon03;
+grant connect,resource, dba to eon03 identified by eon03;
+alter user eon03 default tablespace users;
+alter user eon03 temporary tablespace temp;
+
+Command Prompt:
+time /t
+imp eon03/eon03@eondev2 statistics=none file=EON2Thu062011.dmp  log=EON2Thu062011.dmp.log fromuser=eon01 touser=eon03 grants=y indexes=y rows=y commit=n buffer=64000
+time /t
+
+sqlplus sys/system@eondev2 as sysdba
+exec DBMS_STATS.GATHER_SCHEMA_STATS('EON03');
+exit
+sqlplus eon03/eon03@eondev2
+@C:\reeng\change_passwords.sql
+==============================================================
+
+
+
+
+
+
+
+==============================================================
+=====                   EON04                             ====
+==============================================================
+
+sqlplus sys/system@eondev2 as sysdba
+DROP USER eon04 CASCADE;
+
+create user eon04 identified by eon04;
+grant connect,resource, dba to eon04 identified by eon04;
+alter user eon04 default tablespace users;
+alter user eon04 temporary tablespace temp;
+
+Command Prompt:
+time /t
+imp eon04/eon04@eondev2 statistics=none file=EON2Thu062011.dmp log=EON2Thu062011.eon04.log fromuser=eon01 touser=eon04 grants=y indexes=y rows=y commit=n buffer=64000
+time /t
+
+sqlplus sys/system@eondev2 as sysdba
+exec DBMS_STATS.GATHER_SCHEMA_STATS('EON04');
+exit
+sqlplus eon04/eon04@eondev2
+@C:\reeng\change_passwords.sql
+==============================================================
+
+
+
+==============================================================
+=====                   EONPRD                             ====
+==============================================================
+
+sqlplus sys/system@eondev2 as sysdba
+DROP USER eonprd CASCADE;
+
+create user eonprd identified by eonprd;
+grant connect,resource, dba to eonprd identified by eonprd;
+alter user eonprd default tablespace users;
+alter user eonprd temporary tablespace temp;
+
+Command Prompt:
+time /t
+imp eonprd/eonprd@eondev2 statistics=none file=EON2Wed262011.dmp log=EON2Wed262011.dmp.log fromuser=eon01 touser=eonprd grants=y indexes=y rows=y commit=n buffer=64000
+time /t
+
+sqlplus sys/system@eondev2 as sysdba
+exec DBMS_STATS.GATHER_SCHEMA_STATS('EONPRD');
+exit
+sqlplus eonprd/eonprd@eondev2
+@C:\reeng\change_passwords.sql
+==============================================================

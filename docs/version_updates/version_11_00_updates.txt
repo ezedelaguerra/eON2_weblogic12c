@@ -1,0 +1,133 @@
+Module/Task: Redmine 851
+Date:       July 24, 2012
+Developer:  Lele
+RevNo       FileName
+1.103		buyer_orderTable.jsp
+1.87		buyer_receivedTable.jsp
+1.118		buyerAdmin_orderTable.jsp
+1.118		allocationTable.jsp
+1.236		sigmaTable.jsp
+=======================================================
+Module/Task: Redmine 420
+Date:       July 24, 2012
+Developer:  Lele
+RevNo       FileName
+1.42		gt_grid_all.js
+1.106		buyer_orderTable.jsp
+1.89		buyer_receivedTable.jsp
+1.124		buyerAdmin_orderTable.jsp
+1.125		allocationTable.jsp
+1.242		sigmaTable.jsp
+=======================================================
+Module/Task: Redmine 797
+Date:       July 24, 2012
+Developer:  Lele
+1.8			CategoryDao.java
+1.9			CategoryDaoImpl.java
+1.22		AllocationSheetService.java
+1.12		CategoryService.java
+1.63		OrderSheetService.java
+1.52		AllocationSheetServiceImpl.java
+1.13		CategoryServiceImpl.java
+1.133		OrderSheetServiceImpl.java
+1.7			Category.xml
+1.14		AllocationSheetController.java
+1.26		OrderSheetController.java (buyer)
+1.55		OrderSheetController.java (seller)
+=======================================================
+Module/Task: Redmine 286
+Date:       July 26, 2012
+Developer:  jovsab
+1.41		seller/admin_filter.js
+1.59		seller/filter.js
+1.33		buyer/filter.js
+1.35		buyer/admin_filter.js
+1.0			DateFromServerController.java
+1.97		dispatcher-json-servlet.xml
+=======================================================
+Module/Task: Redmine 879/910 - Order sheet: Error message is displayed upon selecting future dates after adding new dealing pattern to seller
+Date:       July 25, 2012
+Developer:  Lele
+1.140		OrderSheet.xml
+=======================================================
+Module/Task: Redmine 864,77
+Date:       July 26, 2012
+Developer:  jovsab
+1.0			2012_Version_11_00.sql
+=======================================================
+Module/Task: Redmine 77 - REMOVED!!!! (request by Ken)
+Date:       July 26, 2012
+Developer:  Lele
+1.4			2012_Version_11_00.sql
+=======================================================
+Module/Task: Redmine 131 - Change of display in address bar of Comments
+Date:       July 26, 2012
+Developer:  Lele
+1.6			UserFetcher1Impl.java
+1.5			UserFetcher2Impl.java
+1.6			UserFetcher3Impl.java
+1.5			UserFetcher4Impl.java
+1.10		CompanyInformationDao.java
+1.15		DealingPatternDao.java
+1.13		CompanyInformationDaoImpl.java
+1.17		DealingPatternDaoImpl.java
+1.0			MailDetails.java
+1.9			CommentsService.java
+1.18		DealingPatternService.java
+1.12		CommentsServiceImpl.java
+1.19		DealingPatternServiceImpl.java
+1.8			Company.xml
+1.30		DealingPattern.xml
+1.23		User.xml
+1.3			EmailFilter.java
+1.6			SendEmailController.java
+1.27		comments.js
+1.18		mail_viewer.js
+1.9			search_recipients.js
+=======================================================
+Module/Task: Redmine 102 - Enable the seller admin to have the only quantity display in the user preference menu
+Date:       Aug 06, 2012
+Developer:  jovs
+1.0			2012_Version_11_00.sql
+1.37		menuItems_util.js
+=======================================================
+Module/Task: Redmine 882 - Set the selected date dealing pattern value into expiry date
+Date:       Aug 06, 2012
+Developer:  jovs
+1.0			2012_Version_11_00.sql
+1.98		company.js
+=======================================================
+Module/Task: Redmine 908 - Reset to zero index the value of group name once the column of seller name change
+Date:       Aug 06, 2012
+Developer:  jovs
+1.0			2012_Version_11_00.sql
+1.120		buyerAdmin_orderTable.jsp
+1.238		sigmaTable.jsp
+1.120		allocationTable.jsp
+=======================================================
+Module/Task: Redmine 68 - Order Sheet Concurrency
+Date:       Aug 06, 2012
+Developer:  Rhoda
+1.11		AllocationSheetUpdateController.java
+1.9			ConcurrencyUtil.java
+1.3			OrderConstants.java
+1.10		OrderSheetLockUnlockController.java
+1.14		OrderSheetUpdateController.java
+1.10		ReceivedSheetLockUnlockController.java
+1.125		buyerAdmin_orderTable.jsp
+1.107		buyer_orderTable.jsp
+1.90		buyer_ordersheet.js
+1.87		en.js
+1.99		ja.js
+1.3			ConcurrencyResponse.java
+=======================================================
+Module/Task: Redmine 354 - Unfinalize Order and Finalize Alloc concurrency
+Date:       Aug 06, 2012
+Developer:  Rhoda
+1.12		AllocationSheetFinalizeController.java
+1.11		ConcurrencyUtil.java
+1.20		OrderSheetUnfinalizeController.java
+1.127		allocationTable.jsp
+1.117		order_sheet.js
+1.240		sigmaTable.jsp
+1.78		allocation_sheet.js

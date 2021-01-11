@@ -1,0 +1,21 @@
+===============================================================
+Module/Task: Redmine #321 - Buyer Admin added SKU should be able to deleted 
+				- from BuyerAdmin/SellerAdmin/Seller 
+
+Date:       Aug. 17, 2011
+Developer:  rhoda
+RevNo       FileName
+1.17		OrderItemDao.java
+1.19		OrderItemDaoImpl.java
+1.120		OrderSheetServiceImpl.java
+1.28		WebServiceImpl.java
+===============================================================
+Date:		Aug 17, 2011
+Developer:	Lele
+RevNo		FileName
+1.5			UserFetcher1Impl.java
+1.4			UserFetcher2Impl.java
+1.5			UserFetcher3Impl.java
+1.4			UserFetcher4Impl.java
+1.25		UserDao.java
+1.30		UserDaoImpl.java

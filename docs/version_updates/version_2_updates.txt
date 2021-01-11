@@ -1,0 +1,953 @@
+===============================================================
+Module/Task: Publish Indicator for Seller & Seller Admin Order Sheet
+Date:       November 23, 2010 / December 02, 2010
+Developer:  Ogie
+RevNo       FileName
+1.7         User.java
+1.4         label_en.properties
+1.4         label_ja.properties
+1.1         MessageUtil.java
+1.39-1.42   OrderSheetUtil.java
+1.1         SpringContext.java
+1.44        applicationContext.xml
+1.51        (ordersheet)OrderSheetController.java
+1.97        order_sheet.js
+1.178-1.179 sigmaTable.jsp
+1.10        styles.css
+1.1-1.2     published.gif
+
+Changed method parameters
+1.9         AllocationSheetController.java
+1.10        BillingSheetController.java
+1.9         BuyerBillingSheetController.java
+1.19        (buyerordersheet)OrderSheetController.java
+1.14        ReceivedSheetController.java
+
+===============================================================
+Module/Task: Email Alerts - Error Handling
+Date:       November 23, 2010
+Developer:  Ogie
+RevNo       FileName
+1.3         ExceptionReportHandler.java
+===============================================================
+Module/Task: Weekly Publish & Finalize & Save 
+			- Seller/Seller Admin Order Sheeet
+Date:       November 24, 2010
+Developer:  Rhoda
+RevNo       FileName
+1.55        OrderSheetLoadController.java
+1.14		OrderSheetPublishController.java
+1.18		OrderSheetFinalizeController.java
+1.97		OrderSheetServiceImpl.java
+
+Module/Task: eONv2_Bug_0001, eONv2_Bug_0002, eONv2_Bug_0004, eONv2_Bug_0006
+Date:       December 07, 2010
+Developer:  Rhoda
+RevNo       FileName
+1.58        OrderSheetLoadController.java
+1.51		OrderSheetService.java
+1.102		OrderSheetServiceImpl.java
+1.186       sigmaTable.jsp
+
+Module/Task: eONv2_Bug_0010, eONv2_Bug_0011
+Date:       December 14, 2010
+Developer:  Rhoda
+RevNo       FileName
+1.59        OrderSheetLoadController.java
+1.103		OrderSheetServiceImpl.java
+===============================================================
+Module/Task: Yen sign(¥) for All Sheets
+Date:       November 25, 2010
+Developer:  Ogie
+RevNo       FileName
+1.33        buyer_billing.js
+1.69        buyer_ordersheet.js
+1.49        received_sheet.js
+1.67        akadensheet.js
+1.63        allocation_sheet.js
+1.51        billing_sheet.js
+1.98        order_sheet.js
+1.31        util.js
+1.8         User.java
+===============================================================
+Module/Task: Unsaved data and user change the screen, prompt an alert message
+Date:       November 25, 2010
+Developer:  Ogie
+RevNo       FileName
+1.30        header.js
+1.31        util.js
+1.36        buyer_menu.js
+1.70        buyer_ordersheet.js
+1.50        received_sheet.js
+1.68        akadensheet.js
+1.64        allocation_sheet.js
+1.52        billing_sheet.js
+1.99        order_sheet.js
+1.58        menu.js
+1.55        en.js
+1.65        ja.js
+
+Module/Task: eONv2_Bug_0007
+Date:       December 03, 2010
+Developer:  Ogie
+RevNo       FileName
+1.25        gt_grid_all.js
+1.32        util.js
+===============================================================
+Module/Task: Auto-Publish Allocation Sheet
+Date:       November 26, 2010
+Developer:  Rhoda
+RevNo       FileName
+1.56        en.js
+1.66        ja.js
+1.31        menuItems_util.js
+1.2 		SaveUserPreferences.java
+1.30		index.js
+1.19		OrderSheetFinalizeController.java
+
+Module/Task: Used proper naming for Auto-Publish alloc
+			eONv2_Bug_0003			
+Date:       December 07, 2010
+Developer:  Ogie
+RevNo       FileName
+1.1         2010_Version_02.sql
+1.2         EONUserPreference.java
+1.9         User.java
+1.18        Login.xml
+1.2         UserPreference.xml
+1.6         LoginSubmitController.java
+1.3         SaveUserPreferences.java
+1.31        header.js
+1.32        menuItems_util.js
+1.59        menu.js (seller)
+1.46-1.47   index.jsp (seller)
+1.61        en.js
+1.72        ja.js
+
+Module/Task: eONv2_Bug_0003			
+Date:       December 08, 2010
+Developer:  Ogie
+RevNo       FileName
+1.61        menu.js (seller)
+
+Module/Task: SellerAdmin auto-publish
+             eONv2_Bug_0004			
+Date:       December 08, 2010
+Developer:  Ogie
+RevNo       FileName
+1.15        AllocationSheetService.java
+1.30        AllocationSheetServiceImpl.java
+1.20-1.22   OrderSheetFinalizeController.java (Dec. 09)
+===============================================================
+Module/Task: Webservice - Resturcture WSDL
+Date:       November 26, 2010
+Developer:  Ogie
+RevNo       FileName
+1.2         OldFreshRemixService.java
+1.2         FreshRemixServiceEndpoint.java
+1.2         OldFreshRemixServiceEndpoint.java
+
+Module/Task: Webservice - Resturcture WSDL
+Date:       December 09, 2010
+Developer:  Ogie
+RevNo       FileName
+1.3         OldFreshRemixService.java
+1.3         OldFreshRemixServiceEndpoint.java
+
+Module/Task: Webservice - Resturcture WSDL
+Date:       December 14, 2010
+Developer:  Ogie
+RevNo       FileName
+1.4         OldFreshRemixService.java
+1.4         OldFreshRemixServiceEndpoint.java
+1.2         FreshRemixServiveValidator.java
+===============================================================
+Module/Task: Unpublish S/SA OrderSheet not allowed if has order quantities
+Date:       November 30, 2010
+Developer:  Ogie
+RevNo       FileName
+1.28        OrderSheetDao.java
+1.32        OrderSheetDaoImpl.java
+1.51        OrderSheetService.java
+1.98        OrderSheetServiceImpl.java
+1.97        OrderSheet.xml
+1.13        OrderSheetUnpublishController.java
+1.57        en.js
+1.67        ja.js
+1.180       sigmaTable.jsp
+
+Module/Task: eONv2_Bug_0012
+Date:       December 14, 2010
+Developer:  Rhoda
+RevNo       FileName
+1.185       sigmaTable.jsp
+
+Module/Task: eONv2_Bug_0015
+Date:       December 16, 2010
+Developer:  Ogie
+RevNo       FileName
+Changed Integer to BigDecimal to include decimal values
+1.29        OrderSheetDao.java
+1.33        OrderSheetDaoImpl.java
+1.53        OrderSheetService.java
+1.104       OrderSheetServiceImpl.java
+1.98        OrderSheet.xml
+1.14        OrderSheetUnpublishController.java
+===============================================================
+Module/Task: Added delay on Delete Checkbox 
+Date:       December 1, 2010
+Developer:  Ogie
+RevNo       FileName
+1.181       sigmaTable.jsp
+1.80        allocationTable.jsp
+1.56        billingTable.jsp
+1.54        akadenGrid.jsp
+1.30        akadenImportAllocGrid.jsp
+1.65        buyerAdmin_orderTable.jsp
+===============================================================
+Module/Task: Japanese Text(except remove SHEET menu on homepage, 
+				Add SKU button text
+		 		and Download CSV - Sheet Type data in Japanese)
+Date:       December 03, 2010
+Developer:  Rhoda
+RevNo       FileName
+1.55        akadenGrid.jsp
+1.31        akadenImportAllocGrid.jsp
+1.69        akadensheet.js
+1.81        allocationTable.jsp
+1.65        allocation_sheet.js
+1.57        billingTable.jsp
+1.53        billing_sheet.js
+1.66        buyerAdmin_orderTable.jsp
+1.34        buyer_billing.js
+1.27        buyer_billingTable.jsp
+1.59        buyer_orderTable.jsp
+1.71        buyer_ordersheet.js
+1.47        buyer_recdeivedTable.jsp
+1.6         confirm_ja.properties
+1.5         downloadcsv-min.js
+1.27        downloadcsv.js
+1.5         downloadcsv_admin-min.js
+1.12        downloadcsv_admin.js
+1.60        en.js
+1.17		error_ja.properties
+1.19		gt_msg_ja.js
+1.71        ja.js
+1.15		mail_viewer.js
+1.101        order_sheet.js
+1.52        received_sheet.js
+1.182       sigmaTable.jsp
+1.15		unitoforder.js
+
+Module/Task: ADMIN - Company Maintenance
+             eONv2_Bug_0009			
+Date:       December 13, 2010
+Developer:  Rhoda
+1.8			AdminAllUsersController.java
+1.76		ja.jsp
+1.63        en.js
+1.9			CompanyInformationController
+1.6         label_en.properties
+1.5         label_ja.properties
+1.2         MessageUtil.java
+
+Module/Task: Email Alert Section Japanese text
+             eONv2_Bug_0013			
+Date:       December 15, 2010
+Developer:  Rhoda
+1.75		ja.jsp
+===============================================================
+Module/Task: Japanese Text - Add SKU button text
+Date:       December 06, 2010
+Developer:  Rhoda
+RevNo       FileName
+1.70        ja.js
+1.101       order_sheet.js
+1.66        allocation_sheet.js
+1.54        billing_sheet.js
+1.72        buyer_ordersheet.js
+===============================================================
+Module/Task: Japanese Text - Removed Sheet on Homepage
+Date:       December 08, 2010
+Developer:  Rhoda
+RevNo       FileName
+1.37        buyer_menu.js
+1.22        comments.js
+1.31        index.js(seller)
+1.22        index.js(buyer)
+1.28		index.jsp
+1.60		menu.js
+1.33		menuItems_util.js
+1.11		user_preference.js(buyer)
+1.9			user_preference.js(seller)
+===============================================================
+Module/Task: Japanese Text - Sheet Type and Category on Download CSV
+Date:       December 08, 2010
+Developer:  Rhoda
+RevNo       FileName
+1.29        downloadcsv.js
+1.14        downloadcsv_admin.js
+1.73		ja.jsp
+1.11		DownloadCSVParamsController.java
+===============================================================
+Module/Task: Added version number on login.jsp
+Date:       December 09, 2010
+Developer:  Ogie
+RevNo       FileName
+1.26        login.jsp
+1.31        web.xml
+===============================================================
+Module/Task: Multi-language auto-detect based on 
+             browser language settings (en/ja only)
+Date:       December 14, 2010
+Developer:  Ogie
+RevNo       FileName
+1.15        index.jsp (admin)
+1.29        index.jsp (buyer)
+1.48        index.jsp (seller)
+===============================================================
+Module/Task: Bugfix for Null Pointer Exception
+			- OrderUnitController.java 60
+Date:       December 17, 2010
+Developer:  Rhoda
+RevNo       FileName
+1.3       	OrderUnitController.java(seller order)
+1.2        	OrderUnitController.java(seller allocation)
+1.2			OrderUnitController.java(seller billing)
+1.82		allocationTable.jsp
+1.58		billingTable.jsp
+
+Date:       March 10, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.67		buyerAdmin_orderTable.jsp
+===============================================================
+Module/Task: Bugfix for eONv2_Bug_0018 Null Pointer Exception
+			- AkadenSaveImpotedAllocController.java:113
+Date:       December 20, 2010
+Developer:  Rhoda
+RevNo       FileName
+1.5       	AkadenSaveImpotedAllocController.java
+1.55        akadenGrid.jsp	
+===============================================================
+Module/Task: Bugfix for eONv2_Bug_0017
+Date:       December 22, 2010
+Developer:  Rhoda
+RevNo       FileName
+1.8       	AllocationSheetPublishController.java	
+===============================================================
+Module/Task: Bugfix for eONv2_Bug_0019
+Date:       December 22, 2010
+Developer:  Rhoda
+RevNo       FileName
+1.13       	LoginInquiryController.java
+===============================================================
+Module/Task: t50 - Uneditable Receive Sheet, disable quantity and save button
+Date:       December 22, 2010
+Developer:  Rhoda
+RevNo       FileName
+1.48       	buyer_receivedTable.jsp
+
+Reverted
+Date:       January 6, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.49       	buyer_receivedTable.jsp
+===============================================================
+Module/Task: found bug by Dev on Allocation dates view, 
+				buyer with approved/locked/finalize receive sheet is editable.
+Date:       December 22, 2010
+Developer:  Rhoda
+RevNo       FileName
+1.30       	AllocationSheetLoadController.java
+===============================================================
+Module/Task: eONv2_Bug_0016-old  
+			Fish tab: total price without tax appears with 1 decimal place 
+Date:       December 23, 2010
+Developer:  Rhoda
+RevNo       FileName
+1.70       	akadensheet.js
+1.67       	allocation_sheet.js
+1.56       	billing_sheet.js
+1.35		buyer_billing.js
+1.73		buyer_ordersheet.js
+1.103		order_sheet.js
+1.52		received_sheet.js
+===============================================================
+Module/Task: eONv2_Bug_0022  
+			User Details: alert message always appear and there is an error on page 
+Date:       January 4, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.20       	userDetails.js
+===============================================================
+Module/Task: eONv2 Bug 0023 
+			Buyer Admin: On Filter page, there is an offset blue background on the radio buttons. 
+Date:       January 6, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.26       	admin_filter.js(Buyer)
+===============================================================
+Module/Task: Web Service
+			Created new Service for webservice module. 
+Date:       January 12, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.00       	WebService.java
+1.00       	WebServiceImpl.java
+1.44		applicationContext.xml
+
+Date:       February 04, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.3			FreshRemixServiceAdapter.java
+1.43		OrderSheetUtil.java
+1.2       	WebService.java
+1.2       	WebServiceImpl.java
+1.2			WebServiceUtil.java
+1.2			WebServiceValidator.java
+1.46		applicationContext.xml
+
+Date:       February 14, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.2			FreshRemixService.java
+1.4			FreshRemixServiceAdapter.java
+1.3			FreshRemixServiceEndpoint.java
+1.3			FreshRemixServiceValidator.java
+1.5			OldFreshRemixService.java
+1.5			OldFreshRemixServiceEndpoint.java
+1.3			WebService.java
+1.3			WebServiceImpl.java
+
+Date:       February 15, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.3			FreshRemixService.java (Revert 1.1)
+1.4			FreshRemixServiceEndpoint.java (Revert 1.2)
+1.4			FreshRemixServiceValidator.java (Revert 1.2)
+
+Code Reviewed
+Date:       February 16, 2011
+Developer:  Ogie
+RevNo       FileName
+1.3         WebServiceConstants.java
+1.2         EONWebServiceResponse.java
+1.4         WebServiceImpl.java
+1.5         FreshRemixServiceAdapter.java
+1.6         OldFreshRemixServiceEndpoint.java
+1.3         WebServiceValidator.java
+
+Date:       February 18, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.6         FreshRemixServiceAdapter.java
+
+Added mapping messages in error_ja.properties
+Date:       February 24, 2011
+Developer:  Ogie
+RevNo       FileName
+1.18        error_ja.properties
+==============================================================
+Module/Task: Webservice refactor
+Date:       January 21, 2010
+Developer:  Ogie
+RevNo       FileName
+1.1         WebServiceValidator.java
+1.2         FreshRemixServiceAdapter.java
+1.2         WebServiceConstants.java
+1.15        error_en.properties
+
+===============================================================
+Module/Task: Update db scripts
+Date:       January 31, 2011
+Developer:  Ogie
+RevNo       FileName
+1.2         2010_Version_02.sql
+
+Module/Task: [Sku Sorting] External sku id when used in sorting
+Date:       February 22, 2011
+Developer:  Ogie
+RevNo       FileName
+1.3-1.5     2010_Version_02.sql
+===============================================================
+Module/Task: UAT Bugfix - new inserted items should appear on
+				future dates (weekly finalize scenario)
+Date:       Feb. 01, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.12		OrderItemDao.java
+1.13		OrderItemDaoImpl.java
+1.100		OrderSheet.xml
+1.107       OrderSheetServiceImpl.java
+1.13        DateFormatter.java
+
+Refactor edited codes
+Date:       Feb. 10, 2011
+Developer:  Ogie
+RevNo       FileName
+1.108       OrderSheetServiceImpl.java
+1.101		OrderSheet.xml
+1.13        OrderItemDao.java
+1.14        OrderItemDaoImpl.java
+===============================================================
+Module/Task: Bugfix on Order Sheet
+			- no SKUs for new buyer or buyer w/o previous order
+Date:       Feb. 18, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.14        OrderItemDao.java
+1.15		OrderItemDaoImpl.java
+1.102		OrderSheet.xml
+1.109		OrderSheetServiceImpl.java
+===============================================================
+Module/Task: Bugfix eONv2_Bug_0029-ws
+			- No error msg for Price1/PackQty/etc with alpha char input
+Date:       Feb. 22, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.7         OldFreshRemixServiceEndpoint.java
+===============================================================
+Module/Task: Bugfix eONv2_Bug_0030-ws
+			- User name is not a seller or seller admin
+Date:       Feb. 22, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.4         WebServiceConstants.java
+1.4			WebServiceValidator.java
+1.16		error_en.properties
+===============================================================
+Module/Task: Bugfix eONv2_Bug_0031-ws
+			- date format for order date is YYYY/MM/DD 
+Date:       Feb. 22, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.8         OldFreshRemixServiceEndpoint.java
+1.5         WebServiceConstants.java
+1.16		error_en.properties
+===============================================================
+Module/Task: Bugfix eONv2_Bug_0032-ws
+			- date format for order date is YYYYMMDD 
+Date:       Feb. 22, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.4         WebServiceConstants.java
+1.4			WebServiceValidator.java
+1.16		error_en.properties
+===============================================================
+Module/Task: Bugfix eONv2_Bug_0027-ws
+			- Create Sheet - Sku was created with quantity and visibility setting is off 
+Date:       Feb. 23, 2011
+Developer:  Ogie
+RevNo       FileName
+1.5         WebServiceImpl.java
+===============================================================
+Module/Task: Bugfix eONv2_Bug_0033-ws
+			- Seller Order Sheet - error happens when the selected order date is not yet opened or saved  
+Date:       Feb. 24, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.7         FreshRemixServiceAdapter.java
+===============================================================
+Module/Task: Bugfix eONv2_Bug_0035-ws
+			- Seller Order Sheet - Price with tax is not the same. 
+Date:       Feb. 24, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.9         OldFreshRemixServiceEndpoint.java
+===============================================================
+Module/Task: Bugfix eONv2_Bug_0036-ws
+			- Seller Order - when buyerIdList is non existing one or seller has no dealing pattern with. 
+			Bugfix eONv2_Bug_0037-ws
+			- Seller Order Sheet -  error happens when the password is incorrect 
+			Bugfix eONv2_Bug_0038-ws
+			- Seller Order Sheet - error happens when username is incorrect or not existing  
+Date:       Feb. 24, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.9         OldFreshRemixServiceEndpoint.java
+===============================================================
+Module/Task: Bugfix eONv2_Bug_0034-ws
+			- Seller Order Sheet - error happens when username is not a seller   
+Date:       Feb. 24, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.8         FreshRemixServiceAdapter.java
+===============================================================
+Module/Task: Bugfix Migration Testing Admin Filter Page
+			- cannot see the last record on list   
+Date:       Feb. 24, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.8         FreshRemixServiceAdapter.java
+===============================================================
+Module/Task: Bugfix Web Service - Implement Transaction Management
+Date:       Feb. 25, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.47         applicationContext.xml
+===============================================================
+Module/Task: Bugfix on Web Service Create Order Sheet
+			- no SKUs for new buyer or buyer w/o previous order
+Date:       Feb. 25, 2011
+Developer:  Ogie
+RevNo       FileName
+1.6         WebServiceImpl.java
+===============================================================
+Module/Task: [Webservice] Get error message from property file
+Date:       Mar. 08, 2011
+Developer:  Ogie
+RevNo       FileName
+1.6         WebServiceValidator.java
+1.10        OldFreshRemixServiceEndpoint.java
+1.7         WebServiceConstants.java
+1.17        error_en.properties
+1.19        error_ja.properties
+
+Developer:  Rhoda
+RevNo       FileName
+1.7         WebServiceValidator.java
+1.18        error_en.properties
+===============================================================
+Module/Task: [Webservice] Orig sku id error
+Date:       Mar. 08, 2011
+Developer:  Ogie
+RevNo       FileName
+1.9         FreshRemixServiceAdapter.java
+1.3         WebServiceUtil.java
+===============================================================
+Module/Task: [Webservice] Saving of external sku id
+Date:       Mar. 08, 2011
+Developer:  Ogie
+RevNo       FileName
+1.25        SKU.java
+1.4         WebServiceUtil.java
+1.2         WSSKU.java
+1.7         WebServiceImpl.java
+1.10        OldFreshRemixServiceEndpoint.java
+
+1.29        OrderAllocation.xml
+1.103       OrderSheet.xml
+1.23        ReceivedSheet.xml
+1.17        SKU.xml
+
+newAddSKUAllocation webservice
+Date:       April 05, 2011
+Developer:  Ogie
+RevNo       FileName
+1.18        OldFreshRemixServiceEndpoint.java
+===============================================================
+Module/Task: [Weblogic Config] Mail Session set-up
+Date:       Mar. 08, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.5			Weblogic_Console_Setup.txt
+===============================================================
+Module/Task: [Webservice] Add SKU Allocation, delete all SKUs even w/ qty
+Date:       Mar. 08, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.8			WebServiceImpl.java
+
+Date:       Mar. 09, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.9			WebServiceImpl.java
+1.10		AllocationDao.java
+1.12		AllocationDaoImpl.java
+1.30		OrderAllocation.xml
+===============================================================
+Module/Task: [DownloadCSV] Include external sku id
+Date:       Mar. 09, 2011
+Developer:  Ogie
+RevNo       FileName
+1.35        DownloadCSVController.java
+
+Date:       Apr. 01, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.38        DownloadCSVController.java
+===============================================================
+Module/Task: [Add SKU] Cannot add sku on order(buyer admin), alloc and billing sheets
+			- due to bugfix for Null Pointer Exception OrderUnitController.java 60
+Date:       Mar. 10, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.31        AllocationSheetServiceImpl.java
+1.27		BillingSheetServiceImpl.java
+1.23		BuyerOrderSheetServiceImpl.java
+===============================================================
+Module/Task: [Webservice] Modify implementation of getSellerOrder
+				- Modify implementation of get all orders on createSheet
+Date:       Mar. 16, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.10        FreshRemixServiceAdapter.java
+1.12		OldFreshRemixServiceEndpoint.java
+1.44		OrderSheetUtil.java
+1.4			WebService.java
+1.10		WebServiceImpl.java
+1.8			WebServiceValidator.java
+
+Date:       Mar. 16, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.11        FreshRemixServiceAdapter.java
+1.13		OldFreshRemixServiceEndpoint.java
+1.45		OrderSheetUtil.java
+1.11		WebServiceImpl.java
+1.9			WebServiceValidator.java
+
+Catch exception error properly 
+Date:       Mar. 17, 2011
+Developer:  Ogie
+RevNo       FileName
+1.4         EONWebServiceResponse.java
+1.5         WebService.java
+1.12        WebServiceImpl.java
+1.12        FreshRemixServiceAdapter.java
+
+Fixed proper result of getSellerOrder per order item
+Date:       Mar. 17, 2011
+Developer:  Ogie
+RevNo       FileName
+1.13        WebServiceImpl.java
+===============================================================
+Module/Task: [Webservice] getSellerOrder format layouts
+Date:       Mar. 15, 2011
+Developer:  Ogie
+RevNo       FileName
+1.3         EONWebServiceResponse.java
+1.2         SKUInfoWithAltPrice.java
+1.6         OldFreshRemixService.java
+===============================================================
+Module/Task: [Download CSV] null pointer exception on null price1 and price2
+Date:       Mar. 24, 2011
+Developer:  Ogie
+RevNo       FileName
+1.12         DownloadExcelView.java
+===============================================================
+Module/Task: [OrderSheet] New Tax Computaion
+Date:       Mar. 26, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.19        BillingSheetLoadController.java
+1.16        BillingSheetService.java
+1.28		BillingSheetServiceImpl.java
+1.6			BuyerBillingSheetLoadController.java
+1.0			GrandTotalPrices.java
+1.104		OrderSheet.xml
+1.30		OrderSheetDao.java
+1.33		OrderSheetDaoImpl.java
+1.5			OrderSheetGTPriceController.java
+1.60		OrderSheetLoadController.java
+1.54		OrderSheetService.java
+1.110		OrderSheetServiceImpl.java
+1.104		order_sheet.js
+1.187		sigmaTable.jsp
+
+Date:       Mar. 28, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.111		OrderSheetServiceImpl.java
+
+Date:       Mar. 29, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.105		OrderSheet.xml
+1.112		OrderSheetServiceImpl.java
+1.105		order_sheet.js
+
+New Tax Computaion for buyer/buyer admin order sheet
+Date:       Mar. 30, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.13		BuyerOrderSheetService.java
+1.24		BuyerOrderSheetServiceImpl.java
+1.37		OrderSheetLoadController.java
+1.68		buyerAdmin_orderTable.jsp
+1.60		buyer_orderTable.jsp
+1.74		buyer_ordersheet.js
+
+New Tax Computaion error for fish category
+Date:       Mar. 30, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.106		order_sheet.js
+1.75		buyer_ordersheet.js
+===============================================================
+Module/Task: [Download, Webservice, Forgot Password and Exception mail subj] HTTPS related
+Date:       Mar. 26, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.7         DownloadCSVView.java
+1.13		DownloadExcelView.java
+1.4			ExceptionReportHandler.java
+1.5			ForgotPasswordController.java
+1.7			OldFreshRemixService.java
+1.14		OldFreshRemixServiceEndpoint.java
+1.49		index.jsp
+===============================================================
+Module/Task: HTTPS related revert
+Date:       Mar. 26, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.8         DownloadCSVView.java
+1.14		DownloadExcelView.java
+1.5			ExceptionReportHandler.java
+1.6			ForgotPasswordController.java
+1.8			OldFreshRemixService.java
+1.15		OldFreshRemixServiceEndpoint.java
+1.50		index.jsp
+===============================================================
+Module/Task: Change port from 7001 to 80
+Date:       Mar. 26, 2011
+Developer:  Ogie
+RevNo       FileName
+1.48        applicationContext.xml
+1.4         datasource.xml
+===============================================================
+Module/Task: [Allocation Sheet] Cannot edit meta info and qty in All Dates view
+Date:       Mar. 28, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.32        AllocationSheetServiceImpl.java
+===============================================================
+Module/Task: [Download Excel] user Id should be user shortname
+Date:       Mar. 28, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.37        DownloadExcelController.java
+===============================================================
+Module/Task: [Webservice] Price1, Price2, PriceWithoutTax is empty or null,
+				number format exception occurs. This should not be required.
+Date:       Mar. 30, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.17        OldFreshRemixServiceEndpoint.java
+1.3         WSSKU.java
+1.14        WebServiceImpl.java
+===============================================================
+Module/Task: Screen freezes when quantity is entered before entering required fields
+			 Seller Admin: Allocation, Akaden
+			 Seller: Allocation, Akaden
+			 Buyer Admin: Order
+Date:       Mar. 31, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.57        akadenGrid.jsp
+1.83        allocationTable.jsp
+1.69        buyerAdmin_orderTable.jsp
+
+Date:       Apr. 01, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.19		AkadenSheetController.java
+1.10        AllocationSheetController.java
+1.11        BillingSheetController.java
+
+Date:       Apr. 05, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.20		OrderSheetController.java(Buyer Admin)
+===============================================================
+Module/Task: Seller Billing quantity column not editable when adding SKU
+Date:       Mar. 31, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.59        billingTable.jsp
+===============================================================
+Module/Task: [Allocation Sheet] New Tax Computaion
+Date:       Mar. 31, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.11		AllocationDao.java
+1.13		AllocationDaoImpl.java
+1.4			AllocationSheetGTPriceController.java
+1.31		AllocationSheetLoadController.java
+1.16		AllocationSheetService.java
+1.33		AllocationSheetServiceImpl.java
+1.31		OrderAllocation.xml
+1.84		allocationTable.jsp
+1.68		allocation_sheet.js
+===============================================================
+Module/Task: [Received Sheet] New Tax Computaion
+Date:       Mar. 31, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.24		ReceivedSheet.xml
+1.14		ReceivedSheetDao.java
+1.14		ReceivedSheetDaoImpl.java
+1.3			ReceivedSheetGTPriceController.java
+1.23		ReceivedSheetLoadController.java
+1.12		ReceivedSheetService.java
+1.20		ReceivedSheetServiceImpl.java
+1.50		buyer_receivedTable.jsp
+1.53		received_sheet.js
+===============================================================
+Module/Task: [Akaden Sheet] New Tax Computaion
+Date:       Apr. 01, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.44		Akaden.xml
+1.23		AkadenDao.java
+1.23		AkadenDaoImpl.java
+1.22		AkadenService.java
+1.47		AkadenServiceImpl.java
+1.9			AkadenSheetGTPriceController.java
+1.13		AkadenSheetLoadController.java
+1.58		akadenGrid.jsp
+1.71		akadensheet.js
+===============================================================
+Module/Task: [Seller Billing Sheet] New Tax Computaion
+Date:       Apr. 01, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.37		BillingSheet.xml
+1.2			BillingSheetGTPriceController.java
+1.21		BillingSheetLoadController.java
+1.18		BillingSheetService.java
+1.29		BillingSheetServiceImpl.java
+1.16		OrderBillingDao.java
+1.18		OrderBillingDaoImpl.java
+1.60		billingTable.jsp
+1.56		billing_sheet.js
+===============================================================
+Module/Task: [Buyer Billing Sheet] New Tax Computaion
+Date:       Apr. 01, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.2			BuyerBillingSheetGTPriceController.java
+1.7			BuyerBillingSheetLoadController.java
+1.36		buyer_billing.js
+1.28		buyer_billingTable.jsp
+===============================================================
+Module/Task: [https] eON Shortcut Link
+Date:       Apr. 04, 2011
+Developer:  Ogie
+RevNo       FileName
+1.3         eonShortcutLink.jsp
+===============================================================
+Module/Task: Added jsp for app/browser information
+Date:       Apr. 04, 2011
+Developer:  Ogie
+RevNo       FileName
+1.2         app_info.jsp
+===============================================================
+Module/Task: Login page telephone number changed
+Date:       Apr. 04, 2011
+Developer:  Ogie
+RevNo       FileName
+1.27        login.jsp
+===============================================================
+Module/Task: [Download CSV] Null to blank of external sku id
+Date:       Apr. 05, 2011
+Developer:  Ogie
+RevNo       FileName
+1.39        DownloadCSVController.java
+===============================================================
+Module/Task: Japanese login problem
+Date:       Apr. 11, 2011
+Developer:  Ogie
+RevNo       FileName
+1.44-1.45   web.xml

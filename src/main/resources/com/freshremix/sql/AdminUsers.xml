@@ -1,0 +1,92 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AdminUsers">
+	<resultMap
+		id="UserDetails"
+		class="AdminUsers">
+		<result property="userId" column="USER_ID" />
+		<result property="userName" column="USERNAME" />
+		<result property="password" column="PASSWORD" />
+		<result property="name" column="NAME" />
+		<result property="shortName" column="SHORTNAME" />
+		<result property="companyId" column="COMPANY_ID" />
+		<result property="roleId" column="ROLE_ID" />
+		<result property="roleName" column="ROLE_NAME" />
+		<result property="address1" column="ADDRESS1" />
+		<result property="address2" column="ADDRESS2" />
+		<result property="address3" column="ADDRESS3" />
+		<result property="mobileNumber" column="MOBILE_NUMBER" />
+		<result property="telNumber" column="TELEPHONE_NUMBER" />
+		<result property="faxNumber" column="FAX_NUMBER" />
+		<result property="mobileEmail" column="MOBILE_EMAIL_ADDRESS" />
+		<result property="pcEmail" column="PC_EMAIL_ADDRESS" />
+		<result property="comments" column="COMMENTS" />
+		<result property="useBms" column="USE_BMS" />
+		<result property="tosFlag" column="FLAG" />
+		<result property="enableCalendarHighlight" column="ENABLE_CALENDAR_HIGHLIGHT" />
+		<!--  <result property="displayCodeId" column="DISPLAY_CODE_ID" />
+		<result property="dateLastLogin" column="DATE_LAST_LOGIN" />
+		<result property="datePasswordChange" column="DATE_PASSWORD_CHANGE" /> -->
+	</resultMap>
+	
+	<update id="updateUserById">
+		UPDATE EON_USERS SET USERNAME=#userName#, PASSWORD=#password#, NAME=#name#, SHORTNAME=#shortName#, COMPANY_ID=#companyId#, ROLE_ID=#roleId#, ADDRESS1=#address1#, ADDRESS2=#address2#, ADDRESS3=#address3#, MOBILE_NUMBER=#mobileNumber#, TELEPHONE_NUMBER=#telNumber#, FAX_NUMBER=#faxNumber#, MOBILE_EMAIL_ADDRESS=#mobileEmail#, PC_EMAIL_ADDRESS=#pcEmail#, COMMENTS=#comments#, USE_BMS=#useBms#, ENABLE_CALENDAR_HIGHLIGHT=#enableCalendarHighlight# WHERE USER_ID=#userId#
+	</update>
+		
+	<select id="getAllUsersByCompanyId" resultMap="UserDetails">
+		select users.USER_ID,users.USERNAME,users.PASSWORD,users.NAME,users.SHORTNAME,users.COMPANY_ID,rol.role_name,users.ROLE_ID,users.ADDRESS1,users.ADDRESS2,users.ADDRESS3,users.MOBILE_NUMBER,users.TELEPHONE_NUMBER,users.FAX_NUMBER,users.MOBILE_EMAIL_ADDRESS,users.PC_EMAIL_ADDRESS,users.COMMENTS,users.USE_BMS , tos.FLAG, users.ENABLE_CALENDAR_HIGHLIGHT
+		from EON_USERS users
+		JOIN eon_roles rol ON users.ROLE_ID = rol.ROLE_ID
+		LEFT OUTER JOIN  EON_USERS_TOS tos ON users.USER_ID = tos.USER_ID
+		where users.company_id = #companyId# 
+		ORDER BY LOWER(users.USERNAME) ASC
+	</select>
+	
+	<select id="getAllUsersByUserId" resultMap="UserDetails">
+		select users.USER_ID,users.USERNAME,users.PASSWORD,users.NAME,users.SHORTNAME,users.COMPANY_ID,rol.role_name,users.ROLE_ID,users.ADDRESS1,users.ADDRESS2,users.ADDRESS3,users.MOBILE_NUMBER,users.TELEPHONE_NUMBER,users.FAX_NUMBER,users.MOBILE_EMAIL_ADDRESS,users.PC_EMAIL_ADDRESS,users.COMMENTS,users.USE_BMS, tos.FLAG, users.ENABLE_CALENDAR_HIGHLIGHT
+		from EON_USERS users
+		JOIN eon_roles rol ON users.ROLE_ID = rol.ROLE_ID
+		LEFT OUTER JOIN  EON_USERS_TOS tos ON users.USER_ID = tos.USER_ID
+		where users.user_Id = #userId# 
+	</select>
+	
+	<insert id="insertUserDetails">
+		INSERT INTO EON_USERS 
+		  (USER_ID, USERNAME, PASSWORD, NAME, SHORTNAME, COMPANY_ID, ROLE_ID, ADDRESS1, ADDRESS2, ADDRESS3, MOBILE_NUMBER, TELEPHONE_NUMBER, FAX_NUMBER, MOBILE_EMAIL_ADDRESS, PC_EMAIL_ADDRESS, COMMENTS, USE_BMS, ENABLE_CALENDAR_HIGHLIGHT)
+		  	VALUES 
+		  (EON_USERS_SEQ.nextVal, #userName#, #password#, #name#, #shortName#, #companyId#, #roleId#, #address1#, #address2#, #address3#, #mobileNumber#, #telNumber#, #faxNumber#, #mobileEmail#, #pcEmail#, #comments#, #useBms#, #enableCalendarHighlight#)
+		<selectKey keyProperty="user_id" resultClass="int">
+	            SELECT EON_USERS_SEQ.currval FROM DUAL
+	        </selectKey> 
+	</insert>	
+	
+	<delete id="deleteUserById">
+		DELETE FROM EON_USERS WHERE USER_ID = #userId#
+	</delete>
+	
+	<select id="checkUserIfExist" resultClass="int">
+		SELECT COUNT(*) FROM EON_USERS WHERE USERNAME = #uName# 
+		<!-- edited by jr -->
+		<!--AND COMPANY_ID = #companyId#   -->
+	</select>
+	
+	<select id="cntUsernameNameShortnameForInsert" resultClass="int">
+		SELECT COUNT(*) 
+		FROM EON_USERS 
+		WHERE (NAME = #name# 
+			or SHORTNAME = #shortName#) 
+			and COMPANY_ID = #companyId#
+	</select>
+	
+	<select id="cntUsernameNameShortnameForUpdate" resultClass="int">
+		SELECT COUNT(*) 
+		FROM EON_USERS 
+		WHERE USER_ID != #userId# and
+			(NAME = #name# 
+			or SHORTNAME = #shortName#)
+			and COMPANY_ID = #companyId#
+	</select>
+	
+
+</sqlMap>

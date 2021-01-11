@@ -1,0 +1,4 @@
+
+Insert into EON_COMPANY_TYPE (COMPANY_TYPE_ID,DESCRIPTION) values (1,'Super Admin');
+Insert into EON_COMPANY_TYPE (COMPANY_TYPE_ID,DESCRIPTION) values (2,'Seller');
+Insert into EON_COMPANY_TYPE (COMPANY_TYPE_ID,DESCRIPTION) values (3,'Buyer');

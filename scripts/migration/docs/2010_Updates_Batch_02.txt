@@ -1,0 +1,40 @@
+----------------------
+Module/Task:   Migration Scripts Batch 02
+Date:          January 28, 2010
+Developer:     Ogie
+RevNo       FileName
+1.1         readme_batch_02.txt
+1.1         02_run_Batch_02.sql
+1.1         Batch_02\Batch_02_Company.sql
+1.1         Batch_02\Batch_02_CompanyDealingPattern.sql
+1.1         Batch_02\Batch_02_UserDealingPattern.sql
+1.1         Batch_02\Batch_02_Users.sql
+1.1         Batch_02\grant_user.sql
+1.1         Batch_02\proc_populate_dealing_pattern.sql
+
+Module/Task:   Changed company short names
+Date:          February 22, 2010
+RevNo       FileName
+1.2         Batch_02\Batch_02_Company.sql
+
+Module/Task:   Fixed sku/sku groups
+Date:          February 22, 2010
+RevNo       FileName
+1.2         02_run_Batch_02.sql
+1.1         Batch_02\proc_populate_sku_group.sql
+1.1         Batch_02\proc_populate_sku.sql
+
+Module/Task:   Changed chouai user to selleradmin
+Date:          February 22, 2010
+RevNo       FileName
+1.3         02_run_Batch_02.sql
+1.1-1.3     Batch_02\chouai_to_selleradmin.sql
+----------------------
+Module/Task:   Migration Scripts Batch 02 - Additional users
+Date:          March 22, 2010
+Developer:     Ogie
+RevNo       FileName
+1.3         Batch_02_Company.sql
+1.2         Batch_02_CompanyDealingPattern.sql
+1.2         Batch_02_UserDealingPattern.sql
+1.2         Batch_02_Users.sql

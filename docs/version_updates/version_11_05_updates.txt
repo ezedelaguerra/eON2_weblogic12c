@@ -1,0 +1,15 @@
+Module/Task: Redmine 882 - Set the selected date dealing pattern value into expiry date
+Date:       Sept 09, 2012
+Developer:  Lele
+1.18		CompanyDealingPatternServiceImpl.java
+1.102		company.js
+=====================================================
+Module/Task: Redmine 354 - Unfinalize Order and Finalize Alloc concurrency
+				(Redmine 354 - alert alloc finalized )
+Date:       Sep 07, 2012
+Developer:  Rhoda
+1.16		AllocationSheetFinalizeController.java 
+1.13		ConcurrencyUtil.java
+1.81		allocation_sheet.js
+1.15		ConcurrencyUtil.java
+=======================================================

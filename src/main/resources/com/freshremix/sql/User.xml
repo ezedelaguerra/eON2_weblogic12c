@@ -1,0 +1,367 @@
+<!-- 
+	Copyright Freshremix Asia Software Corporation
+	
+	date		name		version	changes
+	==============================================
+	20120725	Lele		v11		Redmine 131 - Change of display in address bar of Comments
+-->
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="User">
+	<resultMap
+		id="User-result"
+		class="User">
+		<result property="userId" column="USER_ID" />
+		<result property="userName" column="USERNAME" />
+		<result property="password" column="PASSWORD" />
+		<result property="name" column="NAME" />
+		<result property="shortName" column="SHORTNAME" />
+		<result property="company.companyId" column="COMPANY_ID" />
+		<result property="role.roleId" column="ROLE_ID" />
+		<result property="address1" column="ADDRESS1" />
+		<result property="address2" column="ADDRESS2" />
+		<result property="address3" column="ADDRESS3" />
+		<result property="mobileNumber" column="MOBILE_NUMBER" />
+		<result property="telNumber" column="TELEPHONE_NUMBER" />
+		<result property="faxNumber" column="FAX_NUMBER" />
+		<result property="mobileEmail" column="MOBILE_EMAIL_ADDRESS" />
+		<result property="pcEmail" column="PC_EMAIL_ADDRESS" />
+		<result property="comments" column="COMMENTS" />
+		<result property="useBms" column="USE_BMS" />
+		<result property="dateLastLogin" column="DATE_LAST_LOGIN" />
+		<result property="datePasswordChange" column="DATE_PASSWORD_CHANGE" />
+	</resultMap>
+	
+	<resultMap
+		id="User-result2"
+		class="User">
+		<result property="userId" column="USER_ID" />
+		<result property="userName" column="USERNAME" />
+		<result property="password" column="PASSWORD" />
+		<result property="name" column="NAME" />
+		<result property="shortName" column="SHORTNAME" />
+		<result property="company.companyId" column="COMPANY_ID" />
+		<result property="company.shortName" column="SHORT_NAME" />
+		<result property="role.roleId" column="ROLE_ID" />
+		<result property="address1" column="ADDRESS1" />
+		<result property="address2" column="ADDRESS2" />
+		<result property="address3" column="ADDRESS3" />
+		<result property="mobileNumber" column="MOBILE_NUMBER" />
+		<result property="telNumber" column="TELEPHONE_NUMBER" />
+		<result property="faxNumber" column="FAX_NUMBER" />
+		<result property="mobileEmail" column="MOBILE_EMAIL_ADDRESS" />
+		<result property="pcEmail" column="PC_EMAIL_ADDRESS" />
+		<result property="comments" column="COMMENTS" />
+		<result property="useBms" column="USE_BMS" />
+		<result property="dateLastLogin" column="DATE_LAST_LOGIN" />
+		<result property="datePasswordChange" column="DATE_PASSWORD_CHANGE" />
+	</resultMap>
+	
+	<resultMap
+		id="EmailFilter-result"
+		class="User">
+		<result property="userId" column="USER_ID" />
+		<result property="name" column="NAME" />
+		<result property="mobileEmail" column="MOBILE_EMAIL_ADDRESS" />
+		<result property="pcEmail" column="PC_EMAIL_ADDRESS" />
+		<!-- ENHANCEMENT 20120725: Lele - Redmine 131 -->
+		<result property="company.companyId" column="COMPANY_ID" />
+	</resultMap>
+	
+	<resultMap
+		id="resultList"
+		class="User">
+		<result property="userId" column="USER_ID" />
+		<result property="name" column="NAME" />
+	</resultMap>
+
+    <!-- This is used for large data select -->
+	<resultMap id="rawMap" class="java.util.HashMap">
+		<result property="COMPANY_ID" column="COMPANY_ID" javaType="java.lang.String" />
+		<result property="COMPANY_NAME" column="COMPANY_NAME" javaType="java.lang.String" />
+		<result property="COMPANY_SHORT_NAME" column="COMPANY_SHORT_NAME"  javaType="java.lang.String" />
+		<result property="COMPANY_TYPE_ID" column="COMPANY_TYPE_ID"  javaType="java.lang.String" />
+		<result property="COMPANY_CONTACT_PERSON" column="COMPANY_CONTACT_PERSON"  javaType="java.lang.String" />
+		<result property="COMPANY_SOX_FLAG" column="COMPANY_SOX_FLAG"  javaType="java.lang.String" />
+		<result property="COMPANY_ADDRESS1" column="COMPANY_ADDRESS1"  javaType="java.lang.String" />
+		<result property="COMPANY_ADDRESS2" column="COMPANY_ADDRESS2"  javaType="java.lang.String" />
+		<result property="COMPANY_ADDRESS3" column="COMPANY_ADDRESS3"  javaType="java.lang.String" />
+		<result property="COMPANY_TELEPHONE_NUMBER" column="COMPANY_TELEPHONE_NUMBER"  javaType="java.lang.String" />
+		<result property="COMPANY_FAX_NUMBER" column="COMPANY_FAX_NUMBER"  javaType="java.lang.String" />
+		<result property="COMPANY_EMAIL_ADDRESS" column="COMPANY_EMAIL_ADDRESS"  javaType="java.lang.String" />
+		<result property="COMPANY_COMMENTS" column="COMPANY_COMMENTS"  javaType="java.lang.String" />
+		<result property="COMPANY_CREATE_TIMESTAMP" column="COMPANY_CREATE_TIMESTAMP"  javaType="java.lang.String" />
+		<result property="COMPANY_CREATED_BY" column="COMPANY_CREATED_BY"  javaType="java.lang.String" />
+		<result property="COMPANY_UPDATE_TIMESTAMP" column="COMPANY_UPDATE_TIMESTAMP"  javaType="java.lang.String" />
+		<result property="COMPANY_UPDATED_BY" column="COMPANY_UPDATED_BY"  javaType="java.lang.String" />
+		<result property="USER_ID" column="USER_ID"  javaType="java.lang.String" />
+		<result property="USER_ROLE_ID" column="USER_ROLE_ID"  javaType="java.lang.String" />
+		<result property="USER_USERNAME" column="USER_USERNAME"  javaType="java.lang.String" />
+		<result property="USER_PASSWORD" column="USER_PASSWORD"  javaType="java.lang.String" />
+		<result property="USER_NAME" column="USER_NAME"  javaType="java.lang.String" />
+		<result property="USER_SHORTNAME" column="USER_SHORTNAME"  javaType="java.lang.String" />
+		<result property="USER_ADDRESS1" column="USER_ADDRESS1"  javaType="java.lang.String" />
+		<result property="USER_ADDRESS2" column="USER_ADDRESS2"  javaType="java.lang.String" />
+		<result property="USER_ADDRESS3" column="USER_ADDRESS3"  javaType="java.lang.String" />
+		<result property="USER_MOBILE_NUMBER" column="USER_MOBILE_NUMBER"  javaType="java.lang.String" />
+		<result property="USER_TELEPHONE_NUMBER" column="USER_TELEPHONE_NUMBER"  javaType="java.lang.String" />
+		<result property="USER_FAX_NUMBER" column="USER_FAX_NUMBER"  javaType="java.lang.String" />
+		<result property="USER_MOBILE_EMAIL_ADDRESS" column="USER_MOBILE_EMAIL_ADDRESS"  javaType="java.lang.String" />
+		<result property="USER_PC_EMAIL_ADDRESS" column="USER_PC_EMAIL_ADDRESS"  javaType="java.lang.String" />
+		<result property="USER_COMMENTS" column="USER_COMMENTS"  javaType="java.lang.String" />
+		<result property="USER_USE_BMS" column="USER_USE_BMS"  javaType="java.lang.String" />
+		<result property="USER_DATE_LAST_LOGIN" column="USER_DATE_LAST_LOGIN"  javaType="java.lang.String" />
+		<result property="USER_DATE_PASSWORD_CHANGE" column="USER_DATE_PASSWORD_CHANGE"  javaType="java.lang.String" />
+		<result property="USER_CREATE_TIMESTAMP" column="USER_CREATE_TIMESTAMP"  javaType="java.lang.String" />
+		<result property="USER_CREATED_BY" column="USER_CREATED_BY"  javaType="java.lang.String" />
+		<result property="USER_UPDATE_TIMESTAMP" column="USER_UPDATE_TIMESTAMP"  javaType="java.lang.String" />
+		<result property="USER_UPDATED_BY" column="USER_UPDATED_BY"  javaType="java.lang.String" />
+		<result property="USER_USER_ID_OLD" column="USER_USER_ID_OLD"  javaType="java.lang.String" />
+		<result property="USER_TOS_FLAG" column="USER_TOS_FLAG"  javaType="java.lang.String" />
+		<result property="USER_TOS_FLAG_BY" column="USER_TOS_FLAG_BY"  javaType="java.lang.String" />
+		<result property="USER_TOS_TIMESTAMP" column="USER_TOS_TIMESTAMP"  javaType="java.lang.String" />
+	</resultMap>
+	
+	
+	<select id="getAllUsers" resultMap="User-result" parameterClass="java.util.List">
+		SELECT * FROM EON_USERS
+		WHERE USER_ID IN <iterate property="userIds" open="(" close=")" conjunction=",">#userIds[]#</iterate>
+	</select>
+	
+	<select id="getUsersByCompanyId" parameterClass="java.util.Map" resultMap="EmailFilter-result">
+		<!-- ENHANCEMENT START 20120725: Lele - Redmine 133 -->
+		<!-- SELECT USER_ID, NAME, PC_EMAIL_ADDRESS, MOBILE_EMAIL_ADDRESS FROM EON_USERS WHERE COMPANY_ID IN -->
+		SELECT USER_ID, NAME, PC_EMAIL_ADDRESS, MOBILE_EMAIL_ADDRESS, COMPANY_ID FROM EON_USERS WHERE COMPANY_ID IN
+		<!-- ENHANCEMENT END 20120725: -->
+		<iterate property="companyId" open="(" conjunction="," close=")">#companyId[]#</iterate>
+		ORDER BY NAME
+	</select>
+	
+	<select id="getUserRoleOnlyByCompanyId" parameterClass="java.util.Map" resultMap="EmailFilter-result">
+		SELECT * FROM EON_USERS a
+		 JOIN EON_ROLES b 
+		  ON a.role_id = b.role_id
+		 WHERE (b.seller_flag = 1 OR b.buyer_flag =1)
+		 AND COMPANY_ID IN
+		 	<iterate property="companyId" open="(" conjunction="," close=")">#companyId[]#</iterate> 
+		ORDER BY NAME
+	</select>
+
+	<select id="getSellerAdminRoleByCompanyId" parameterClass="java.util.Map" resultMap="EmailFilter-result">
+		SELECT * FROM EON_USERS a
+		 JOIN EON_ROLES b 
+		  ON a.role_id = b.role_id
+		 WHERE (b.seller_admin_flag = 1)
+		 AND COMPANY_ID IN
+		 	<iterate property="companyId" open="(" conjunction="," close=")">#companyId[]#</iterate> 
+		ORDER BY NAME
+	</select>
+	
+	<select id="getBuyerAdminRoleByCompanyId" parameterClass="java.util.Map" resultMap="EmailFilter-result">
+		SELECT * FROM EON_USERS a
+		 JOIN EON_ROLES b 
+		  ON a.role_id = b.role_id
+		 WHERE (b.buyer_admin_flag = 1)
+		 AND COMPANY_ID IN
+		 	<iterate property="companyId" open="(" conjunction="," close=")">#companyId[]#</iterate> 
+		ORDER BY NAME
+	</select>
+
+	<insert id="insertUser" parameterClass="User">
+		INSERT INTO eon_users 
+		  (USER_ID, USERNAME, PASSWORD, NAME, SHORTNAME, COMPANY_ID, ROLE_ID, ADDRESS1, ADDRESS2, ADDRESS3, MOBILE_NUMBER, TELEPHONE_NUMBER, FAX_NUMBER, MOBILE_EMAIL_ADDRESS, PC_EMAIL_ADDRESS, COMMENTS, USE_BMS, DATE_LAST_LOGIN, DATE_PASSWORD_CHANGE) 
+		  	VALUES 
+		  (#userId#, #userName#, #password#, #name#, #shortName#, #company.companyId#, #role.roleId#, #address1#, #address2#, #address3#, #mobileNumber#, #telNumber#, #faxNumber#, #mobileEmail#, #pcEmail#, #comments#, #useBms#, #dateLastLogin#, #datePasswordChange#)
+        <!-- <selectKey keyProperty="user_id" resultClass="int">
+            SELECT EON_USERS_ID_SEQ.currval FROM DUAL
+        </selectKey> -->
+	</insert>
+	
+	<select id="getUserById" resultMap="User-result">
+		SELECT * FROM EON_USERS where USER_ID = #userId#
+	</select>
+	
+	<select id="getUserById2" resultMap="User-result2" parameterClass="java.util.Map">
+		SELECT * FROM EON_USERS 
+			JOIN EON_COMPANY
+    			ON EON_USERS.COMPANY_ID = EON_COMPANY.COMPANY_ID
+		WHERE EON_USERS.USER_ID = #userId#
+	</select>
+	
+	<select id="getUserByIdList" resultMap="User-result">
+		SELECT * FROM EON_USERS where USER_ID IN <iterate property="userId" open="(" conjunction="," close=")">#userId[]#</iterate>
+	</select>
+	
+	<select id="getUserByCompanyId" resultMap="User-result">
+		SELECT * FROM EON_USERS where USER_ID = #userId#
+		AND COMPANY_ID = #companyId#
+	</select>
+	
+	<select id="getUserByName" resultMap="EmailFilter-result" parameterClass="java.lang.String">
+		SELECT USER_ID, NAME, PC_EMAIL_ADDRESS, MOBILE_EMAIL_ADDRESS FROM EON_USERS 
+			where NAME = #name#
+	</select>
+	
+	<select id="getUserByShortName" resultMap="User-result2" parameterClass="java.util.Map">
+		SELECT * FROM EON_USERS 
+			JOIN EON_COMPANY
+    			ON EON_USERS.COMPANY_ID = EON_COMPANY.COMPANY_ID
+		WHERE SHORTNAME = #shortName# AND EON_USERS.COMPANY_ID = #companyId#
+	</select>
+	
+	<select id="getUserByEmail" resultMap="EmailFilter-result" parameterClass="java.lang.String">
+		SELECT USER_ID, NAME, PC_EMAIL_ADDRESS, MOBILE_EMAIL_ADDRESS FROM EON_USERS 
+			where PC_EMAIL_ADDRESS = #email# OR MOBILE_EMAIL_ADDRESS = #email#
+	</select>
+	
+	<update id="updateUserPassword">
+		UPDATE EON_USERS SET PASSWORD = #password# 
+		WHERE USER_ID = #userId#
+		AND USERNAME = #userName#
+	</update>
+	
+	<!-- 
+	<select id="getUserByCompanyId" resultMap="User-result">
+		SELECT
+			users.*
+		FROM
+			EON_USER_DEALING_PATTERN dp,
+			EON_USERS users
+		WHERE
+			dp.SELECTED_USER_IDS = users.USER_ID AND
+			dp.COMPANY_DEALING_PATTERN_ID = #companyId# AND
+			users.USER_ID = #userId#
+	</select>
+	-->
+	
+	<update id="updateUserDetails">
+		UPDATE EON_USERS SET NAME=#name#, SHORTNAME=#shortName#, ADDRESS1=#address1#, ADDRESS2=#address2#, ADDRESS3=#address3#, MOBILE_NUMBER=#mobileNumber#, TELEPHONE_NUMBER=#telNumber#, FAX_NUMBER=#faxNumber#, MOBILE_EMAIL_ADDRESS=#mobileEmail#, PC_EMAIL_ADDRESS=#pcEmail#, COMMENTS=#comments# WHERE USER_ID=#userId#
+	</update>
+	
+	<select id="getListBuyerNamesById" parameterClass="java.util.Map" resultMap="resultList">
+		SELECT 
+			USER_ID, NAME
+		FROM
+			EON_USERS
+		WHERE 
+			USER_ID IN <iterate property="userIds" open="(" conjunction="," close=")">#userIds[]#</iterate>
+	</select>
+	
+	<select id="mapUserNames" parameterClass="java.util.Map" resultMap="resultList">
+		SELECT 
+			USER_ID, NAME
+		FROM
+			EON_USERS
+		WHERE 
+			USER_ID IN <iterate property="userIds" open="(" conjunction="," close=")">#userIds[]#</iterate>
+	</select>
+	
+	<select id="getUserBuyersByCompanyIds" parameterClass="java.util.Map" resultMap="resultList">
+		SELECT DISTINCT D.USER_ID, D.NAME
+		FROM EON_USER_DEALING_PATTERN B JOIN EON_USERS D ON B.USER_02 = D.USER_ID
+		WHERE B.USER_01 IN <iterate property="selectedSellerIds" open="(" close=")" conjunction=","> #selectedSellerIds[]# </iterate>
+			AND D.COMPANY_ID IN <iterate property="selectedCompanyIds" open="(" close=")" conjunction=","> #selectedCompanyIds[]# </iterate>
+			AND ((COALESCE(B.START_DATE, '00000000') &lt;= #dateFrom# or COALESCE(B.START_DATE, '00000000') &lt;= #dateTo#) 
+					and (COALESCE(B.END_DATE, '99999999') &gt;= #dateFrom# or COALESCE(B.END_DATE, '99999999') &gt;=  #dateTo#))
+		ORDER BY D.NAME
+	</select>
+	
+	<select id="getUsersByAdminId" parameterClass="java.util.Map" resultMap="resultList">
+		SELECT D.USER_ID, D.NAME 
+		FROM EON_ADMIN_MEMBER B JOIN EON_USERS D ON B.MEMBER_ID = D.USER_ID
+		WHERE B.ADMIN_ID = #userId#
+			AND B.DEALING_PATTERN_RELATION_ID = #dealingRelationId#
+			AND ((COALESCE(B.START_DATE, '00000000') &lt;= #dateFrom# or COALESCE(B.START_DATE, '00000000') &lt;= #dateTo#) 
+					and (COALESCE(B.END_DATE, '99999999') &gt;= #dateFrom# or COALESCE(B.END_DATE, '99999999') &gt;=  #dateTo#))
+		ORDER BY D.NAME
+	</select>
+	
+	<select id="getSellerUsersBySelectedBuyerId" parameterClass="java.util.Map" resultMap="resultList">
+		SELECT DISTINCT users.USER_ID, users.NAME
+        FROM
+            EON_USERS users,
+            EON_USER_DEALING_PATTERN dp
+		WHERE
+			users.USER_ID = dp.USER_01 AND
+            dp.USER_02 IN <iterate property="selectedBuyerIds" open="(" close=")" conjunction=","> #selectedBuyerIds[]# </iterate>
+            AND ((COALESCE(dp.START_DATE, '00000000') &lt;= #dateFrom# or COALESCE(dp.START_DATE, '00000000') &lt;= #dateTo#) 
+					AND (COALESCE(dp.END_DATE, '99999999') &gt;= #dateFrom# or COALESCE(dp.END_DATE, '99999999') &gt;=  #dateTo#))
+		ORDER BY users.NAME
+	</select>
+	
+	
+	<select id="getUserResultByName" resultMap="User-result" parameterClass="java.lang.String">
+		SELECT * FROM EON_USERS 
+			where NAME = #name#
+	</select>
+	
+	<select id="getUserByUsername" resultMap="User-result" parameterClass="java.lang.String">
+		SELECT * FROM EON_USERS 
+			where USERNAME = #username#
+	</select>
+	
+	<select id="getUserByCompanyIdOnly" resultMap="User-result" parameterClass="java.lang.Integer">
+		SELECT * FROM EON_USERS 
+			where COMPANY_ID = #companyId#
+	</select>
+
+	<select id="getAllNonAdminUsers" resultMap="rawMap">
+		SELECT
+		EC.COMPANY_ID as COMPANY_ID,
+		EC.COMPANY_NAME as COMPANY_NAME,
+		EC.SHORT_NAME as COMPANY_SHORT_NAME,
+		EC.COMPANY_TYPE_ID as COMPANY_TYPE_ID,
+		EC.CONTACT_PERSON as COMPANY_CONTACT_PERSON,
+		EC.SOX_FLAG as COMPANY_SOX_FLAG,
+		EC.COMPANY_ADDRESS1 as COMPANY_ADDRESS1,
+		EC.COMPANY_ADDRESS2 as COMPANY_ADDRESS2,
+		EC.COMPANY_ADDRESS3 as COMPANY_ADDRESS3,
+		EC.TELEPHONE_NUMBER as COMPANY_TELEPHONE_NUMBER,
+		EC.FAX_NUMBER as COMPANY_FAX_NUMBER,
+		EC.EMAIL_ADDRESS as COMPANY_EMAIL_ADDRESS,
+		EC.COMMENTS as COMPANY_COMMENTS,
+		EC.CREATE_TIMESTAMP as COMPANY_CREATE_TIMESTAMP,
+		EC.CREATED_BY as COMPANY_CREATED_BY,
+		EC.UPDATE_TIMESTAMP as COMPANY_UPDATE_TIMESTAMP,
+		EC.UPDATED_BY as COMPANY_UPDATED_BY,
+		EU.USER_ID as USER_ID,
+		EU.ROLE_ID as USER_ROLE_ID,
+		EU.USERNAME as USER_USERNAME,
+		EU.PASSWORD as USER_PASSWORD,
+		EU.NAME as USER_NAME,
+		EU.SHORTNAME as USER_SHORTNAME,
+		EU.ADDRESS1 as USER_ADDRESS1,
+		EU.ADDRESS2 as USER_ADDRESS2,
+		EU.ADDRESS3 as USER_ADDRESS3,
+		EU.MOBILE_NUMBER as USER_MOBILE_NUMBER,
+		EU.TELEPHONE_NUMBER as USER_TELEPHONE_NUMBER,
+		EU.FAX_NUMBER as USER_FAX_NUMBER,
+		EU.MOBILE_EMAIL_ADDRESS as USER_MOBILE_EMAIL_ADDRESS,
+		EU.PC_EMAIL_ADDRESS as USER_PC_EMAIL_ADDRESS,
+		EU.COMMENTS as USER_COMMENTS,
+		EU.USE_BMS as USER_USE_BMS,
+		EU.DATE_LAST_LOGIN as USER_DATE_LAST_LOGIN,
+		EU.DATE_PASSWORD_CHANGE as USER_DATE_PASSWORD_CHANGE,
+		EU.CREATE_TIMESTAMP as USER_CREATE_TIMESTAMP,
+		EU.CREATED_BY as USER_CREATED_BY,
+		EU.UPDATE_TIMESTAMP as USER_UPDATE_TIMESTAMP,
+		EU.UPDATED_BY as USER_UPDATED_BY,
+		EU.USER_ID_OLD as USER_USER_ID_OLD,
+		EUTOS.FLAG as USER_TOS_FLAG,
+		EUTOS.FLAG_SET_BY as USER_TOS_FLAG_BY,
+		EUTOS.FLAG_DATE as USER_TOS_TIMESTAMP
+		FROM EON_USERS EU
+		LEFT JOIN EON_USERS_TOS EUTOS
+		ON EU.USER_ID = EUTOS.USER_ID
+		LEFT JOIN EON_COMPANY EC
+		ON EU.COMPANY_ID = EC.COMPANY_ID
+		WHERE ROLE_ID IN (1,2,3,4)
+	</select>
+	
+	<select id="getNonCompanyMembersFromList" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT USER_ID FROM EON_USERS WHERE COMPANY_ID!=#companyId# 
+		AND USER_ID IN  <iterate property="userIds" open="(" conjunction="," close=")">#userIds[]#</iterate>
+	</select>
+</sqlMap>

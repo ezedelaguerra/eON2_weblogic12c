@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd"
+	default-autowire="byName">
+
+	<bean name="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="requestContextAttribute"><value>${eon.taxrate}</value></property>
+		<property name="prefix" value="/app/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	
+
+
+	<bean name="/inquiry.do"
+		class="com.freshremix.webapp.controller.login.LoginInquiryController">
+		<property name="commandClass" value="com.freshremix.model.LoginInquiry" />
+		<property name="commandName" value="nonMemberInquiry" />
+		<property name="successView" value="inquiry" />
+		<property name="formView" value="inquiry" />
+	</bean>
+
+	<bean name="/saveIdPassword.do"
+		class="com.freshremix.webapp.controller.login.LoginSaveIdPasswordController">
+	</bean>
+
+
+	<bean name="/changePassword.do"
+		class="com.freshremix.webapp.controller.login.ChangePasswordController">
+		<property name="successView" value="redirect:changePassword.jsp" />
+		<property name="commandName" value="user" />
+		<property name="commandClass"
+			value="com.freshremix.model.ForgotPasswordLinkObject" />
+	</bean>
+
+
+	<bean name="/updatePassword.do"
+		class="com.freshremix.webapp.controller.login.UpdatePasswordController">
+		<property name="commandName" value="user" />
+		<property name="commandClass"
+			value="com.freshremix.model.ForgotPasswordLinkObject" />
+	</bean>
+
+	<bean name="/afterLogin.do"
+		class="com.freshremix.webapp.controller.login.UserPreferencesController">
+		<property name="chainedControllerProcessor" ref="chainedControllerProcessor"></property>
+	</bean>
+	<bean name="/beforeLogin.do"
+		class="com.freshremix.webapp.controller.login.LoginSessionController">
+	</bean>
+
+	<bean name="/input.do"
+		class="com.freshremix.webapp.controller.autodownload.InitJobController">
+	</bean>
+
+	<bean name="/addJob.do"
+		class="com.freshremix.webapp.controller.autodownload.AddJobController">
+	</bean>
+
+	<bean name="/confirmJob.do"
+		class="com.freshremix.webapp.controller.autodownload.ConfirmJobController">
+	</bean>
+
+	<bean name="/list.do"
+		class="com.freshremix.webapp.controller.autodownload.ListJobController">
+	</bean>
+
+	<bean name="/deleteJob.do"
+		class="com.freshremix.webapp.controller.autodownload.DeleteJobController">
+	</bean>
+
+	<bean name="/reloadJobs.do"
+		class="com.freshremix.webapp.controller.autodownload.ReloadJobsController">
+	</bean>
+
+	<bean name="/details.do"
+		class="com.freshremix.webapp.controller.autodownload.ViewJobDetailsController">
+	</bean>
+	
+	<bean name="/TOSAgreement.do" class="com.freshremix.webapp.controller.admin.AdminTOSController"/>
+
+    <bean name="/listLogs.do"
+        class="com.freshremix.webapp.controller.util.ListLogsController">
+    </bean>
+
+	<bean name="chainedControllerProcessor"
+		class="com.freshremix.webapp.controller.login.ChainedControllerProcessor">
+		<property name="chainedControllers">
+
+			<util:map id="RoleControllerMap">
+				<entry key="SELLER">
+					<util:map id="SellerControllers">
+						<entry key="TOS" value="redirect:/TOSAgreement.do"></entry>
+					</util:map>
+				</entry>
+				<entry key="SELLER_ADMIN">
+					<util:map id="SellerAdminControllers">
+						<entry key="TOS" value="redirect:/TOSAgreement.do"></entry>
+					</util:map>
+				</entry>
+				<entry key="BUYER">
+					<util:map id="BuyerControllers">
+						<entry key="TOS" value="redirect:/TOSAgreement.do"></entry>
+					</util:map>
+				</entry>
+				<entry key="BUYER_ADMIN">
+					<util:map id="BuyerAdminControllers">
+						<entry key="TOS" value="redirect:/TOSAgreement.do"></entry>
+					</util:map>
+				</entry>
+			</util:map>
+
+		</property>
+	</bean>
+</beans>

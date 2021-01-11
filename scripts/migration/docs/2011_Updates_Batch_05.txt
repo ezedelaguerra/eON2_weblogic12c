@@ -1,0 +1,104 @@
+===============================================================
+Module/Task:   Migration Scripts Batch 05
+Date:          July 18, 2011
+Developer:     Ogie
+RevNo          FileName
+scripts
+1.1            readme_batch_05_1.txt
+1.1            readme_batch_05_2.txt
+1.1            readme_batch_05_3.txt
+1.1            readme_batch_05_4.txt
+
+scripts/migration
+1.1            00_run_Batch_05_1.sql
+1.1            00_run_Batch_05_2.sql
+1.1            00_run_Batch_05_3.sql
+1.1            00_run_Batch_05_4.sql
+1.1            run_batch_05_1.cmd
+1.1            run_batch_05_2.cmd
+1.1            run_batch_05_3.cmd
+1.1            run_batch_05_4.cmd
+
+scripts/migration/Batch_05_1
+1.2            Batch_05_1_Company.sql
+1.2            Batch_05_1_UserDealingPattern.sql
+1.2            Batch_05_1_Users.sql
+1.1            grant_user.sql
+
+scripts/migration/Batch_05_2
+1.2            Batch_05_2_Company.sql
+1.1            grant_user.sql
+
+scripts/migration/Batch_05_3
+1.2            Batch_05_3_Company.sql
+1.1            grant_user.sql
+
+scripts/migration/Batch_05_4
+1.2            Batch_05_4_Company.sql
+1.1            grant_user.sql
+
+===============================================================
+Module/Task:   Migration Scripts Batch 05 v02
+Date:          July --, 2011
+Developer:     Ogie
+RevNo          FileName
+
+scripts/migration
+1.2            00_run_Batch_05_1.sql
+
+scripts/migration/Batch_05_1
+1.3            Batch_05_1_Company.sql
+1.3            Batch_05_1_UserDealingPattern.sql
+1.3            Batch_05_1_Users.sql
+1.1            proc_populate_sku.sql
+
+scripts/migration/Batch_05_2
+1.2            Batch_05_2_UserDealingPattern.sql
+1.2            Batch_05_2_Users.sql
+
+scripts/migration/Batch_05_3
+1.2            Batch_05_3_CompanyDealingPattern.sql
+1.2            Batch_05_3_UserDealingPattern.sql
+1.2            Batch_05_3_Users.sql
+
+scripts/migration/Batch_05_4
+1.2            Batch_05_4_UserDealingPattern.sql
+1.2            Batch_05_4_Users.sql
+
+===============================================================
+Module/Task:   Migration Scripts Batch 05 v03
+Date:          Aug 02, 2011
+Developer:     Ogie
+RevNo          FileName
+
+scripts/migration
+1.2            00_run_Batch_05_3.sql
+
+scripts/migration/Batch_05_3
+1.1            proc_call_populate_users.sql
+1.1            proc_populate_sku.sql
+
+===============================================================
+Module/Task:   Migration Scripts Batch 05 v04
+Date:          Aug 03, 2011
+Developer:     Ogie
+RevNo          FileName
+
+scripts/migration
+1.3            00_run_Batch_05_1.sql
+
+scripts/migration/Batch_05_1
+1.1            proc_call_populate_users.sql
+
+===============================================================
+Module/Task:   Migration Scripts Batch 05 v05
+Date:          Aug 05, 2011
+Developer:     Ogie
+RevNo          FileName
+
+scripts/migration
+1.2            00_run_Batch_05_2.sql
+
+scripts/migration/Batch_05_2
+1.1            proc_call_populate_users.sql
+1.1            proc_populate_sku.sql

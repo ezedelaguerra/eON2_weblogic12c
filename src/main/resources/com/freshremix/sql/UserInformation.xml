@@ -1,0 +1,180 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="UserDPInfo">
+	<resultMap
+		id="AllUserDPInfo"
+		class="UserDealingPattern">
+		<result property="userDPId" column="USER_DEALING_PATTERN_ID" />
+		<result property="compDPId" column="COMPANY_DEALING_PATTERN_ID" />
+		<result property="userId" column="USER_01" />
+		<result property="selUserIds" column="USER_02" />
+		<result property="dpRelationId" column="DEALING_PATTERN_RELATION_ID" />
+		<result property="expiryDateFrom" column="START_DATE" />
+		<result property="expiryDateTo" column="END_DATE" />
+	</resultMap>
+	
+	<resultMap
+		id="UserDPInfo"
+		class="UserDealingPattern">
+		<result property="userId" column="USER_ID" />
+		<result property="userName" column="USERNAME" />
+	</resultMap>
+	
+	<resultMap
+		id="UserSelectedDPInfo"
+		class="UserDealingPattern">
+		<result property="userDPId" column="USER_DEALING_PATTERN_ID" />
+		<result property="userId" column="USER_ID" />
+		<result property="userName" column="USERNAME" />
+		<result property="expiryDateFrom" column="START_DATE" />
+		<result property="expiryDateTo" column="END_DATE" />
+	</resultMap>
+	
+	<select id="getAllUserDealingPattern" resultMap="UserDPInfo">
+		SELECT USER_ID, USERNAME FROM EON_USERS WHERE COMPANY_ID IN 
+			(SELECT COMPANY_02 FROM EON_COMPANY_DEALING_PATTERN
+			WHERE COMPANY_01 = #companyId# AND ISACTIVE = 1) AND ROLE_ID = #roleId#		
+			AND USERNAME LIKE #userName#||'%'	
+	</select>
+	
+	<select id="getAllUserBuyerDealingPattern" resultMap="UserDPInfo">
+		SELECT USER_ID, USERNAME FROM EON_USERS WHERE COMPANY_ID IN 
+			(SELECT COMPANY_01 FROM EON_COMPANY_DEALING_PATTERN
+			WHERE COMPANY_02 = #companyId# AND ISACTIVE = 1) AND ROLE_ID = #roleId#		
+			AND USERNAME LIKE #userName#||'%'	
+	</select>
+	
+	
+	<select id="getAllUnderAdminUserDealingPattern" resultMap="UserDPInfo">
+	
+			SELECT DISTINCT users.USER_ID, users.USERNAME 
+			  FROM EON_USERS users
+			 WHERE users.COMPANY_ID = #companyId#
+			   AND users.ROLE_ID = #roleId#
+	</select>
+	<!-- IN <iterate property="roleids" conjunction="," open = "(" close=")">#roleids[]#</iterate> AND ROLE_ID = #roleId#-->
+	
+	<insert id="insertUserDealingPattern">
+		INSERT INTO EON_USER_DEALING_PATTERN(USER_DEALING_PATTERN_ID, COMPANY_DEALING_PATTERN_ID, USER_01, USER_02, DEALING_PATTERN_RELATION_ID, START_DATE, END_DATE)
+		VALUES(EON_USER_DEALING_PATTERN_SEQ.nextVal, #compDPId#, #user_01#, #user_02#, #dealingRelationId#, #startDate#, #endDate#)
+		<selectKey keyProperty="USER_ID" resultClass="int"> 
+		  	SELECT EON_USER_DEALING_PATTERN_SEQ.currval FROM DUAL </selectKey>
+	</insert>
+	
+	<select id="checkIfSelectedUDP" resultClass="int">
+		SELECT COUNT(*) FROM EON_USER_DEALING_PATTERN users, EON_COMPANY_DEALING_PATTERN company 
+		WHERE users.COMPANY_DEALING_PATTERN_ID = company.COMPANY_DEALING_PATTERN_ID
+		AND company.COMPANY_01 =  #company_id#
+		AND company.COMPANY_02 = #selectedCompanyId#
+		<!-- formatAND users.ISACTIVE = 1 -->
+	</select>
+	
+	<select id="getCompanyIdByUserId" resultClass="int">
+		SELECT COMPANY_ID FROM EON_USERS WHERE USER_ID = #userId#
+	</select>
+	
+	<select id="getAllSelectedSellerUserDealingPattern" resultMap="UserSelectedDPInfo">
+		SELECT eu.USER_ID, eu.USERNAME, dp.START_DATE, dp.END_DATE, dp.USER_DEALING_PATTERN_ID
+		from eon_users eu, EON_USER_DEALING_PATTERN dp 
+		where dp.USER_02 = eu.USER_ID AND dp.USER_01 =#userId# AND eu.USER_ID IN
+		(SELECT dp.USER_02 FROM EON_USER_DEALING_PATTERN WHERE COALESCE(dp.END_DATE,'99999999') > TO_CHAR(CURRENT_DATE, 'YYYYMMDD'))
+	</select>
+	
+	<select id="getAllSelectedBuyerUserDealingPattern" parameterClass="java.lang.Integer" resultMap="UserSelectedDPInfo">
+		SELECT eu.USER_ID, eu.USERNAME, dp.START_DATE, dp.END_DATE, dp.USER_DEALING_PATTERN_ID
+		from eon_users eu, EON_USER_DEALING_PATTERN dp 
+		where dp.USER_01 = eu.USER_ID AND dp.USER_02 = #userId# AND eu.USER_ID IN
+		<!-- WHERE dp.ISACTIVE=1 -->(SELECT dp.USER_01 
+		FROM EON_USER_DEALING_PATTERN  WHERE COALESCE(dp.END_DATE,'99999999') > TO_CHAR(CURRENT_DATE, 'YYYYMMDD'))
+	</select>
+	
+	<select id="getUsernameByUserId" resultClass="java.lang.String">
+		SELECT eo.USERNAME
+		FROM EON_USER_DEALING_PATTERN eudp INNER JOIN EON_USERS eo 
+        ON eudp.USER_01 = eo.USER_ID
+                WHERE eo.USER_ID = #userId# 
+	</select>
+	
+	<select id="checkIfUDPExist" resultClass="int">
+		SELECT COUNT(*) 
+		FROM EON_USER_DEALING_PATTERN 
+		WHERE USER_01 = #userId# AND USER_02 = #selectedUserId#
+		AND COALESCE(END_DATE,'99999999') > TO_CHAR(CURRENT_DATE, 'YYYYMMDD')
+	</select>
+	
+	<update id="resetSellerByCompanyId">
+		UPDATE EON_USER_DEALING_PATTERN SET ISACTIVE = 0 WHERE USER_01 = #userId#
+	</update>
+	
+	<update id="resetBuyerByCompanyId">
+		UPDATE EON_USER_DEALING_PATTERN SET ISACTIVE = 0 WHERE USER_02 = #userId#
+	</update>
+	
+	<update id="updateUDPActive">
+		UPDATE EON_USER_DEALING_PATTERN 
+		SET <!-- ISACTIVE = #isActive#,--> START_DATE = #startDate#, END_DATE = #endDate#
+		WHERE USER_01 = #userId# AND USER_02 = #selectedUserId#
+	</update>
+
+	<select id="searchUserDPById" resultMap="UserDPInfo">
+		SELECT USER_ID, USERNAME FROM EON_USERS WHERE COMPANY_ID IN 
+			(SELECT COMPANY_02 FROM EON_COMPANY_DEALING_PATTERN WHERE COMPANY_01 = #companyId#) 
+			AND ROLE_ID &lt;&gt; 10
+			AND USERNAME LIKE #userName#||'%'
+	</select>
+	
+	<insert id="insertAdminDealingPattern">
+		INSERT INTO EON_ADMIN_MEMBER(ADMIN_MEMBER_ID, ADMIN_ID, MEMBER_ID,DEALING_PATTERN_RELATION_ID, START_DATE, END_DATE)
+		VALUES(EON_ADMIN_MEMBER_SEQ.nextVal, #admin_id#, #member_id#, #dpRelationId#, #startDate#, #endDate#)
+		<selectKey keyProperty="ADMIN_ID" resultClass="int"> 
+		  	SELECT EON_ADMIN_MEMBER_SEQ.currval FROM DUAL </selectKey>
+	</insert>
+	
+	<select id="getAllSelectedAdminUserDealingPattern" parameterClass="java.lang.Integer" resultMap="UserSelectedDPInfo">
+		SELECT eu.USER_ID, eu.USERNAME, adm.START_DATE, adm.END_DATE, adm.ADMIN_MEMBER_ID as USER_DEALING_PATTERN_ID
+		FROM EON_USERS eu, EON_ADMIN_MEMBER adm
+		WHERE adm.MEMBER_ID = eu.USER_ID AND adm.ADMIN_ID = #userId# 
+		AND eu.USER_ID IN (SELECT adm.MEMBER_ID FROM EON_ADMIN_MEMBER WHERE COALESCE(adm.END_DATE,'99999999') > TO_CHAR(CURRENT_DATE, 'YYYYMMDD'))
+	</select>
+	
+	<update id="updateActiveUserAdmin">
+		UPDATE EON_ADMIN_MEMBER 
+		SET <!-- ISACTIVE = #isActive#,--> START_DATE = #startDate#, END_DATE = #endDate#
+		WHERE ADMIN_ID = #adminId# AND MEMBER_ID = #memberId#
+	</update>
+	
+	<select id="checkIfUserAdminExist" resultClass="int">
+		SELECT COUNT(*) 
+		FROM EON_ADMIN_MEMBER 
+		WHERE ADMIN_ID = #adminId# AND MEMBER_ID = #memberId#
+		AND COALESCE(END_DATE,'99999999') > TO_CHAR(CURRENT_DATE, 'YYYYMMDD')
+	</select>
+	
+	<update id="resetAdminDealingPattern">
+		UPDATE EON_ADMIN_MEMBER SET ISACTIVE = 0 WHERE ADMIN_ID = #userId#
+	</update>
+	
+	<delete id ="deleteAdminDealingPattern">
+		DELETE FROM EON_ADMIN_MEMBER WHERE ADMIN_ID = #adminId# AND MEMBER_ID = #memberId#
+		AND START_DATE = #startDate#
+	</delete>
+	
+	<delete id ="deleteUserDealingPattern">
+		DELETE FROM EON_USER_DEALING_PATTERN 
+		WHERE USER_01 = #userId# AND USER_02 = #selectedUserId# 
+		AND START_DATE = #startDate#
+	</delete>
+	
+	<update id="updateDealingPatternExpiration">
+		UPDATE EON_USER_DEALING_PATTERN SET
+			END_DATE = #expiryDate#
+				WHERE USER_DEALING_PATTERN_ID = #udpId#
+	</update>
+	
+	<update id="updateAdminDealingPatternExpiration">
+		UPDATE EON_ADMIN_MEMBER SET
+			END_DATE = #expiryDate#
+				WHERE ADMIN_MEMBER_ID = #adminMemId#
+	</update>
+</sqlMap>

@@ -1,0 +1,1 @@
+Insert into "schema_version" ("version_rank","installed_rank","version","description","type","script","checksum","installed_by","installed_on","execution_time","success") values (18,18,'16.2','createEonTOSCreateDateIdx','SQL','V16_2__createEonTOSCreateDateIdx.sql',-654393618,'EON01',to_timestamp('18-FEB-13 01.36.38.406000000 PM','DD-MON-RR HH.MI.SS.FF AM'),101,1);

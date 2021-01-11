@@ -1,0 +1,53 @@
+===============================================================
+Module/Task: Redmine #319 - Comments Dealing Pattern
+Date:       July 19, 2011
+Developer:  Lele
+RevNo       FileName
+1.1			CompanyConstants.java
+1.9			CompanyInformationDao.java
+1.24		UserDao.java
+1.9			CompanyInformationDaoImpl.java
+1.26		UserDaoImpl.java
+1.8			CommentsService.java
+1.11		CommentsServiceImpl.java
+1.18		User.xml
+1.2			EmailFilter.java
+1.3			RoleConstants.java
+1.14		DateFormatter.java
+1.4			LoadUserController.java
+1.7			search_recipient.js
+1.1			CollectionUtil.java
+1.1			CompanyFetcher.java
+1.1			CompanyFetcher1Impl.java
+1.1			CompanyFetcher2Impl.java
+1.1			CompanyFetcher3Impl.java
+1.1			CompanyFetcher4Impl.java
+1.1			UserFetcher.java
+1.1			UserFetcher1Impl.java
+1.1			UserFetcher2Impl.java
+1.1 		UserFetcher3Impl.java
+1.1			UserFetcher4Impl.java
+1.1			UserFetcherHelper.java
+===============================================================
+Module/Task: Redmine #319 - Added fix (Revert by Ogie)
+Date:       July 19, 2011 (July 27, 2011)
+Developer:  Lele
+RevNo       FileName
+1.4         UserFetcher1Impl.java
+1.3	(1.1)	UserFetcher2Impl.java
+1.4         UserFetcher3Impl.java
+1.3	(1.1)	UserFetcher4Impl.java
+===============================================================
+Module/Task: Added null SKU checking on WeeklyQuantityLimit
+Date:       July 26, 2011
+Developer:  Ogie
+RevNo       FileName
+1.119       OrderSheetServiceImpl.java
+===============================================================
+Module/Task: Redmine #355 - Number of tabs for download excel (Revert by Ogie)
+Date:       July 26, 2011 (July 27, 2011)
+Developer:  Lele
+RevNo       FileName
+1.0			CellFormat.java
+1.16 (1.14) DownloadExcelView.java 
+===============================================================

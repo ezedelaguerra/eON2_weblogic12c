@@ -1,0 +1,61 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="SKUBA">
+
+	<resultMap id="buyerSKU" class="com.freshremix.model.SKUBA" extends="SKU.skuProposed">
+		<result property="skuBAId" column="SKU_BA_ID" />
+		<result property="purchasePrice" column="PURCHASE_PRICE" />
+		<result property="sellingPrice" column="SELLING_PRICE" />
+		<result property="sellingUom.orderUnitId" column="FK_ID_SELLING_UOM" />
+		<result property="skuComment" column="SKU_COMMENT" />
+		<result property="column01" column="COLUMN_01" />
+		<result property="column02" column="COLUMN_02" />
+		<result property="column03" column="COLUMN_03" />
+		<result property="column04" column="COLUMN_04" />
+		<result property="column05" column="COLUMN_05" />
+		<result property="column06" column="COLUMN_06" />
+		<result property="column07" column="COLUMN_07" />
+		<result property="column08" column="COLUMN_08" />
+		<result property="column09" column="COLUMN_09" />
+		<result property="column10" column="COLUMN_10" />
+		<result property="column11" column="COLUMN_11" />
+		<result property="column12" column="COLUMN_12" />
+		<result property="column13" column="COLUMN_13" />
+		<result property="column14" column="COLUMN_14" />
+		<result property="column15" column="COLUMN_15" />
+		<result property="column16" column="COLUMN_16" />
+		<result property="column17" column="COLUMN_17" />
+		<result property="column18" column="COLUMN_18" />
+		<result property="column19" column="COLUMN_19" />
+		<result property="column20" column="COLUMN_20" />
+	</resultMap>
+
+	<resultMap
+		id="simpleSKUBA" class="com.freshremix.model.SKUBA">
+		<result property="skuBAId" column="SKU_BA_ID" />
+		<result property="purchasePrice" column="PURCHASE_PRICE" />
+		<result property="sellingPrice" column="SELLING_PRICE" />
+		<result property="sellingUom.orderUnitId" column="FK_ID_SELLING_UOM" />
+		<result property="skuComment" column="SKU_COMMENT" />
+	</resultMap>
+
+	<select id="selectSKUBA" parameterClass="java.lang.Integer" resultMap="simpleSKUBA">
+		SELECT * FROM EON_SKU_BA WHERE SKU_BA_ID = #skuBAId#
+	</select>
+
+    <select id="selectSKUBAList" parameterClass="java.util.List" resultMap="simpleSKUBA">
+        SELECT * FROM EON_SKU_BA WHERE SKU_BA_ID IN <iterate open="(" close=")" conjunction=",">#[]#</iterate>
+    </select>
+	
+	
+
+	<insert id="insertSKUBA" parameterClass="com.freshremix.model.SKUBA">
+		INSERT INTO EON_SKU_BA (SKU_BA_ID, FK_SKU_ID, PURCHASE_PRICE, SELLING_PRICE, FK_ID_SELLING_UOM, SKU_COMMENT)
+			VALUES (EON_SKU_BA_ID_SEQ.nextVal, #skuId#, #purchasePrice#, #sellingPrice#, #sellingUom.orderUnitId#, #skuComment#)
+		<selectKey keyProperty="skuBAId" resultClass="java.lang.Integer">
+            SELECT EON_SKU_BA_ID_SEQ.currval FROM DUAL
+        </selectKey>
+	</insert>
+
+</sqlMap>

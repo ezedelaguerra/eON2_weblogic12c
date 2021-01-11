@@ -1,0 +1,30 @@
+Module/Task: Redmine 880 - Chrome compatibility
+Date:       Sept 13, 2012
+Developer:  Lele
+1.73		OrderSheetUtil.java
+1.37		admin_filter.js
+1.38		buyer_filter.js
+1.33		buyer_home.js
+1.91		buyer_ordersheet.js
+1.8			hide_column_admin.js
+1.63		received_sheet.js
+1.108		buyer_orderTable.jsp
+1.90		buyer_receivedTable.jsp
+1.127		buyerAdmin_orderTable.jsp
+1.41		index.jsp
+1.22		add_sku_group.js
+1.17		download_excel.js
+1.19		unitoforder.js
+1.37		header.js
+1.35		login.jsp
+1.45		admin_filter.js
+1.82		allocation_sheet.js
+1.63		filter.js
+1.46		home.js
+1.118		order_sheet.js
+1.133		allocationTable.jsp
+1.62		index.jsp
+1.244		sigmaTable.jsp
+1.1			gt_ie9.js
+1.14		gt_grid.css
+1.2			theme.css

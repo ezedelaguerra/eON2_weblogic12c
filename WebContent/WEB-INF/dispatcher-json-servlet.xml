@@ -1,0 +1,960 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd"
+	default-autowire="byName">
+
+	<bean name="viewResolver" class="org.springframework.web.servlet.view.XmlViewResolver" />
+
+	<bean id="exceptionResolver"
+		class="org.springframework.web.servlet.view.json.exception.JsonExceptionResolver">
+		<property name="exceptionView">
+			<value>json</value>
+		</property>
+		<property name="exceptionHandler">
+			<list>
+				<ref bean="exceptionMessageExceptionHandler" />
+				<ref bean="exceptionReportHandler" />
+			</list>
+		</property>
+	</bean>
+
+	<bean name="exceptionMessageExceptionHandler"
+		class="org.springframework.web.servlet.view.json.exception.ExceptionMessageExceptionHandler">
+		<property name="modelKey">
+			<value>message</value>
+		</property>
+	</bean>
+
+	<bean name="exceptionReportHandler" class="com.freshremix.webapp.handler.ExceptionReportHandler">
+		<property name="emailTo" value="eondev@farmind.com.ph" />
+	</bean>
+
+	<bean name="loginValidator" class="com.freshremix.webapp.validator.LoginSubmitValidator" />
+
+	<bean name="/login.json"
+		class="com.freshremix.webapp.controller.login.LoginSubmitController">
+		<!-- <property name="commandClass" value="com.freshremix.model.User"/> -->
+		<!-- <property name="commandName" value="user"/> -->
+		<!-- <property name="successView" value="json"/> -->
+		<!-- <property name="formView" value="json"/> -->
+		<!-- <property name="validator" ref="loginValidator" /> -->
+	</bean>
+
+
+	<bean name="/ProxyLogin.json"
+		class="com.freshremix.webapp.controller.admin.ProxyLoginController">
+
+	</bean>
+	<bean name="forgotPasswordValidator"
+		class="com.freshremix.webapp.validator.ForgotPasswordValidator" />
+
+	<bean name="/forgotPassword.json"
+		class="com.freshremix.webapp.controller.login.ForgotPasswordController">
+		<property name="commandClass" value="com.freshremix.model.User" />
+		<property name="commandName" value="user" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+		<property name="validator" ref="forgotPasswordValidator" />
+	</bean>
+	<!-- Start of Admin -->
+	<bean name="/companyinfo.json"
+		class="com.freshremix.webapp.controller.admin.CompanyInformationController">
+		<property name="commandClass" value="com.freshremix.model.AdminCompanyInformation" />
+		<property name="commandName" value="companyInfo" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/getallusers.json"
+		class="com.freshremix.webapp.controller.admin.AdminAllUsersController">
+		<property name="commandClass" value="com.freshremix.model.AdminUsers" />
+		<property name="commandName" value="allUsersInfo" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/usersinfo.json"
+		class="com.freshremix.webapp.controller.admin.AdminUsersController">
+		<property name="commandClass" value="com.freshremix.model.AdminUsers" />
+		<property name="commandName" value="userInfo" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/savecompanyinfo.json"
+		class="com.freshremix.webapp.controller.admin.CompanySaveInformationController">
+		<property name="commandClass" value="com.freshremix.model.AdminCompanyInformation" />
+		<property name="commandName" value="saveCompany" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/updatecompanyinfo.json"
+		class="com.freshremix.webapp.controller.admin.CompanySaveInformationController">
+		<property name="commandClass" value="com.freshremix.model.AdminCompanyInformation" />
+		<property name="commandName" value="updateCompany" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/saveusersinfo.json"
+		class="com.freshremix.webapp.controller.admin.UserSaveInformationController">
+		<property name="commandClass" value="com.freshremix.model.AdminUsers" />
+		<property name="commandName" value="saveUsers" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/getCompanyNames.json"
+		class="com.freshremix.webapp.controller.admin.AdminCompanyAllNamesController">
+		<property name="commandClass" value="com.freshremix.model.AdminCompanyInformation" />
+		<property name="commandName" value="AllCompanyNames" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/getCompanyNamesById.json"
+		class="com.freshremix.webapp.controller.admin.AdminCompanyAllNamesController">
+		<property name="commandClass" value="com.freshremix.model.AdminCompanyInformation" />
+		<property name="commandName" value="AllCompanyNames" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/autosearchnames.json"
+		class="com.freshremix.webapp.controller.admin.AdminCompanyAutoSearchController">
+		<property name="commandClass" value="com.freshremix.model.AdminCompanyInformation" />
+		<property name="commandName" value="AutoSearchNames" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/deleteuserbyid.json"
+		class="com.freshremix.webapp.controller.admin.AdminDeleteUserController">
+		<property name="commandClass" value="com.freshremix.model.AdminUsers" />
+		<property name="commandName" value="deleteUserId" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/updateuserbyid.json"
+		class="com.freshremix.webapp.controller.admin.AdminUpdateUserController">
+		<property name="commandClass" value="com.freshremix.model.AdminUsers" />
+		<property name="commandName" value="updateUserId" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/loadrolesandcategory.json"
+		class="com.freshremix.webapp.controller.admin.AdminAllRolesAndCategoryController">
+		<property name="commandClass" value="com.freshremix.model.Role" />
+		<property name="commandName" value="roles" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/loadadmincategories.json"
+		class="com.freshremix.webapp.controller.admin.AdminCategoryController">
+		<property name="commandClass" value="com.freshremix.model.Role" />
+		<property name="commandName" value="categories" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/saveadmincategories.json"
+		class="com.freshremix.webapp.controller.admin.AdminSaveCategoryController">
+		<property name="commandClass" value="com.freshremix.model.AdminUsers" />
+		<property name="commandName" value="savecategories" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/savecompdpattern.json"
+		class="com.freshremix.webapp.controller.admin.AdminSaveCompDealingPatternController">
+		<property name="commandClass" value="com.freshremix.model.CompanyDealingPattern" />
+		<property name="commandName" value="compdpattern" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/saveuserdpattern.json"
+		class="com.freshremix.webapp.controller.admin.AdminSaveUsersDealingPatternController">
+		<property name="commandClass" value="com.freshremix.model.UserDealingPattern" />
+		<property name="commandName" value="saveuserdpattern" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/usersdpattern.json"
+		class="com.freshremix.webapp.controller.admin.AdminUsersDealingPattern">
+		<property name="commandClass" value="com.freshremix.model.UserDealingPattern" />
+		<property name="commandName" value="usersdpattern" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/searchcdpattern.json"
+		class="com.freshremix.webapp.controller.admin.AdminDealingPatternSearchCompany">
+		<property name="commandClass" value="com.freshremix.model.AdminCompanyInformation" />
+		<property name="commandName" value="searchCDPattern" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/updatepassword.json"
+		class="com.freshremix.webapp.controller.admin.AdminUpdatePasswordController">
+		<property name="commandClass" value="com.freshremix.model.User" />
+		<property name="commandName" value="updatePassword" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/removeCDP.json"
+		class="com.freshremix.webapp.controller.admin.AdminRemoveCDPController">
+		<property name="commandClass" value="com.freshremix.model.CompanyDealingPattern" />
+		<property name="commandName" value="removeCDP" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/loggeduser.json"
+		class="com.freshremix.webapp.controller.admin.LoggedUserController">
+		<property name="commandClass" value="com.freshremix.model.User" />
+		<property name="commandName" value="loggedUser" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/autosearchuserdp.json"
+		class="com.freshremix.webapp.controller.admin.AdminUserAutoSearchDealingPattern">
+		<property name="commandClass" value="com.freshremix.model.UserDealingPattern" />
+		<property name="commandName" value="autoSearchUserDP" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/validateRemoveUDP.json"
+		class="com.freshremix.webapp.controller.admin.AdminCompanyValidateRemoveUDPController" />
+
+	<bean name="/TOS*.json"
+		class="com.freshremix.webapp.controller.admin.AdminTOSController" />
+	<bean name="/DownloadUserDetails.json"
+		class="com.freshremix.webapp.controller.admin.DownloadUserDetailsController" />
+
+
+	<!-- End of Admin -->
+
+	<!-- Order Sheet: start -->
+	<bean name="/adminFilter/getCompany.json"
+		class="com.freshremix.webapp.controller.ordersheet.AdminCompanyLevelFilterController" />
+
+	<bean name="/adminFilter/getUser.json"
+		class="com.freshremix.webapp.controller.ordersheet.AdminUserLevelFilterController" />
+
+	<bean name="/filter/getCompany.json"
+		class="com.freshremix.webapp.controller.ordersheet.CompanyLevelFilterController" />
+
+	<bean name="/filter/getUser.json"
+		class="com.freshremix.webapp.controller.ordersheet.UserLevelFilterController" />
+
+	<bean name="/order/setParameter.json"
+		class="com.freshremix.webapp.controller.ordersheet.OrderSheetController">
+		<property name="commandName" value="orderSheetParam" />
+		<property name="commandClass" value="com.freshremix.model.OrderSheetParam" />
+		<property name="formView" value="json" />
+		<property name="successView" value="json" />
+	</bean>
+
+	<bean name="/order/sellerSelect.json"
+		class="com.freshremix.webapp.controller.ordersheet.SellerSelectController" />
+
+	<bean name="/order/sellerIdSelect.json"
+		class="com.freshremix.webapp.controller.ordersheet.SellerIdSelectController" />
+
+	<bean name="/order/quantityLimit.json"
+		class="com.freshremix.webapp.controller.ordersheet.QuantityLimitController" />
+
+	<bean name="/order/weeklyQuantityLimit.json"
+		class="com.freshremix.webapp.controller.ordersheet.WeeklyQuantityLimitController" />
+
+	<bean name="/order/addSku.json"
+		class="com.freshremix.webapp.controller.ordersheet.AddSkuController" />
+
+	<!-- <bean -->
+	<!-- name="/order/computeTotalPrice.json" -->
+	<!-- class="com.freshremix.webapp.controller.ordersheet.OrderSheetTotalPriceController"/> -->
+	<!-- deprecated function 
+	<bean name="/order/computeGTPrice.json"
+		class="com.freshremix.webapp.controller.ordersheet.OrderSheetGTPriceController" />
+     -->
+	<bean name="/order/validateOrderUnit.json"
+		class="com.freshremix.webapp.controller.ordersheet.OrderUnitController">
+	</bean>
+
+	<bean name="/order/loadOrder.json"
+		class="com.freshremix.webapp.controller.ordersheet.OrderSheetLoadController" />
+
+	<bean name="/order/saveOrder.json"
+		class="com.freshremix.webapp.controller.ordersheet.OrderSheetUpdateController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="commandName" value="order" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/seller/publish.json"
+		class="com.freshremix.webapp.controller.ordersheet.OrderSheetPublishController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="commandName" value="order" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/seller/unpublish.json"
+		class="com.freshremix.webapp.controller.ordersheet.OrderSheetUnpublishController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="commandName" value="order" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/seller/finalize.json"
+		class="com.freshremix.webapp.controller.ordersheet.OrderSheetFinalizeController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="commandName" value="order" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/seller/unfinalize.json"
+		class="com.freshremix.webapp.controller.ordersheet.OrderSheetUnfinalizeController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="commandName" value="order" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/order/validateOrder.json"
+		class="com.freshremix.webapp.controller.ordersheet.OrderSheetValidateController">
+	</bean>
+	<!-- Order Sheet: end -->
+
+	<!-- Allocation Sheet: Start -->
+	<bean name="/allocation/setParameter.json"
+		class="com.freshremix.webapp.controller.allocationsheet.AllocationSheetController">
+		<property name="commandName" value="orderSheetParam" />
+		<property name="commandClass" value="com.freshremix.model.OrderSheetParam" />
+		<property name="formView" value="json" />
+		<property name="successView" value="json" />
+	</bean>
+
+	<bean name="/allocation/sellerSelect.json"
+		class="com.freshremix.webapp.controller.allocationsheet.SellerSelectController" />
+
+	<bean name="/allocation/loadOrder.json"
+		class="com.freshremix.webapp.controller.allocationsheet.AllocationSheetLoadController" />
+
+	<bean name="/allocation/saveOrder.json"
+		class="com.freshremix.webapp.controller.allocationsheet.AllocationSheetUpdateController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="commandName" value="order" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/seller/publishAllocation.json"
+		class="com.freshremix.webapp.controller.allocationsheet.AllocationSheetPublishController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="commandName" value="order" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/seller/unpublishAllocation.json"
+		class="com.freshremix.webapp.controller.allocationsheet.AllocationSheetUnpublishController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="commandName" value="order" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/seller/finalizeAllocation.json"
+		class="com.freshremix.webapp.controller.allocationsheet.AllocationSheetFinalizeController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="commandName" value="order" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/seller/unfinalizeAllocation.json"
+		class="com.freshremix.webapp.controller.allocationsheet.AllocationSheetUnfinalizeController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="commandName" value="order" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+    <!-- deprecated function 
+
+	<bean name="/allocation/computeGTPrice.json"
+		class="com.freshremix.webapp.controller.allocationsheet.AllocationSheetGTPriceController" />
+    -->
+	<bean name="/allocation/validateOrderUnit.json"
+		class="com.freshremix.webapp.controller.allocationsheet.OrderUnitController">
+	</bean>
+	<!-- Allocation Sheet: End -->
+
+	<!-- SKU Group: start -->
+	<bean name="/skuGroup/saveSkuGroup.json"
+		class="com.freshremix.webapp.controller.skugroup.SKUGroupSaveController">
+		<property name="commandName" value="skuGroup" />
+		<property name="commandClass" value="com.freshremix.model.SKUGroup" />
+		<property name="formView" value="json" />
+		<property name="successView" value="json" />
+	</bean>
+
+	<bean name="/skuGroup/getSellers.json"
+		class="com.freshremix.webapp.controller.skugroup.SKUGroupController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="commandName" value="order" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/skuGroup/loadSkuGroup.json"
+		class="com.freshremix.webapp.controller.skugroup.SKUGroupListController">
+		<property name="commandName" value="skuGroup" />
+		<property name="commandClass" value="com.freshremix.model.SKUGroup" />
+		<property name="formView" value="json" />
+		<property name="successView" value="json" />
+	</bean>
+
+	<bean name="/skuGroup/updateSkuGroup.json"
+		class="com.freshremix.webapp.controller.skugroup.SKUGroupUpdateController">
+		<property name="commandName" value="skuGroupList" />
+		<property name="commandClass" value="com.freshremix.model.SKUGroup" />
+		<property name="formView" value="json" />
+		<property name="successView" value="json" />
+	</bean>
+
+	<bean name="/skuGroup/deleteSkuGroup.json"
+		class="com.freshremix.webapp.controller.skugroup.SKUGroupDeleteController">
+		<property name="commandName" value="skuGroupList" />
+		<property name="commandClass" value="com.freshremix.model.SKUGroupList" />
+		<property name="formView" value="json" />
+		<property name="successView" value="json" />
+	</bean>
+
+	<!-- SKU Group: end -->
+
+	<!-- Hide Column: start -->
+	<bean name="/userPref/saveHideColumn.json"
+		class="com.freshremix.webapp.controller.preferences.SaveHideColumnController">
+		<property name="commandName" value="hideColumn" />
+		<property name="commandClass" value="com.freshremix.model.HideColumn" />
+		<property name="formView" value="json" />
+		<property name="successView" value="json" />
+	</bean>
+
+	<bean name="/userPref/loadHideColumn.json"
+		class="com.freshremix.webapp.controller.preferences.LoadHideColumnController" />
+	<!-- Hide Column: end -->
+
+	<!-- PMF start -->
+	<bean name="/pmf/pmfList.json"
+		class="com.freshremix.webapp.controller.pmf.PmfLoadPmfListController">
+	</bean>
+
+	<bean name="/pmf/pmfSkuList.json"
+		class="com.freshremix.webapp.controller.pmf.PmfLoadPmfSkusController">
+	</bean>
+
+	<bean name="/pmf/pmfSkuSave.json"
+		class="com.freshremix.webapp.controller.pmf.PmfSavePmfSkusController">
+		<property name="commandClass" value="com.freshremix.model.PmfSkuList" />
+		<property name="commandName" value="pmfList" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/pmf/pmfSetSession.json"
+		class="com.freshremix.webapp.controller.pmf.PmfSetParamController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/pmf/pmfNewPmf.json"
+		class="com.freshremix.webapp.controller.pmf.PmfNewPmfController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/pmf/pmfCancelNewPmf.json"
+		class="com.freshremix.webapp.controller.pmf.PmfCancelNewPmfController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/pmf/pmfSellerSelect.json"
+		class="com.freshremix.webapp.controller.pmf.PmfSellerSelectController" />
+
+	<!-- PMF end -->
+
+	<!-- Buyer Order Sheet start -->
+
+	<bean name="/buyerorder/setParameter.json"
+		class="com.freshremix.webapp.controller.buyerordersheet.OrderSheetController">
+		<property name="commandName" value="orderSheetParam" />
+		<property name="commandClass" value="com.freshremix.model.OrderSheetParam" />
+		<property name="formView" value="json" />
+		<property name="successView" value="json" />
+	</bean>
+
+	<bean name="/buyerorder/loadOrder.json"
+		class="com.freshremix.webapp.controller.buyerordersheet.OrderSheetLoadController" />
+
+	<bean name="/buyerorder/lockUnlock.json"
+		class="com.freshremix.webapp.controller.buyerordersheet.OrderSheetLockUnlockController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="commandName" value="order" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/buyerorder/saveOrder.json"
+		class="com.freshremix.webapp.controller.buyerordersheet.OrderSheetUpdateController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="commandName" value="order" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/buyerorder/publish.json"
+		class="com.freshremix.webapp.controller.buyerordersheet.OrderSheetPublishController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="commandName" value="order" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+
+	<!-- Buyer Order Sheet end -->
+
+	<!-- AKADEN Sheet start -->
+
+	<bean name="/akaden/loadImportedDataFromAllocation.json"
+		class="com.freshremix.webapp.controller.akadensheet.AkadenImportedAllocationController">
+		<property name="commandName" value="akadenSheetParams" />
+		<property name="commandClass" value="com.freshremix.model.AkadenSheetParams" />
+		<property name="formView" value="json" />
+		<property name="successView" value="json" />
+	</bean>
+
+	<bean name="/akaden/setAkadenAllocParameter.json"
+		class="com.freshremix.webapp.controller.akadensheet.AkadenSheetAllocationController">
+		<property name="commandName" value="akadenSheetParams" />
+		<property name="commandClass" value="com.freshremix.model.AkadenSheetParams" />
+		<property name="formView" value="json" />
+		<property name="successView" value="json" />
+	</bean>
+
+	<bean name="/akaden/setAkadenParameter.json"
+		class="com.freshremix.webapp.controller.akadensheet.AkadenSheetController">
+		<property name="commandName" value="akadenSheetParams" />
+		<property name="commandClass" value="com.freshremix.model.OrderSheetParam" />
+		<property name="formView" value="json" />
+		<property name="successView" value="json" />
+	</bean>
+
+	<bean name="/akaden/loadAkaden.json"
+		class="com.freshremix.webapp.controller.akadensheet.AkadenSheetLoadController" />
+
+	<bean name="/akaden/saveAkaden.json"
+		class="com.freshremix.webapp.controller.akadensheet.AkadenSheetSaveController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="commandName" value="akaden" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/akaden/setAkadenSessionForAllocation.json"
+		class="com.freshremix.webapp.controller.akadensheet.AkadenSaveImpotedAllocController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="commandName" value="akaden" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/akaden/computeGTPrice.json"
+		class="com.freshremix.webapp.controller.akadensheet.AkadenSheetGTPriceController">
+	</bean>
+
+	<bean name="/akaden/computeTotalPrice.json"
+		class="com.freshremix.webapp.controller.akadensheet.AkadenSheetTotalPriceController">
+	</bean>
+
+	<!-- AKADEN Sheet end -->
+
+	<!-- Buyer Received Sheet start -->
+
+	<bean name="/buyerreceived/setParameter.json"
+		class="com.freshremix.webapp.controller.receivedsheet.ReceivedSheetController">
+		<property name="commandName" value="orderSheetParam" />
+		<property name="commandClass" value="com.freshremix.model.OrderSheetParam" />
+		<property name="formView" value="json" />
+		<property name="successView" value="json" />
+	</bean>
+
+	<bean name="/buyerreceived/loadOrder.json"
+		class="com.freshremix.webapp.controller.receivedsheet.ReceivedSheetLoadController" />
+
+	<bean name="/buyerreceived/saveOrder.json"
+		class="com.freshremix.webapp.controller.receivedsheet.ReceivedSheetUpdateController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="commandName" value="order" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/buyerreceived/computeGTPrice.json"
+		class="com.freshremix.webapp.controller.receivedsheet.ReceivedSheetGTPriceController" />
+
+	<bean name="/buyerreceived/lockUnlock.json"
+		class="com.freshremix.webapp.controller.receivedsheet.ReceivedSheetLockUnlockController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="commandName" value="order" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<!-- Buyer Received Sheet end -->
+
+	<!-- Seller Billing Sheet: start -->
+
+	<bean name="/billing/setParameter.json"
+		class="com.freshremix.webapp.controller.billingsheet.BillingSheetController">
+		<property name="commandName" value="orderSheetParam" />
+		<property name="commandClass" value="com.freshremix.model.OrderSheetParam" />
+		<property name="formView" value="json" />
+		<property name="successView" value="json" />
+	</bean>
+
+	<bean name="/billing/loadOrder.json"
+		class="com.freshremix.webapp.controller.billingsheet.BillingSheetLoadController" />
+
+	<bean name="/billing/saveOrder.json"
+		class="com.freshremix.webapp.controller.billingsheet.BillingSheetUpdateController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="commandName" value="order" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+	<bean name="/billing/finalize.json"
+		class="com.freshremix.webapp.controller.billingsheet.BillingSheetFinalizeController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="commandName" value="order" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+	<bean name="/billing/unfinalize.json"
+		class="com.freshremix.webapp.controller.billingsheet.BillingSheetUnfinalizeController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="commandName" value="order" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+	<bean name="/billing/computeGTPrice.json"
+		class="com.freshremix.webapp.controller.billingsheet.BillingSheetGTPriceController">
+	</bean>
+
+	<bean name="/billing/validateOrderUnit.json"
+		class="com.freshremix.webapp.controller.billingsheet.OrderUnitController">
+	</bean>
+
+	<!-- Seller Billing Sheet: end -->
+
+	<!-- Order Unit start -->
+	<bean name="/orderUnit/loadOrderUnit.json"
+		class="com.freshremix.webapp.controller.orderunit.OrderUnitLoadController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="commandName" value="orderUnit" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/orderUnit/saveOrderUnit.json"
+		class="com.freshremix.webapp.controller.orderunit.OrderUnitSaveController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="commandName" value="orderUnit" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/orderUnit/deleteOrderUnit.json"
+		class="com.freshremix.webapp.controller.orderunit.OrderUnitDeleteController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="commandName" value="orderUnit" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+	<!-- Order Unit end -->
+
+	<!-- Comments: Start -->
+	<bean name="/comments/homepageDisplay.json"
+		class="com.freshremix.webapp.controller.comments.InitHomepageController" />
+	<bean name="/comments/countUnreadMsg.json"
+		class="com.freshremix.webapp.controller.comments.CountUnreadMsgController" />
+	<bean name="/comments/init.json"
+		class="com.freshremix.webapp.controller.comments.InitCommentsController" />
+	<bean name="/comments/delete.json"
+		class="com.freshremix.webapp.controller.comments.DeleteCommentsController" />
+	<bean name="/comments/getCompanies.json"
+		class="com.freshremix.webapp.controller.comments.LoadCompaniesController" />
+	<bean name="/comments/getUsers.json"
+		class="com.freshremix.webapp.controller.comments.LoadUserController" />
+	<bean name="/comments/updateOpenStatus.json"
+		class="com.freshremix.webapp.controller.comments.OpenMailController" />
+	<bean name="/comments/sendEmail.json"
+		class="com.freshremix.webapp.controller.comments.SendEmailController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="commandName" value="order" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+	<!-- Comments: End -->
+
+	<!-- Download CSV: Start -->
+	<bean name="/downloadCSVInit.json"
+		class="com.freshremix.webapp.controller.downloadcsv.DownloadCSVInitController">
+	</bean>
+
+	<bean name="/downloadCSVLoadBuyerList.json"
+		class="com.freshremix.webapp.controller.downloadcsv.DownloadCSVLoadBuyerListController">
+	</bean>
+
+	<bean name="/downloadCSVLoadSellerList.json"
+		class="com.freshremix.webapp.controller.downloadcsv.DownloadCSVLoadSellerListController">
+	</bean>
+
+	<bean name="/downloadCSV.json"
+		class="com.freshremix.webapp.controller.downloadcsv.DownloadCSVController">
+	</bean>
+
+	<bean name="/downloadcsvSheetsList.json"
+		class="com.freshremix.webapp.controller.downloadcsv.DownloadCSVLoadSheetsController">
+	</bean>
+
+	<bean name="/downloadcsvParams.json"
+		class="com.freshremix.webapp.controller.downloadcsv.DownloadCSVParamsController">
+	</bean>
+
+	<bean name="/downloadClearSession.json"
+		class="com.freshremix.webapp.controller.downloadcsv.DownloadDestroySessionController">
+	</bean>
+
+	<bean name="/csvUsersList.json"
+		class="com.freshremix.webapp.controller.downloadcsv.DownloadCSVUsersListController">
+		<property name="commandClass" value="java.lang.String" />
+		<property name="commandName" value="usersList" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/downloadcompanyinfo.json"
+		class="com.freshremix.webapp.controller.downloadcsv.DownloadCSVCompanyInfoController">
+	</bean>
+
+	<bean name="/csvBuyerAdminList.json"
+		class="com.freshremix.webapp.controller.downloadcsv.DownloadCSVFilterBuyerAdminController">
+	</bean>
+
+	<bean name="/csvBuyerAdminSellers.json"
+		class="com.freshremix.webapp.controller.downloadcsv.DownloadCSVFilterBuyerAdminSellersController">
+	</bean>
+
+
+	<!-- Download CSV: End -->
+
+	<!-- Download Excel: Start -->
+	<bean name="/downloadExcel.json"
+		class="com.freshremix.webapp.controller.downloadexcel.DownloadExcelController" />
+
+	<bean name="/loadExcelSetting.json"
+		class="com.freshremix.webapp.controller.downloadexcel.DownloadExcelLoadSetting" />
+	<!-- Download Excel: End -->
+
+	<!-- SKU Sort: Start -->
+	<bean name="/initSKUSort.json" class="com.freshremix.webapp.controller.sort.sku.SKUSortInit" />
+
+	<bean name="/saveSKUSort.json" class="com.freshremix.webapp.controller.sort.sku.SKUSortSave">
+		<property name="commandClass" value="com.freshremix.model.SKUSortParam" />
+		<property name="commandName" value="saveSKUSort" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+	<!-- SKU Sort: End -->
+
+	<!-- SKU Group Sort: Start -->
+	<bean name="/initSKUGroupSort.json"
+		class="com.freshremix.webapp.controller.sort.skugroup.SKUGroupSortInit" />
+
+	<bean name="/saveSKUGroupSort.json"
+		class="com.freshremix.webapp.controller.sort.skugroup.SKUGroupSortSave">
+		<property name="commandClass" value="com.freshremix.model.SKUGroupSortParam" />
+		<property name="commandName" value="saveSKUGroupSort" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+	<!-- SKU Group Sort: End -->
+
+	<!-- Company/Buyers Sort: Start -->
+	<bean name="/initCompanySort.json"
+		class="com.freshremix.webapp.controller.sort.companybuyers.CompanySortInit" />
+
+	<bean name="/saveCompanySort.json"
+		class="com.freshremix.webapp.controller.sort.companybuyers.CompanySortSave">
+		<property name="commandClass" value="com.freshremix.model.SKUGroupSortParam" />
+		<property name="commandName" value="saveSKUGroupSort" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/initBuyersSort.json"
+		class="com.freshremix.webapp.controller.sort.companybuyers.BuyersSortInit" />
+
+	<bean name="/saveBuyersSort.json"
+		class="com.freshremix.webapp.controller.sort.companybuyers.BuyersSortSave">
+		<property name="commandClass" value="com.freshremix.model.SKUGroupSortParam" />
+		<property name="commandName" value="saveSKUGroupSort" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+	<!-- Company/Buyers Sort: End -->
+
+	<!-- Company/Sellers Sort: Start -->
+	<bean name="/initCompanySellersSort.json"
+		class="com.freshremix.webapp.controller.sort.companysellers.CompanySellersSortInit" />
+
+	<bean name="/saveCompanySellersSort.json"
+		class="com.freshremix.webapp.controller.sort.companysellers.CompanySellersSortSave">
+		<property name="commandClass" value="com.freshremix.model.SKUGroupSortParam" />
+		<property name="commandName" value="saveSKUGroupSort" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/initSellersSort.json"
+		class="com.freshremix.webapp.controller.sort.companysellers.SellersSortInit" />
+
+	<bean name="/saveSellersSort.json"
+		class="com.freshremix.webapp.controller.sort.companysellers.SellersSortSave">
+		<property name="commandClass" value="com.freshremix.model.SKUGroupSortParam" />
+		<property name="commandName" value="saveSKUGroupSort" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+	<!-- Company/Sellers Sort: End -->
+
+	<!-- File Menu : start -->
+	<bean name="/userDetails.json" class="com.freshremix.webapp.controller.admin.UserDetails">
+		<property name="commandClass" value="com.freshremix.model.User" />
+		<property name="commandName" value="user" />
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+	<!-- File Menu : end -->
+	<bean name="/loadTab.json"
+		class="com.freshremix.webapp.controller.preferences.SKUGroupCategoriesInit">
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<bean name="/upload/uploadCsv.json"
+		class="com.freshremix.webapp.controller.uploadcsv.UploadCSVController">
+	</bean>
+
+
+	<bean name="/upload/validateCsv.json"
+		class="com.freshremix.webapp.controller.uploadcsv.ValidateCSVController">
+	</bean>
+
+
+	<bean name="/saveUserPreference.json"
+		class="com.freshremix.webapp.controller.preferences.SaveUserPreferences">
+		<property name="successView" value="json" />
+		<property name="formView" value="json" />
+	</bean>
+
+	<!-- <bean -->
+	<!-- name="/loadUserPreference.json" -->
+	<!-- class="com.freshremix.webapp.controller.preferences.LoadUserPreferenceController"> -->
+	<!-- </bean> -->
+
+	<bean name="/getCategoryTabs.json" class="com.freshremix.webapp.filter.CategoryTabsController">
+	</bean>
+
+	<!-- Buyer Billing Sheet: start -->
+	<bean name="/buyerbilling/setParameter.json"
+		class="com.freshremix.webapp.controller.buyerbillingsheet.BuyerBillingSheetController">
+		<property name="commandName" value="orderSheetParam" />
+		<property name="commandClass" value="com.freshremix.model.OrderSheetParam" />
+		<property name="formView" value="json" />
+		<property name="successView" value="json" />
+	</bean>
+
+	<bean name="/buyerbilling/loadOrder.json"
+		class="com.freshremix.webapp.controller.buyerbillingsheet.BuyerBillingSheetLoadController" />
+
+	<bean name="/buyerbilling/computeGTPrice.json"
+		class="com.freshremix.webapp.controller.buyerbillingsheet.BuyerBillingSheetGTPriceController" />
+	<!-- Buyer Billing Sheet: end -->
+
+	<bean name="/userPref/saveColumnWidth.json"
+		class="com.freshremix.webapp.controller.preferences.SaveColumnWidthController" />
+
+	<bean name="/userPref/loadProfitPreference.json"
+		class="com.freshremix.webapp.controller.preferences.LoadProfitPreferenceController" />
+
+	<bean name="/userPref/saveProfitPreference.json"
+		class="com.freshremix.webapp.controller.preferences.SaveProfitPreferenceController">
+		<property name="commandName" value="profitPref" />
+		<property name="commandClass" value="com.freshremix.model.ProfitPreference" />
+		<property name="formView" value="json" />
+		<property name="successView" value="json" />
+	</bean>
+	
+	<bean name="/userPref/saveLockButtonStatus.json"
+		class="com.freshremix.webapp.controller.preferences.SaveLockButtonStatusController">
+		<property name="commandName" value="lockButtonStatus" />
+		<property name="commandClass" value="com.freshremix.model.LockButtonStatus" />
+		<property name="formView" value="json" />
+		<property name="successView" value="json" />
+	</bean>
+	
+	<bean name="/userPref/loadLockButtonStatus.json"
+		class="com.freshremix.webapp.controller.preferences.LoadLockButtonStatusController" />
+
+	<!-- ENHANCEMENT START 20120726: JOVSAB - This code is for getting the server 
+		date and return to calendar -->
+
+	<bean name="/getServerDate.json" class="com.freshremix.webapp.filter.DateFromServerController" />
+
+	<!-- ENHANCEMENT END 20120726: -->
+
+	<bean name="/getSellerPublishedDate.json" class="com.freshremix.webapp.filter.SellerPublishedDatesController" />
+	
+	    
+    <bean name="/getActivityLogList.json" class="com.freshremix.webapp.controller.admin.GetActivityLogList" />
+    
+    <bean name="/getActivityLogCount.json" class="com.freshremix.webapp.controller.admin.GetActivityLogCount" />
+
+
+	<bean name="/getAnnouncement.json" class="com.freshremix.webapp.controller.admin.GetAnnouncementController" />
+	<bean name="/saveAnnouncement.json" class="com.freshremix.webapp.controller.admin.SaveAnnouncementController" />
+</beans>

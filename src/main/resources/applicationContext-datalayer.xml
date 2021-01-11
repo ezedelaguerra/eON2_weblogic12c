@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd"
+	default-autowire="byName">
+
+	<bean id="loginDao" class="com.freshremix.dao.impl.LoginDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
+	<bean id="companyInfoDaos" class="com.freshremix.dao.impl.CompanyInformationDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
+	<bean id="usersInfoDaos" class="com.freshremix.dao.impl.UserDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
+	<bean id="categoryDaos" class="com.freshremix.dao.impl.CategoryDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
+	<bean id="rolesDaos" class="com.freshremix.dao.impl.RolesDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
+	<bean id="compDPDaos" class="com.freshremix.dao.impl.CompanyDealingPatternDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
+	<bean id="tosDaos" class="com.freshremix.dao.impl.TermsOfServiceDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
+	<bean id="skuGroupDao" class="com.freshremix.dao.impl.SKUGroupDaoImpl" />
+
+	<bean id="orderDao" class="com.freshremix.dao.impl.OrderDaoImpl" />
+
+	<bean id="orderSheetDao" class="com.freshremix.dao.impl.OrderSheetDaoImpl" />
+
+	<bean id="skuDao" class="com.freshremix.dao.impl.SKUDaoImpl" />
+
+	<bean id="dealingPatternDao" class="com.freshremix.dao.impl.DealingPatternDaoImpl" />
+
+	<bean id="orderItemDao" class="com.freshremix.dao.impl.OrderItemDaoImpl" />
+
+	<bean id="allocationDao" class="com.freshremix.dao.impl.AllocationDaoImpl" />
+
+	<bean id="receivedSheetDao" class="com.freshremix.dao.impl.ReceivedSheetDaoImpl" />
+
+	<bean id="downloadExcelDao" class="com.freshremix.dao.impl.DownloadExcelDaoImpl" />
+
+	<bean id="akadenDao" class="com.freshremix.dao.impl.AkadenDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
+	<bean id="pmfDao" class="com.freshremix.dao.impl.ProductMasterFileDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
+	<bean id="orderBillingDao" class="com.freshremix.dao.impl.OrderBillingDaoImpl" />
+
+	<bean id="orderAkadenDao" class="com.freshremix.dao.impl.OrderAkadenDaoImpl" />
+
+	<bean id="commentsInboxDao" class="com.freshremix.dao.impl.CommentsInboxDaoImpl" />
+
+	<bean id="commentsOutboxDao" class="com.freshremix.dao.impl.CommentsOutboxDaoImpl" />
+
+	<bean id="downloadCSVDao" class="com.freshremix.dao.impl.DownloadCSVDaoImpl" />
+
+	<bean id="skuSortDao" class="com.freshremix.dao.impl.SKUSortDaoImpl" />
+
+	<bean id="skuGroupSortDao" class="com.freshremix.dao.impl.SKUGroupSortDaoImpl" />
+
+	<bean id="companybuyersSortDao" class="com.freshremix.dao.impl.CompanyBuyersSortDaoImpl" />
+
+	<bean id="companySellersSortDao" class="com.freshremix.dao.impl.CompanySellersSortDaoImpl" />
+
+	<bean id="orderUnitDao" class="com.freshremix.dao.impl.OrderUnitDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
+	<bean id="skuMaxLimitDao" class="com.freshremix.dao.impl.SKUMaxLimitDaoImpl">
+	</bean>
+
+	<bean id="userPreferenceDao" class="com.freshremix.dao.impl.UserPreferenceDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
+	<bean id="forgotPasswordLinkDao" class="com.freshremix.dao.impl.ForgotPasswordLinkDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
+	<bean id="auditTrailDao" class="com.freshremix.dao.impl.AuditTrailDaoImpl" />
+
+	<bean id="skuBADao" class="com.freshremix.dao.impl.SKUBADaoImpl" />
+
+	<bean id="autoDownloadDao" class="com.freshremix.dao.impl.AutoDownloadDaoImpl" />
+
+    <bean id="usersTOSDao" class="com.freshremix.dao.impl.UsersTOSDaoImpl">
+        <property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+    
+	<bean id="activityLogDao" class="com.freshremix.dao.impl.ActivityLogDaoImpl" />
+
+</beans>

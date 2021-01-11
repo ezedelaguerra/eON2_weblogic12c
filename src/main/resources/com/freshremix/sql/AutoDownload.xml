@@ -1,0 +1,151 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AutoDownload">
+
+	<resultMap
+		id="autoDownload-result"
+		class="com.freshremix.model.AutoDownloadSchedule">
+		<result property="scheduleCsvId" column="ID_SCHEDULE_CSV" />
+		<result property="userId" column="FK_ID_USER" />
+		<result property="username" column="USERNAME" />
+		<result property="executionTime" column="EXECUTION_TIME" />
+		<result property="dateLastDownload" column="DATE_LAST_DOWNLOAD" />
+		<result property="leadTime" column="LEAD_TIME" />
+		<result property="sheetTypeId" column="FK_ID_SHEET_TYPE" />
+		<result property="categoryId" column="SHEET_CATEGORY" />
+		<result property="hasQty" column="HAS_QTY" />
+		<result property="ftpIp" column="FTP_IP" />
+		<result property="ftpId" column="FTP_ID" />
+		<result property="ftpPw" column="FTP_PW" />
+		<result property="lastRunDate" column="LAST_RUN_DATE" />
+	</resultMap>
+
+	<resultMap
+		id="autoDownload-result2"
+		class="com.freshremix.model.AutoDownloadSchedule" extends="autoDownload-result">
+		<result property="sheetTypeDesc" column="SHEET_DESC" />
+		<result property="categoryDesc" column="CATEGORY_DESC" />
+	</resultMap>
+	
+	<insert id="insertAutoDownloadSchedule" parameterClass="com.freshremix.model.AutoDownloadSchedule">
+		INSERT INTO EON_AUTODWNLD_SCHEDULE 
+			(ID_SCHEDULE_CSV, FK_ID_USER, EXECUTION_TIME, DATE_LAST_DOWNLOAD, LEAD_TIME,
+			 FK_ID_SHEET_TYPE, SHEET_CATEGORY, HAS_QTY, FTP_IP, FTP_ID, FTP_PW)
+		VALUES
+			(EON_AUTODWNLD_SCHEDULE_SEQ.nextval, #userId#, #executionTime#, #dateLastDownload#, #leadTime#,
+			 #sheetTypeId#, #categoryId#, #hasQty#, #ftpIp#, #ftpId#, #ftpPw#)	
+			 
+		<selectKey keyProperty="scheduleCsvId" resultClass="java.lang.Integer">
+            SELECT EON_AUTODWNLD_SCHEDULE_SEQ.currval FROM DUAL
+        </selectKey>
+	</insert>
+	
+	<insert id="insertAutoDownloadExceptDate">
+		INSERT INTO EON_AUTODWNLD_EXCEPT_DATE 
+			(FK_ID_SCHEDULE_CSV, EXCEPT_DATE)
+		VALUES
+			(#scheduleCsvId#, #exceptDate#)	
+	</insert>
+	
+	<insert id="insertAutoDownloadSellers">
+		INSERT INTO EON_AUTODWNLD_SELLERS 
+			(FK_ID_SCHEDULE_CSV, FK_ID_SELLER)
+		VALUES
+			(#scheduleCsvId#, #sellerId#)	
+	</insert>
+	
+	<insert id="insertAutoDownloadBuyers">
+		INSERT INTO EON_AUTODWNLD_BUYERS 
+			(FK_ID_SCHEDULE_CSV, FK_ID_BUYER)
+		VALUES
+			(#scheduleCsvId#, #buyerId#)	
+	</insert>
+	
+	<select id="selectAutoDownloadSchedule" resultMap="autoDownload-result">
+		SELECT dl.*, us.USERNAME FROM EON_AUTODWNLD_SCHEDULE dl, EON_USERS us
+			WHERE FK_ID_USER = USER_ID
+		<isNotNull property="executionTime">AND EXECUTION_TIME = #executionTime#</isNotNull>
+	</select>
+	
+	<select id="selectDistinctAutoDownloadSchedule" resultClass="java.lang.String">
+		SELECT DISTINCT(EXECUTION_TIME) FROM EON_AUTODWNLD_SCHEDULE
+	</select>
+	
+	<select id="selectAutoDownloadScheduleByUsername" resultMap="autoDownload-result" parameterClass="java.lang.String">
+		SELECT dl.*, us.USERNAME FROM EON_AUTODWNLD_SCHEDULE dl, EON_USERS us
+			WHERE FK_ID_USER = USER_ID
+			AND EXECUTION_TIME = #username#
+	</select>
+	
+	<select id="selectAutoDownloadScheduleExceptByScheduleId" resultMap="autoDownload-result" parameterClass="java.lang.Integer">
+		SELECT dl.*, us.USERNAME FROM EON_AUTODWNLD_SCHEDULE dl, EON_USERS us
+			WHERE FK_ID_USER = USER_ID
+				AND ID_SCHEDULE_CSV != #scheduleId#
+	</select>
+	
+	<select id="selectAutoDownloadExceptDate" resultClass="java.util.Date" parameterClass="java.lang.Integer">
+		SELECT EXCEPT_DATE FROM EON_AUTODWNLD_EXCEPT_DATE WHERE FK_ID_SCHEDULE_CSV = #scheduleCsvId#
+	</select>
+	
+	<select id="selectAutoDownloadSellers" resultClass="java.lang.Integer" parameterClass="java.lang.Integer">
+		SELECT FK_ID_SELLER FROM EON_AUTODWNLD_SELLERS WHERE FK_ID_SCHEDULE_CSV = #scheduleCsvId#
+	</select>
+	
+	<select id="selectAutoDownloadBuyers" resultClass="java.lang.Integer" parameterClass="java.lang.Integer">
+		SELECT FK_ID_BUYER FROM EON_AUTODWNLD_BUYERS WHERE FK_ID_SCHEDULE_CSV = #scheduleCsvId#
+	</select>
+	
+	<update id="updateDateLastDownloaded" parameterClass="java.util.Map">
+		UPDATE EON_AUTODWNLD_SCHEDULE SET
+			DATE_LAST_DOWNLOAD = #endDate#,
+			LAST_RUN_DATE = #date#
+			WHERE ID_SCHEDULE_CSV = #scheduleCsvId#
+	</update>
+	
+	<delete id="deleteAutodownloadSchedule" parameterClass="java.lang.Integer">
+		DELETE FROM EON_AUTODWNLD_SCHEDULE WHERE ID_SCHEDULE_CSV = #scheduleCsvId#
+	</delete>
+	
+	<delete id="deleteAutodownloadBuyer" parameterClass="java.lang.Integer">
+		DELETE FROM EON_AUTODWNLD_BUYERS WHERE FK_ID_SCHEDULE_CSV = #scheduleCsvId#
+	</delete>
+	
+	<delete id="deleteAutodownloadExceptionDate" parameterClass="java.lang.Integer">
+		DELETE FROM EON_AUTODWNLD_EXCEPT_DATE WHERE FK_ID_SCHEDULE_CSV = #scheduleCsvId#
+	</delete>
+	
+	<delete id="deleteAutodownloadSeller" parameterClass="java.lang.Integer">
+		DELETE FROM EON_AUTODWNLD_SELLERS WHERE FK_ID_SCHEDULE_CSV = #scheduleCsvId#
+	</delete>
+
+	<select id="getAutoDownloadScheduleById" resultMap="autoDownload-result2" parameterClass="java.lang.Integer">
+		SELECT dl.*, us.USERNAME, sh.DESCRIPTION SHEET_DESC, cat.DESCRIPTION CATEGORY_DESC 
+		FROM EON_AUTODWNLD_SCHEDULE dl
+			JOIN EON_USERS us 
+				ON FK_ID_USER = USER_ID
+			LEFT JOIN EON_SHEET_TYPE sh 
+				ON FK_ID_SHEET_TYPE = sh.SHEET_TYPE_ID
+			LEFT JOIN  EON_CATEGORY cat
+				ON SHEET_CATEGORY = cat.SKU_CATEGORY_ID
+			WHERE ID_SCHEDULE_CSV = #scheduleCsvId#
+	</select>
+	
+	<select id="getAutoDownloadUserSellers" resultMap="User.User-result" parameterClass="java.lang.Integer">
+		SELECT us.* 
+		FROM EON_USERS us
+		JOIN EON_AUTODWNLD_SELLERS 
+			ON USER_ID = FK_ID_SELLER
+		WHERE FK_ID_SCHEDULE_CSV = #scheduleCsvId#
+	</select>
+	
+	<select id="getAutoDownloadUserBuyers" resultMap="User.User-result" parameterClass="java.lang.Integer">
+		SELECT us.* 
+		FROM EON_USERS us
+		JOIN EON_AUTODWNLD_BUYERS dl
+			ON USER_ID = FK_ID_BUYER 
+		WHERE FK_ID_SCHEDULE_CSV = #scheduleCsvId#
+	</select>
+	
+	
+</sqlMap>

@@ -1,0 +1,632 @@
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="BillingSheet">
+
+	<resultMap
+		id="order"
+		class="com.freshremix.model.Order">
+		<result property="orderId" column="ORDER_ID" />
+		<result property="buyerId" column="BUYER_ID" />
+		<result property="deliveryDate" column="DELIVERY_DATE" />
+		<result property="sellerId" column="SELLER_ID" />
+		<result property="allocationFinalizedBy" column="ALLOCATION_FINALIZED_BY" />
+		<result property="billingSavedBy" column="BILLING_SAVED_BY" />
+		<result property="billingFinalizedBy" column="BILLING_FINALIZED_BY" />
+		<result property="billingUnfinalizedBy" column="BILLING_UNFINALIZED_BY" />
+		<result property="akadenSavedBy" column="AKADEN_SAVED_BY" />
+	</resultMap>
+	
+	<resultMap
+		id="billingItem"
+		class="com.freshremix.model.BillingItem">
+		<result property="order.orderId" column="ORDER_ID" />
+		<result property="order.buyerId" column="BUYER_ID" />
+		<result property="order.deliveryDate" column="DELIVERY_DATE" />
+		<result property="order.orderFinalizedBy" column="BILLING_FINALIZED_BY" />
+		<result property="billingItemId" column="ORDER_BILLING_ID" />
+		<result property="sku.skuId" column="SKU_ID" />
+		<result property="quantity" column="QUANTITY" />
+	</resultMap>
+
+	<resultMap
+		id="billingAkadenSku"
+		class="com.freshremix.model.BillingAkadenSKU">
+		<result property="skuId" column="SKU_ID" />
+		<result property="billingAkadenSkuId" column="TEMP_ID" />
+		<result property="skuName" column="SKU_NAME" />
+		<result property="skuGroup.skuGroupId" column="SKU_GROUP_ID" />
+		<result property="skuGroup.description" column="DESCRIPTION" />
+		<result property="user.userId" column="USER_ID" />
+		<result property="user.userName" column="USER_NAME" />
+		<result property="user.shortName" column="USER_SHORTNAME" />
+		<result property="company.companyId" column="COMPANY_ID" />
+		<result property="company.companyName" column="COMPANY_NAME" />
+		<result property="company.shortName" column="COMPANY_SHORTNAME" />
+		<result property="location" column="LOCATION" />
+		<result property="market" column="MARKET" />
+		<result property="grade" column="GRADE" />
+		<result property="clazz" column="CLASS" />
+		<result property="price1" column="PRICE1" />
+		<result property="price2" column="PRICE2" />
+		<result property="priceWithoutTax" column="PRICE_WITHOUT_TAX" />
+		<result property="packageQuantity" column="PACKAGE_QUANTITY" />
+		<result property="packageType" column="PACKAGE_TYPE" />
+		<result property="orderUnit.orderUnitId" column="ORDER_UNIT_ID" />
+		<result property="orderUnit.orderUnitName" column="ORDER_UNIT_NAME" />
+		<result property="status" column="STATUS" />
+		<result property="origSkuId" column="ORIGINAL_SKU_ID" />
+		<result property="skuCategoryId" column="SKU_CATEGORY_ID" />
+		<result property="sheetType" column="SHEET_TYPE_ID" />
+	</resultMap>
+	
+	<resultMap
+		id="billingBuyerSum-result"
+		class="com.freshremix.model.BillingItem">
+		<result property="order.buyerId" column="BUYER_ID" />
+		<result property="quantity" column="QUANTITY" />
+	</resultMap>
+	
+	<resultMap
+		id="billingDateSum-result"
+		class="com.freshremix.model.BillingItem">
+		<result property="order.deliveryDate" column="DELIVERY_DATE" />
+		<result property="quantity" column="QUANTITY" />
+	</resultMap>
+	
+	<resultMap
+		id="sku-GT2"
+		class="com.freshremix.model.GrandTotalPrices">
+		<result property="priceWithoutTax" column="PRICE_WITHOUT_TAX_GT" />
+		<result property="priceWithTax" column="PRICE_WITH_TAX_GT" />
+	</resultMap>	
+	
+	<insert id="insertOrder" parameterClass="com.freshremix.model.Order">
+		INSERT INTO EON_ORDER (ORDER_ID, SELLER_ID, BUYER_ID, DELIVERY_DATE, ORDER_SAVED_BY, ALLOCATION_FINALIZED_BY, DATE_CREATED, CREATED_BY) VALUES 
+		(EON_ORDER_ID_SEQ.nextVal, #sellerId#, #buyerId#, #deliveryDate#, #orderSavedBy#, #allocationFinalizedBy#, SYSDATE, #createdBy#)
+		<selectKey keyProperty="orderId" resultClass="java.lang.Integer">
+            SELECT EON_ORDER_ID_SEQ.currval FROM DUAL
+        </selectKey>
+	</insert>
+	
+	<insert id="insertBillingItem" parameterClass="java.util.Map">
+		INSERT INTO EON_ORDER_BILLING
+		(
+		 ORDER_BILLING_ID, ORDER_ID, SKU_ID, SKU_BA_ID, UPDATED_BY,
+		 UPDATE_TIMESTAMP, QUANTITY
+		)
+		SELECT  EON_ORDER_BILLING_SEQ.nextVal, #orderId#, #skuId#, #skuBaId#, #userId#,
+		 SYSDATE, #quantity#
+		FROM DUAL
+		WHERE  NOT EXISTS (SELECT  ORDER_ID
+		                   FROM EON_ORDER_BILLING
+		                   WHERE ORDER_ID = #orderId#
+		                   AND SKU_ID = #skuId#)
+
+	</insert>
+ 	<insert id="insertBillingItemBatch" parameterClass="java.util.Map">
+		INSERT INTO EON_ORDER_BILLING
+		(ORDER_BILLING_ID, ORDER_ID, SKU_ID, SKU_BA_ID, UPDATED_BY, UPDATE_TIMESTAMP, QUANTITY)
+		SELECT EON_ORDER_BILLING_SEQ.nextVal, ord.ORDER_ID, alloc.SKU_ID, alloc.SKU_BA_ID,
+		       #userId#, SYSDATE, alloc.QUANTITY
+		FROM EON_ORDER ord
+		JOIN EON_ORDER_ALLOCATION alloc
+		ON   ord.ORDER_ID = alloc.ORDER_ID
+		WHERE alloc.ORDER_ID IN <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate>
+		AND NOT EXISTS (SELECT ORDER_ID
+		                FROM EON_ORDER_BILLING eob
+		                 WHERE eob.ORDER_ID = alloc.ORDER_ID
+		                 AND SKU_ID = alloc.SKU_ID)
+	</insert>
+		
+		
+	<insert id="insertBillingItemObject" parameterClass="com.freshremix.model.BillingItem">
+		INSERT INTO EON_ORDER_BILLING
+		(
+			ORDER_BILLING_ID, ORDER_ID, SKU_ID, UPDATED_BY,
+			UPDATE_TIMESTAMP, QUANTITY, COMMENTS
+		)
+		VALUES
+		(
+			EON_ORDER_BILLING_SEQ.nextVal, #order.orderId#, #sku.skuId#, #updateBy#,
+			SYSDATE, #quantity#, #comments#
+		)
+		<selectKey keyProperty="billingItemId" resultClass="java.lang.Integer">
+            SELECT EON_ORDER_BILLING_SEQ.currval FROM DUAL
+        </selectKey>
+	</insert>
+	
+	<update id="updateBillingItem" parameterClass="java.util.Map">
+		UPDATE EON_ORDER_BILLING
+		SET
+			SKU_ID = #skuId#,
+			UPDATED_BY = #userId#,
+			UPDATE_TIMESTAMP = SYSDATE,
+			QUANTITY = #quantity#
+		WHERE
+			SKU_ID = #origSkuId# AND
+			ORDER_ID = #orderId#
+	</update>
+	
+	<update id="updateOrdersByOrderIds" parameterClass="java.util.Map">
+		UPDATE EON_ORDER SET
+			BILLING_SAVED_BY = #billingSavedBy#, 
+			DATE_UPDATED = SYSDATE, 
+			UPDATED_BY = #billingSavedBy# 
+			WHERE ORDER_ID IN <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate>
+	</update>
+	
+	<delete id="deleteBillingItemsByOrderIdAndSkuIds" parameterClass="java.util.Map">
+		DELETE FROM EON_ORDER_BILLING WHERE
+			ORDER_ID = #orderId# and SKU_ID IN <iterate property="skuIds" open="(" close=")" conjunction=",">#skuIds[]#</iterate>
+	</delete>
+	
+	<select id="getBillingOrders" parameterClass="java.util.Map" resultMap="order">
+		SELECT DISTINCT * 
+		FROM EON_ORDER 
+		WHERE SELLER_ID IN <iterate property="sellerIds" open="(" close=")" conjunction=",">#sellerIds[]#</iterate>
+			AND BUYER_ID IN <iterate property="buyerIds" open="(" close=")" conjunction=",">#buyerIds[]#</iterate>
+			AND DELIVERY_DATE IN <iterate property="deliveryDates" open="(" close=")" conjunction=",">#deliveryDates[]#</iterate>
+			<isNotNull property="isBuyer">AND (billing_finalized_by is not null or billing_finalized_by &lt;&gt; '')</isNotNull>
+			AND (allocation_finalized_by is not null or allocation_finalized_by &lt;&gt; '')
+	</select>
+	
+	<select id="getOrderItemsByOrderId" parameterClass="java.lang.Integer" resultMap="OrderSheet.getOrderItemsByOrderId-result">
+		SELECT ORDER_ID, SKU_ID, QUANTITY, TOTAL_QUANTITY, UNIT_PRICE 
+		FROM EON_ORDER_BILLING 
+		WHERE ORDER_ID = #orderId#
+	</select>
+	
+	<select id="getSelectedOrdersByBuyer" parameterClass="java.util.Map" resultMap="order">
+		SELECT ORDER_ID, BUYER_ID, DELIVERY_DATE, SELLER_ID, BILLING_SAVED_BY, BILLING_FINALIZED_BY, AKADEN_SAVED_BY 
+		FROM EON_ORDER 
+		WHERE SELLER_ID IN <iterate property="sellerIds" open="(" close=")" conjunction=",">#sellerIds[]#</iterate>
+			AND BUYER_ID = #buyerId# 
+			AND DELIVERY_DATE IN <iterate property="dates" open="(" close=")" conjunction=",">#dates[]#</iterate>
+			AND (allocation_finalized_by is not null or allocation_finalized_by &lt;&gt; '')
+	</select>
+	
+	<select id="getSelectedOrdersByDate" parameterClass="java.util.Map" resultMap="order">
+		SELECT ORDER_ID, BUYER_ID, DELIVERY_DATE, SELLER_ID, BILLING_SAVED_BY, BILLING_FINALIZED_BY, AKADEN_SAVED_BY 
+		FROM EON_ORDER 
+		WHERE SELLER_ID IN <iterate property="sellerIds" open="(" close=")" conjunction=",">#sellerIds[]#</iterate>
+			AND DELIVERY_DATE = #selectedDate# 
+			AND BUYER_ID IN <iterate property="buyerIds" open="(" close=")" conjunction=",">#buyerIds[]#</iterate>
+			AND (allocation_finalized_by is not null or allocation_finalized_by &lt;&gt; '')
+	</select>		
+		
+	<update id="updateBillingOrder" parameterClass="java.util.Map">
+		UPDATE EON_ORDER SET
+			BILLING_SAVED_BY = #userId#, 
+			DATE_UPDATED = SYSDATE, 
+			UPDATED_BY = #userId# 
+			WHERE ORDER_ID = #orderId#
+	</update>
+	
+	<update id="finalizeBilling" parameterClass="java.util.Map">
+		UPDATE EON_ORDER SET 
+			BILLING_FINALIZED_BY = #orderFinalizedBy#,
+			BILLING_UNFINALIZED_BY = null,
+			UPDATED_BY = #orderFinalizedBy#,
+			DATE_UPDATED = SYSDATE
+			WHERE ORDER_ID = #orderId#
+	</update>
+	
+	<update id="unFinalizeBilling" parameterClass="java.util.Map">
+		UPDATE EON_ORDER SET 
+			BILLING_FINALIZED_BY = null,
+            BILLING_UNFINALIZED_BY = #orderUnfinalizedBy#,
+			UPDATED_BY = #orderUnfinalizedBy#,
+			DATE_UPDATED = SYSDATE
+			WHERE ORDER_ID = #orderId#
+	</update>
+	
+	<select id="loadOrderItems" parameterClass="java.util.Map" resultMap="OrderSheet.orderItem">
+		SELECT * 
+		FROM EON_SKU SKU INNER JOIN EON_ORDER_BILLING OB
+		  ON SKU.SKU_ID = OB.SKU_ID
+		    LEFT JOIN EON_ORDER 
+		      ON OB.ORDER_ID = EON_ORDER.ORDER_ID
+		WHERE EON_ORDER.DELIVERY_DATE &lt;= #deliveryDate#
+		  AND SKU.SKU_CATEGORY_ID = #categoryId#
+		  AND SKU.SHEET_TYPE_ID = #sheetTypeId#
+	</select>
+	
+	<sql id="selectDistinctBillingSKUs">
+<!--		 get Billing item SKUs - Set '0' as type_flag to sort accordingly-->
+		Select * from (
+			SELECT sku.SKU_ID, sku.SKU_NAME, '0' TYPE_FLAG, 0 AKADEN_SKU_ID, sku.SKU_CATEGORY_ID,
+				grp.SKU_GROUP_ID, grp.DESCRIPTION, users.USER_ID, users.NAME USER_NAME, users.SHORTNAME USER_SHORTNAME, 
+				company.COMPANY_ID, company.COMPANY_NAME COMPANY_NAME, company.SHORT_NAME COMPANY_SHORTNAME,
+				sku.MARKET, sku.LOCATION, sku.GRADE, sku.CLASS, sku.PRICE1, sku.PRICE2, 
+				sku.PRICE_WITHOUT_TAX, sku.PACKAGE_QUANTITY, sku.PACKAGE_TYPE, uom.ORDER_UNIT_ID, uom.ORDER_UNIT_NAME,
+	            prop_user.USER_ID PROPOSED_BY, prop_user.NAME PROPOSED_NAME, prop_user.SHORTNAME PROPOSED_SHORTNAME,
+	            prop_company.COMPANY_ID PROPOSED_COMPANY_ID, prop_company.COMPANY_NAME PROPOSED_COMPANY_NAME, 
+	            prop_company.SHORT_NAME PROPOSED_COMPANY_SHORTNAME, sku.SHEET_TYPE_ID, sku.ORIGINAL_SKU_ID,
+	            sku.SKU_MAX_LIMIT, sku.EXTERNAL_SKU_ID, 
+	            sku.COLUMN_01, sku.COLUMN_02, sku.COLUMN_03, sku.COLUMN_04, sku.COLUMN_05,  
+				sku.COLUMN_06, sku.COLUMN_07, sku.COLUMN_08, sku.COLUMN_09, sku.COLUMN_10, 
+				sku.COLUMN_11, sku.COLUMN_12, sku.COLUMN_13, sku.COLUMN_14, sku.COLUMN_15, 
+				sku.COLUMN_16, sku.COLUMN_17, sku.COLUMN_18, sku.COLUMN_19, sku.COLUMN_20
+			FROM EON_USERS users, EON_COMPANY company, EON_SKU_GROUP grp, EON_ORDER_UNIT uom,
+				(
+				select distinct item.sku_id
+				from
+					eon_order_billing item, eon_sku tmp_sku 
+				where 
+					item.sku_id = tmp_sku.sku_id and
+					item.sku_id not in (SELECT DISTINCT asku.SKU_ID
+							FROM
+								EON_ORDER_AKADEN aka join eon_akaden_sku asku on aka.akaden_sku_id = asku.akaden_sku_id
+							WHERE
+								ORDER_ID IN <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate> 
+								and asku.type_flag = 1
+								group by asku.sku_id, order_id
+								having count(order_id)  = #orderCnt# ) and
+					item.order_id in <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate> and
+					tmp_sku.sku_category_id = #categoryId#
+				) ord_sku,
+				
+	            EON_SKU sku 
+	            left join EON_USERS prop_user on sku.PROPOSED_BY = prop_user.USER_ID
+	            left join EON_COMPANY prop_company on prop_user.COMPANY_ID = prop_company.COMPANY_ID
+			WHERE
+				ord_sku.SKU_ID = sku.SKU_ID AND
+				sku.SELLER_ID = users.USER_ID AND
+				users.COMPANY_ID = company.COMPANY_ID AND
+	         	sku.SKU_GROUP_ID = grp.SKU_GROUP_ID AND
+	         	sku.ORDER_UNIT_ID = uom.ORDER_UNIT_ID  
+	        ORDER BY SKU_ID 
+	    ) billing
+	</sql>	
+	
+	<select id="selectDistinctSKUs" parameterClass="java.util.Map"  resultMap="Akaden.skuProposed">
+
+		<!--get Billing item SKUs - Set '0' as type_flag to sort accordingly-->
+		<include refid="selectDistinctBillingSKUs"/>
+		UNION ALL 
+		select * from (
+			SELECT sku.SKU_ID, sku.SKU_NAME, sku.TYPE_FLAG TYPE_FLAG, sku.akaden_sku_id AKADEN_SKU_ID, sku.SKU_CATEGORY_ID,
+				grp.SKU_GROUP_ID, grp.DESCRIPTION, users.USER_ID, users.NAME USER_NAME, users.SHORTNAME USER_SHORTNAME, 
+				company.COMPANY_ID, company.COMPANY_NAME COMPANY_NAME, company.SHORT_NAME COMPANY_SHORTNAME,
+				sku.MARKET, sku.LOCATION, sku.GRADE, sku.CLASS, sku.PRICE1, sku.PRICE2, sku.PRICE_WITHOUT_TAX,
+				sku.PACKAGE_QUANTITY, sku.PACKAGE_TYPE, uom.ORDER_UNIT_ID, uom.ORDER_UNIT_NAME,
+	            prop_user.USER_ID PROPOSED_BY, prop_user.NAME PROPOSED_NAME, prop_user.SHORTNAME PROPOSED_SHORTNAME,
+	            prop_company.COMPANY_ID PROPOSED_COMPANY_ID, prop_company.COMPANY_NAME PROPOSED_COMPANY_NAME, 
+	            prop_company.SHORT_NAME PROPOSED_COMPANY_SHORTNAME, sku.SHEET_TYPE_ID, -1 ORIGINAL_SKU_ID,
+	            -1 SKU_MAX_LIMIT, '' EXTERNAL_SKU_ID,
+	            '' COLUMN_01, '' COLUMN_02, '' COLUMN_03, '' COLUMN_04, '' COLUMN_05,  
+				'' COLUMN_06, '' COLUMN_07, '' COLUMN_08, '' COLUMN_09, '' COLUMN_10, 
+				'' COLUMN_11, '' COLUMN_12, '' COLUMN_13, '' COLUMN_14, '' COLUMN_15, 
+				'' COLUMN_16, '' COLUMN_17, '' COLUMN_18, '' COLUMN_19, '' COLUMN_20
+			FROM EON_USERS users, EON_COMPANY company, EON_SKU_GROUP grp, EON_ORDER_UNIT uom,
+				(
+				SELECT DISTINCT aka.AKADEN_SKU_ID
+					FROM
+						EON_ORDER_AKADEN aka join eon_akaden_sku asku on aka.akaden_sku_id = asku.akaden_sku_id
+					WHERE
+						ORDER_ID IN <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate> 
+						and asku.type_flag in (1,2,3,9)
+				) ord_sku,
+	            EON_AKADEN_SKU sku
+	            left join EON_USERS prop_user on sku.PROPOSED_BY = prop_user.USER_ID
+	            left join EON_COMPANY prop_company on prop_user.COMPANY_ID = prop_company.COMPANY_ID
+			WHERE
+				ord_sku.AKADEN_SKU_ID = sku.AKADEN_SKU_ID AND
+				sku.SELLER_ID = users.USER_ID AND
+				users.COMPANY_ID = company.COMPANY_ID AND
+				sku.SKU_GROUP_ID = grp.SKU_GROUP_ID AND
+				sku.ORDER_UNIT_ID = uom.ORDER_UNIT_ID AND
+				sku.sku_category_id = #categoryId#
+			ORDER BY akaden_sku_id, TYPE_FLAG
+		) akaden
+	</select>
+	<sql id="selectDistinctBuyerBillingSKUs">
+<!--		 get Billing item SKUs - Set '0' as type_flag to sort accordingly-->
+		Select * from (
+			SELECT sku.SKU_ID, sku.SKU_NAME, 
+				'0' TYPE_FLAG, 0 AKADEN_SKU_ID, 
+				sku.SKU_CATEGORY_ID,
+				sku.SELLER_ID,
+				grp.SKU_GROUP_ID, grp.DESCRIPTION, 
+				users.USER_ID, users.NAME USER_NAME,
+				users.SHORTNAME USER_SHORTNAME, 
+				company.SHORT_NAME COMPANY_SHORTNAME,
+				sku.MARKET, 
+				sku.LOCATION, 
+				sku.GRADE, 
+				sku.CLASS, 
+				sku.PRICE1, 
+				sku.PRICE2, 
+				sku.PRICE_WITHOUT_TAX, 
+				sku.PACKAGE_QUANTITY, 
+				sku.PACKAGE_TYPE, 
+				sku.ORDER_UNIT_ID,
+	            sku.PROPOSED_BY, 
+	            sku.SHEET_TYPE_ID,
+	            0 SKU_BA_ID,
+	            ord_sku.PURCHASE_PRICE,
+				ord_sku.SELLING_PRICE,
+				ord_sku.FK_ID_SELLING_UOM,
+				ord_sku.SKU_COMMENT,
+				sku.ORIGINAL_SKU_ID, sku.SKU_MAX_LIMIT, sku.EXTERNAL_SKU_ID,
+				sku.COLUMN_01, sku.COLUMN_02, sku.COLUMN_03, sku.COLUMN_04, sku.COLUMN_05,  
+				sku.COLUMN_06, sku.COLUMN_07, sku.COLUMN_08, sku.COLUMN_09, sku.COLUMN_10, 
+				sku.COLUMN_11, sku.COLUMN_12, sku.COLUMN_13, sku.COLUMN_14, sku.COLUMN_15, 
+				sku.COLUMN_16, sku.COLUMN_17, sku.COLUMN_18, sku.COLUMN_19, sku.COLUMN_20
+			FROM EON_USERS users, EON_COMPANY company, EON_SKU_GROUP grp, EON_SKU sku, (
+				SELECT * FROM
+					(select item.sku_id, item.sku_ba_id, item.sku_ba_id SKUBAID from EON_ORDER_BILLING item
+						INNER JOIN EON_SKU tmp_sku 
+						  ON item.sku_id = tmp_sku.sku_id
+						LEFT JOIN EON_SKU_BA sku_ba
+						  ON sku_ba.sku_ba_id = item.sku_ba_id
+						WHERE 
+							item.sku_id not in (SELECT DISTINCT asku.SKU_ID
+								FROM
+									EON_ORDER_AKADEN aka join eon_akaden_sku asku on aka.akaden_sku_id = asku.akaden_sku_id
+								WHERE
+									ORDER_ID IN <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate> 
+									and asku.type_flag = 1
+									group by asku.sku_id, order_id
+									having count(order_id)  = #orderCnt# )
+						 AND item.order_id in <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate>
+						 AND tmp_sku.sku_category_id = #categoryId#
+						GROUP BY item.sku_id, item.sku_ba_id
+						)ord_sku LEFT JOIN  EON_SKU_BA sku_ba on ord_sku.sku_ba_id = sku_ba.sku_ba_id
+				) ord_sku
+			WHERE
+				ord_sku.SKU_ID = sku.SKU_ID AND
+				sku.SELLER_ID = users.USER_ID AND
+				users.COMPANY_ID = company.COMPANY_ID AND
+	         	sku.SKU_GROUP_ID = grp.SKU_GROUP_ID  
+	        ORDER BY SKU_ID 
+	    ) billing
+	</sql>	
+	
+	<select id="selectDistinctSKUBAs" parameterClass="java.util.Map"  resultMap="Akaden.akadenSkuBa">
+		<include refid="selectDistinctBuyerBillingSKUs"/>
+		UNION ALL 
+		select * from (
+			SELECT sku.SKU_ID, sku.SKU_NAME, 
+				sku.TYPE_FLAG TYPE_FLAG, 
+				sku.akaden_sku_id AKADEN_SKU_ID, 
+				sku.SKU_CATEGORY_ID,
+				sku.SELLER_ID,
+				grp.SKU_GROUP_ID, grp.DESCRIPTION, 
+				users.USER_ID, users.NAME USER_NAME, 
+				users.SHORTNAME USER_SHORTNAME, 
+				company.SHORT_NAME COMPANY_SHORTNAME,
+				sku.MARKET, 
+				sku.LOCATION, 
+				sku.GRADE, 
+				sku.CLASS, 
+				sku.PRICE1, 
+				sku.PRICE2, 
+				sku.PRICE_WITHOUT_TAX,
+				sku.PACKAGE_QUANTITY, 
+				sku.PACKAGE_TYPE, 
+				sku.ORDER_UNIT_ID,
+	            sku.PROPOSED_BY,
+	            sku.SHEET_TYPE_ID,
+	            0 SKU_BA_ID,
+	            0 PURCHASE_PRICE,
+	            0 SELLING_PRICE,
+	            0 FK_ID_SELLING_UOM,
+	            '' SKU_COMMENT, 
+	            -1 ORIGINAL_SKU_ID, -1 SKU_MAX_LIMIT, '' EXTERNAL_SKU_ID,
+	            '' COLUMN_01, '' COLUMN_02, '' COLUMN_03, '' COLUMN_04, '' COLUMN_05,  
+				'' COLUMN_06, '' COLUMN_07, '' COLUMN_08, '' COLUMN_09, '' COLUMN_10, 
+				'' COLUMN_11, '' COLUMN_12, '' COLUMN_13, '' COLUMN_14, '' COLUMN_15, 
+				'' COLUMN_16, '' COLUMN_17, '' COLUMN_18, '' COLUMN_19, '' COLUMN_20
+			FROM EON_USERS users, EON_COMPANY company, EON_SKU_GROUP grp, EON_AKADEN_SKU sku, 
+               (SELECT DISTINCT aka.AKADEN_SKU_ID FROM EON_ORDER_AKADEN aka 
+	               join eon_akaden_sku asku 
+	                 on aka.akaden_sku_id = asku.akaden_sku_id
+	               WHERE
+					   ORDER_ID IN <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate> 
+					and asku.type_flag in (1,2,3,9)
+				)ord_sku 
+			WHERE
+				ord_sku.AKADEN_SKU_ID = sku.AKADEN_SKU_ID AND
+				sku.SELLER_ID = users.USER_ID AND
+				users.COMPANY_ID = company.COMPANY_ID AND
+				sku.SKU_GROUP_ID = grp.SKU_GROUP_ID AND
+				sku.sku_category_id = #categoryId#
+			ORDER BY sku.akaden_sku_id, TYPE_FLAG
+		) akaden
+	</select>
+	
+	<select id="getOrderItemQuantity" parameterClass="java.util.Map" resultClass="java.math.BigDecimal">
+		SELECT QUANTITY
+		FROM
+			EON_ORDER ord,
+			EON_ORDER_BILLING item
+		WHERE
+			ord.ORDER_ID = item.ORDER_ID AND
+			ord.BUYER_ID = #buyerId# AND
+			ord.DELIVERY_DATE = #deliveryDate# AND
+			item.SKU_ID = #skuId#
+	</select>
+	
+	<delete id="deleteOrderItems" parameterClass="java.util.Map">
+		DELETE FROM EON_ORDER_BILLING WHERE
+			ORDER_ID = #orderId# AND SKU_ID IN <iterate property="skuId" open="(" close=")" conjunction=",">#skuId[]#</iterate>
+	</delete>
+	
+	<delete id="deleteAllOrderItemsByOrderId" parameterClass="java.lang.Integer">
+		DELETE FROM EON_ORDER_BILLING WHERE
+			ORDER_ID = #orderId#
+	</delete>
+
+	<select id="getBillingItemsByBuyers" parameterClass="java.util.Map" resultMap="billingItem">
+		<!-- get Billing item SKU qty -->
+		SELECT
+			ord.ORDER_ID,
+			ord.BUYER_ID,
+			ord.DELIVERY_DATE,
+			ord.BILLING_FINALIZED_BY,
+			item.ORDER_BILLING_ID,
+			item.SKU_ID,
+			item.QUANTITY
+		FROM
+			EON_ORDER ord,
+			EON_ORDER_BILLING item
+		WHERE
+			ord.ORDER_ID = item.ORDER_ID AND
+			ord.BUYER_ID IN <iterate property="buyerIds" open="(" close=")" conjunction=",">#buyerIds[]#</iterate> AND
+			ord.DELIVERY_DATE = #deliveryDate# AND
+			item.SKU_ID = #skuId#
+	</select>			
+	
+	<select id="getBillingItemsByDates" parameterClass="java.util.Map" resultMap="billingItem">
+			SELECT
+				ord.ORDER_ID,
+				ord.BUYER_ID,
+				ord.DELIVERY_DATE,
+				ord.BILLING_FINALIZED_BY,
+				item.ORDER_BILLING_ID,
+				item.SKU_ID,
+				item.QUANTITY
+			FROM
+				EON_ORDER ord,
+				EON_ORDER_BILLING item
+			WHERE
+				ord.ORDER_ID = item.ORDER_ID AND
+				ord.DELIVERY_DATE IN <iterate property="deliveryDates" open="(" close=")" conjunction=",">#deliveryDates[]#</iterate> AND
+				ord.BUYER_ID = #buyerId# AND
+				item.SKU_ID = #skuId#
+	</select>
+	
+	<select id="getSumOrderBillingBuyerMap" parameterClass="java.util.Map" resultMap="billingBuyerSum-result">
+		SELECT
+			ord.BUYER_ID,
+			SUM(bill.QUANTITY) QUANTITY
+		FROM
+			EON_ORDER ord,
+			EON_ORDER_BILLING bill
+		WHERE
+			ord.ORDER_ID = bill.ORDER_ID AND
+			ord.ORDER_ID IN <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate> AND
+			bill.SKU_ID = #skuId#
+		GROUP BY ord.BUYER_ID
+	</select>
+	
+	<select id="getSumOrderBillingDateMap" parameterClass="java.util.Map" resultMap="billingDateSum-result">
+		SELECT
+			ord.DELIVERY_DATE,
+			SUM(bill.QUANTITY) QUANTITY
+		FROM
+			EON_ORDER ord,
+			EON_ORDER_BILLING bill
+		WHERE
+			ord.ORDER_ID = bill.ORDER_ID AND
+			ord.ORDER_ID IN <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate> AND
+			bill.SKU_ID = #skuId#
+		GROUP BY ord.DELIVERY_DATE
+	</select>
+	
+	<select id="getTotalPriceByDateAndBuyer" parameterClass="java.util.Map" resultClass="java.math.BigDecimal">
+		SELECT SUM(PRICE_WITHOUT_TAX) AS TOTAL FROM EON_SKU WHERE SKU_ID IN (
+  			SELECT SKU_ID FROM EON_ORDER_BILLING WHERE ORDER_ID IN (
+    			SELECT ORDER_ID FROM EON_ORDER WHERE DELIVERY_DATE IN #selectedDate# AND BUYER_ID = #buyerId#))
+	</select>
+	
+	
+	<delete id="deleteBillingItemByOrderId" parameterClass="java.lang.Integer">
+		DELETE FROM EON_ORDER_BILLING WHERE
+			ORDER_ID = #orderId#
+	</delete>
+	<delete id="deleteBillingItemByOrderId2" parameterClass="java.util.Map">
+		DELETE FROM EON_ORDER_BILLING WHERE
+			ORDER_ID IN <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate>
+	</delete>		
+	<select id="getGTPriceAllOrders" parameterClass="java.util.Map" resultMap="sku-GT2">
+		SELECT SUM(PRICE_WITHOUT_TAX) PRICE_WITHOUT_TAX_GT, SUM(PRICE_WITH_TAX) PRICE_WITH_TAX_GT
+		FROM
+			(
+			SELECT
+	    		SUM(ROUND(sku.PRICE_WITHOUT_TAX * item.QUANTITY))  PRICE_WITHOUT_TAX, 
+    			SUM(ROUND(ROUND(sku.PRICE_WITHOUT_TAX * 1.05) * item.QUANTITY)) PRICE_WITH_TAX
+			FROM
+				EON_ORDER ord,
+			    EON_ORDER_BILLING item,
+				EON_SKU sku
+			WHERE
+			    item.SKU_ID = sku.SKU_ID AND
+				item.ORDER_ID = ord.ORDER_ID AND
+				ord.ORDER_ID in <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate>
+			UNION ALL
+			SELECT
+	    		SUM(ROUND(sku.PRICE_WITHOUT_TAX * item.QUANTITY))  PRICE_WITHOUT_TAX, 
+    			SUM(ROUND(ROUND(sku.PRICE_WITHOUT_TAX * 1.05) * item.QUANTITY)) PRICE_WITH_TAX
+			FROM
+				EON_ORDER ord,
+			    EON_ORDER_AKADEN item,
+				EON_AKADEN_SKU sku
+			WHERE
+			    item.AKADEN_SKU_ID = sku.AKADEN_SKU_ID AND
+                item.ORDER_ID = ord.ORDER_ID AND
+                (sku.TYPE_FLAG NOT IN (0,1)) AND
+				ord.ORDER_ID in <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate>
+			) billing
+			
+	</select>
+	
+	<select id="selectApprovedOrdersForBilling" parameterClass="java.util.Map" resultMap="order">
+		SELECT ORDER_ID,BUYER_ID,DELIVERY_DATE,SELLER_ID,ALLOCATION_FINALIZED_BY,
+		BILLING_SAVED_BY,BILLING_FINALIZED_BY,BILLING_UNFINALIZED_BY,AKADEN_SAVED_BY
+		 FROM EON_ORDER  WHERE ORDER_ID IN 
+		<iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate> AND
+		BILLING_FINALIZED_BY IS NOT NULL
+	</select>
+	
+	<select id="getBillingItemsBulk" parameterClass="java.util.Map" resultMap="billingItem">
+		SELECT
+			ord.ORDER_ID,
+			ord.BUYER_ID,
+			ord.DELIVERY_DATE,
+			ord.BILLING_FINALIZED_BY,
+			item.ORDER_BILLING_ID,
+			item.SKU_ID,
+			item.QUANTITY
+		FROM
+			EON_ORDER ord,
+			EON_ORDER_BILLING item
+		WHERE
+			ord.ORDER_ID = item.ORDER_ID AND
+			ord.ORDER_ID IN <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate> AND
+			item.SKU_ID IN <iterate property="skuIds" open="(" close=")" conjunction=",">#skuIds[]#</iterate>
+			<isNotNull property="hasQty">AND item.QUANTITY is NOT NULL AND item.QUANTITY != 0</isNotNull>
+	</select>
+	
+	<select id="getBillingItemBySellerIdSkuIdDate" parameterClass="java.util.Map" resultMap="billingBuyerSum-result">
+		SELECT
+			ord.BUYER_ID,
+			item.QUANTITY
+		FROM
+			EON_ORDER ord,
+			EON_ORDER_BILLING item
+		WHERE
+			ord.ORDER_ID = item.ORDER_ID AND
+			ord.SELLER_ID = #sellerId# AND
+			ord.DELIVERY_DATE = #deliveryDate# AND
+			item.SKU_ID = #skuId#
+	</select>
+
+	<select id="getNoAkadenOrders" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		SELECT DISTINCT asku.SKU_ID
+          FROM EON_ORDER_AKADEN aka
+          JOIN eon_akaden_sku asku
+            ON aka.akaden_sku_id = asku.akaden_sku_id
+         WHERE ORDER_ID IN <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate>
+                 AND asku.type_flag = 1
+<!--		SELECT Distinct ORDER_ID-->
+<!--		FROM EON_ORDER_BILLING -->
+<!--		   WHERE ORDER_ID IN <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate>-->
+<!--		   	 AND ORDER_ID NOT IN (Select Distinct aka.ORDER_ID -->
+<!--		   	 						from EON_ORDER_AKADEN aka-->
+<!--		                           where ORDER_ID IN <iterate property="orderIds" open="(" close=")" conjunction=",">#orderIds[]#</iterate>)  -->
+	</select>	
+</sqlMap>

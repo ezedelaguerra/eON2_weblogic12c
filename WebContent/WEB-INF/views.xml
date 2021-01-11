@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd"
+	default-autowire="byName">
+
+	<bean name="jsonViewCallback" class="org.springframework.web.servlet.view.json.error.StandartErrorConverter">
+        <property name="hasGlobalErrorsKey"> <value>hasGlobals</value> </property>
+        <property name="globalErrorsKey"> <value>globals</value> </property>
+        <property name="hasFieldErrorsKey"> <value>hasField</value> </property>
+        <property name="fieldErrorsKey"> <value>field</value> </property>
+        <property name="modelCleanUpMode"> <value>REMOVE_COMMAND_BEAN</value> </property>
+    </bean>
+   
+	<bean name="modelFlagError" 
+              class="org.springframework.web.servlet.view.json.error.ModelFlagError">
+           <property name="name" value="fail" />
+           <property name="booleanValue" value="true" />
+    </bean>
+    
+    <bean name="json"
+		class="org.springframework.web.servlet.view.json.JsonView">
+		<property name="contentType" value="text/plain"/>
+		<property name="jsonViewCallback" ref="jsonViewCallback" />
+		<property name="jsonErrors">
+			<list>
+				<ref bean="modelFlagError" />
+			</list>
+		</property>
+	</bean>
+
+	<bean name="excel" class="com.freshremix.webapp.view.excel.DownloadExcelView"/>
+	<bean name="csv" class="com.freshremix.webapp.view.csv.DownloadCSVView" />
+	<bean name="csvusers" class="com.freshremix.webapp.view.csv.DownloadCSVCompanyInfoView" />
+	<bean name="genericcsv" class="com.freshremix.webapp.view.csv.GenericCSVView" />
+</beans>

@@ -1,0 +1,65 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="UsersTOS">
+	<resultMap id="usersTOS-result" class="UsersTOS">
+		<result property="version" column="VERSION" />
+		<result property="userId" column="USER_ID" />
+		<result property="flag" column="FLAG" />
+		<result property="flagSetBy" column="FLAG_SET_BY" />
+		<result property="flagDate" column="FLAG_DATE" />
+	</resultMap>
+
+
+	<select id="getByPK" resultMap="usersTOS-result">
+		SELECT *
+		FROM EON_USERS_TOS
+		WHERE USER_ID=#value#
+	</select>
+
+	<insert id="save" parameterClass="UsersTOS">
+		INSERT INTO
+		EON_USERS_TOS (USER_ID, FLAG, FLAG_SET_BY, FLAG_DATE)
+		VALUES (#userId#,
+		#flag#, #flagSetBy#, #flagDate#)
+	</insert>
+
+	<update id="update" parameterClass="java.util.Map">
+		UPDATE
+		EON_USERS_TOS
+		SET
+		VERSION=#newVersion#,
+		FLAG=#entity.flag#,
+		FLAG_SET_BY=#entity.flagSetBy#,
+		FLAG_DATE=#entity.flagDate#
+		WHERE
+		USER_ID=#entity.userId# AND
+		VERSION=#oldVersion#
+	</update>
+	
+	<delete id="deleteAll">
+		DELETE 
+		FROM EON_USERS_TOS
+	</delete>
+	
+    <delete id="delete" parameterClass="java.lang.Integer">
+        DELETE 
+        FROM EON_USERS_TOS
+        WHERE USER_ID = #value#
+    </delete>
+    
+
+	<update id="resetAll" parameterClass="java.util.Map">
+		UPDATE EON_USERS_TOS
+		SET
+		VERSION=VERSION+1,
+		FLAG='0',
+		FLAG_SET_BY=#flagSetBy#,
+		FLAG_DATE=#flagDate#
+	</update>
+    
+    <select id="countAcceptance" parameterClass="java.lang.String" resultClass="int">
+	    SELECT COUNT(*) FROM DUAL WHERE EXISTS 
+	    (SELECT 1 FROM EON_USERS_TOS WHERE FLAG=#value#)
+    </select>
+</sqlMap>

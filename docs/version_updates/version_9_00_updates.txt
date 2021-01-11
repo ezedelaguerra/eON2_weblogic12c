@@ -1,0 +1,38 @@
+Module/Task: Redmine 686: Fish, Meat, Delica should have default UOM
+
+Date:       Mar. 29, 2012
+Developer:  Rhoda
+RevNo       FileName
+1.13		AllocationSheetController.java
+1.25		OrderSheetController.java(buyer)
+1.53		OrderSheetController.java(seller)
+1.11		OrderUnit.xml(revert)
+1.11		OrderUnitDao.java(revert)
+1.11		OrderUnitDaoImpl.java(revert)
+1.12		OrderUnitService.java
+1.13		OrderUnitServiceImpl.java
+1.6			CategoryConstants.java
+===============================================================
+Module/Task: Redmine 449: SKU max limit message with NAN 
+
+Date:       Mar. 29, 2012
+Developer:  Rhoda
+RevNo       FileName
+1.229-1.231	sigmaTable.jsp
+===============================================================
+Module/Task: Redmine 729: SKU group sorting scroll bar
+
+Date:       Mar. 29, 2012
+Developer:  Rhoda
+RevNo       FileName
+1.7			sku_group_sort.js
+===============================================================
+Module/Task: Redmine 662: Visibility issue in buyeradmin
+
+Date:       Mar. 29, 2012
+Developer:  Lele
+RevNo       FileName
+1.19		OrderItemDao.java
+1.21		OrderItemDaoImpl.java
+1.132		OrderSheetServiceImpl.java
+1.33		WebServiceImpl.java

@@ -1,0 +1,119 @@
+Module/Task: Redmine 462: Delete SKU group
+
+Date:       Mar. 12, 2012
+Developer:  Rhoda
+RevNo       FileName
+1.18		SKUGroup.xml
+1.13		SKUGroupDao.java (revert)
+1.15		SKUGroupDaoImpl.java
+1.6			SKUGroupDeleteController.java(revert)
+1.16		SKUGroupService.java(revert)
+1.22		SKUGroupServiceImpl.java (revert)
+===============================================================
+Module/Task: Redmine 471,512: Download Excel (show price w/ tax)
+
+Date:       Mar. 13, 2012
+Developer:  Rhoda
+RevNo       FileName
+1.54		DownloadExcelController.java
+1.19		DownloadExcelUtil.java
+1.24		DownloadExcelView.java
+1.79		en.js
+===============================================================
+Module/Task: Redmine 691: Rounding off problem with Total & Grand Totals for Price with and withou tax 
+
+Date:       Mar. 14, 2012
+Developer:  Ogie / Lele
+RevNo       FileName
+1.136       OrderSheet.xml
+1.43		OrderAllocation.xml
+1.71        OrderSheetUtil.java
+===============================================================
+Module/Task: Redmine 470: Lock button is still enable 
+
+Date:       Mar. 15, 2012
+Developer:  Rhoda
+RevNo       FileName
+1.41	    BuyerOrderSheetServiceImpl.java
+===============================================================
+Module/Task: Finalized Mark in filters 
+
+Date:       Mar. 15, 2012
+Developer:  Lele
+RevNo       FileName
+1.1-1.5		AdminFilterMarker.java
+1.1			AllocationState.java
+1.1			BAFilterMarker.java
+1.1			BuyerFilterMarker.java
+1.1			BuyerOrderState.java
+1.1			FilterMarker.java
+1.1			OrderKey.java
+1.1			OrderList.java
+1.1			ReceivedState.java
+1.1			SAFilterMarker.java
+1.1			SellerOrderState.java
+1.1			SheetAction.java
+1.1			SheetState.java
+1.1-1.5		UserFilterMarker.java
+1.4			FilteredIDs.java
+1.11		AdminUserLevelFilterController.java
+1.15		UserLevelFilterController.java
+1.30		admin_filter.js
+1.33		buyer_filter.js
+1.80		en.js
+1.92		ja.js
+1.38		admin_filter.js
+1.55		filter.js
+1.14		label_en.properties
+1.15		label_ja.properties
+1.4			MessageUtil.java
+===============================================================
+Module/Task: Redmine 712 - ALLs Finalize mark is differnt 
+
+Date:       Mar. 20, 2012
+Developer:  Rhoda
+RevNo       FileName
+1.2			OrderKey.java
+1.2			OrderList.java
+1.13		CompanyLevelFilterController.java
+1.17		UserLevelFilterController.java
+1.6			AdminFilterMarker.java
+1.6			UserFilterMarker.java
+===============================================================
+Module/Task: Redmine 721 - different from requirement definition #405
+
+Date:       Mar. 22, 2012
+Developer:  Lele
+RevNo       FileName
+1.2			BuyerFilterMarker.java
+1.9			Order.java
+1.3			OrderList.java
+1.17		DealingPatternService.java
+1.18		DealingPatternServiceImpl.java
+1.18		UserLevelFilterController.java
+===============================================================
+Module/Task: Redmine 728
+
+Date:       Mar. 22, 2012
+Developer:  Lele
+RevNo       FileName
+1.5			FilteredIDs.java
+1.31		admin_filter.js (buyer)
+1.34		buyer_filter.js
+1.39		admin_filter.js (seller)
+1.56		filter.js
+
+===============================================================
+Module/Task: Redmine ??? Implement dealing pattern checking for all filters
+
+Date:       Mar. 23, 2012
+Developer:  Ogie / Lele
+RevNo       FileName
+1.2         BAFilterMarker.java
+1.3         BuyerFilterMarker.java
+1.4         OrderList.java
+1.2         SAFilterMarker.java
+1.2         SellerFilterMarker.java
+1.12        AdminUserLevelFilterController.java
+1.19        UserLevelFilterController.java
+1.137		OrderSheet.xml

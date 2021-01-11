@@ -1,0 +1,55 @@
+===============================================================
+Module/Task: eON Screen 
+- Login page change texts/labels
+Date:       Sept 28, 2011
+Developer:  Ogie
+RevNo       FileName
+1.31        app/login/jsp/login.jsp
+===============================================================
+Module/Task: Redmine #113 User can press apply button several times.
+
+Date:       Sep 28, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.207		sigmaTable.jsp (Show Waiting does not appear upon saving)
+1.71		billingTable.jsp
+===============================================================
+Module/Task: Hide/Show Column (Buyer only)
+				- Show Hide Columns Preference does not destroy upon clicking other module menu
+Date:       Sept 28, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.13		user_preference.js
+===============================================================
+Module/Task: Fix log4j logging
+
+Date:       Sept 28, 2011
+Developer:  Lele
+RevNo       FileName
+1.5			log4j.properties
+1.6			ExceptionReportHandler.java
+
+===============================================================
+Module/Task: Removed Price2 column in billing sheet
+
+Date:       Sept 28, 2011
+Developer:  Lele
+RevNo       FileName
+1.11		BuyerBillingSheetLoadController.java
+1.36		buyer_billingTable.jsp
+
+===============================================================
+Module/Task: Hide/Show Column Separated buyer and buyer admin js
+			 Removed isApproved column
+			 Fixed price2 error (unable to uncheck)
+Date:       Sept 28, 2011
+Developer:  Lele
+RevNo       FileName
+1.5			HideColumn.java
+1.8			UserPreference.xml
+1.7			2011_Version_04.sql
+1.0			hide_column_admin.js
+1.4			hide_column.js
+1.59		buyer_receivedTable.jsp
+1.36		index.jsp
+1.2.2.2		hide_column_admin.js

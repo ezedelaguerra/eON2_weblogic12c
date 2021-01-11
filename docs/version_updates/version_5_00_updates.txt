@@ -1,0 +1,432 @@
+===============================================================
+Module/Task: Redmine #425: seller name is not correct at buyer's ordersheet
+
+Date:       Oct 03, 2011
+Developer:  Lele
+RevNo       FileName
+1.73		buyer_orderTable.jsp
+1.43.4.8	OrderSheetLoadController.java
+===============================================================
+Module/Task: Database script for version 5.00
+Date:       Oct 06, 2011
+Developer:  Ogie
+RevNo       FileName
+1.1.2.1     2011_Version_05_00.sql
+
+Update the database script for version 5.00
+Date:       Oct 07, 2011
+Developer:  Ogie
+1.1.2.2     2011_Version_05_00.sql
+
+Removed GROSS_PROFIT_RATE
+Date:       Oct 11, 2011
+Developer:  Ogie
+1.7.4.2     UserPreference.xml
+
+Update the database script for version 5.00
+Date:       Oct 11, 2011
+Developer:  Ogie
+1.1.2.4     2011_Version_05_00.sql
+
+Update the database script for version 5.00
+Date:       Oct 14, 2011
+Developer:  Ogie
+1.1         2011_Version_05_01.sql
+===============================================================
+Module/Task: 4 new columns enhancement (buyer/buyer admin order sheet only)
+Date:       Oct 04, 2011
+Developer:  Lele
+RevNo       FileName
+1.36		SessionParamConstants.java
+1.30.12.1-1.30.12.2	OrderDao.java
+1.18		OrderItemDao.java
+1.9			OrderUnitDao.java
+1.0			SKUBADao.java
+1.36.12.1-1.36.12.2	OrderDaoImpl.java
+1.20		OrderItemDaoImpl.java
+1.9			OrderUnitDaoImpl.java
+1.0			SKUBADaoImpl.java
+1.14		OrderItem.java
+1.0			SKUBA.java
+1.14		BuyerOrderSheetService.java
+1.10		OrderUnitService.java
+1.19		UsersInformationService.java
+1.26.6.1-1.26.6.3	BuyerOrderSheetServiceImpl.java
+1.122		OrderSheetServiceImpl.java
+1.10		OrderUnitServiceImpl.java
+1.23		UsersInforationServiceImpl.java
+1.29		WebServiceImpl.java
+1.112.6.1-1.112.6.3	OrderSheet.xml
+1.9			OrderUnit.xml
+1.0			SKUBA.xml
+1.8			AkadenItemUI.java
+1.27.12.1-1.27.12.2	OrderForm.java
+1.17.12.1-1.17.12.2	OrderItemUI.java
+1.17		AkadenSheetUtil.java
+1.48.12.1	OrderSheetUtil.java
+1.23		OrderSheetController.java
+1.43.4.1-1.43.4.3	OrderSheetLoadController.java
+1.9			OrderSheetUpdateController.java
+1.6.4.2-1.6.4.3		2011_Version_04.sql
+1.2.2.3		hide_column_admin.js
+1.3.4.1		hide_column.js (buyer)
+1.72.4.2-1.72.4.4	buyer_orderTable.jsp
+1.83.4.1-1.83.4.4	buyerAdmin_orderTable.jsp
+1.30		sql-map-config.xml
+1.50		applicationContext.xml
+
+Date:       Oct 06, 2011
+Developer:  Rhoda
+1.13.12.2	BuyerOrderSheetService.java
+1.26.6.4	BuyerOrderSheetServiceImpl.java
+1.30.12.3	OrderDao.java
+1.36.12.3	OrderDaoImpl.java
+1.112.6.4	OrderSheet.xml
+1.43.4.4	OrderSheetLoadController.java
+
+
+			Allocation Sheet (insert of receive/billing items)
+Date:       Oct 04, 2011
+Developer:  Lele
+RevNo       FileName
+1.16.6.1	ReceivedSheetDao.java
+1.17.6.1	ReceivedSheetDaoImpl.java
+1.36		AllocationSheetServiceImpl.java
+1.28.4.1	WebServiceImp.java
+1.36		OrderAllocation.xml
+1.27.6.1	ReceivedSheet.xml
+1.35.12.3	AllocationSheetServiceImpl.java
+
+			Receive Sheet (load only)
+Date:       Oct 04, 2011
+Developer:  Lele
+RevNo       FileName
+1.16.6.2	ReceivedSheetDao.java
+1.17.6.2	ReceivedSheetDaoImpl.java
+1.6			OrderReceived.java
+1.13		ReceivedSheetService.java
+1.23		ReceivedSheetServiceImpl.java
+1.27.6.2	ReceivedSheet.xml
+1.48.12.2	OrderSheetUtil.java
+1.9			SortingUtil.java
+1.16		ReceivedSheetController.java
+1.27		ReceivedSheetLoadController.java
+1.7			ReceivedSheetUpdateController.java
+1.58.4.2	buyer_receivedTable.jsp
+
+			Receive Sheet (save only)
+Date:       Oct 06, 2011
+Developer:  Lele
+RevNo       FileName
+1.14		AllocationDao.java
+1.16.6.3	ReceivedSheetDao.java
+1.17		AllocationDaoImpl.java
+1.17.6.3	ReceivedSheetDaoImpl.java
+1.35.12.2	AllocationSheetServiceImpl.java
+1.22.12.2	ReceivedSheetServiceImpl.java
+1.28.4.3	WebServiceImpl.java
+1.35.12.2	OrdderAllocation.xml
+1.27.12.2	ReceivedSheet.xml
+1.28.12.3	OrderForm.java
+1.17.12.3	OrderItemUI.java
+1.43.4.5	OrderSheetLoadController.java (buyer)
+1.15.12.2	ReceivedSheetController.java
+1.26.12.2	ReceivedSheetLoadController.java
+1.6.12.2	ReceivedSheetUpdateController.java
+1.58.4.3	buyer_receivedTable.jsp
+
+			Rename PIECE_PRICE to PURCHASE_PRICE; change default hide/show of buyer (4 new cols not shown)
+Date:       Oct 06, 2011
+Developer:  Lele
+RevNo       FileName
+1.4.4.2		HideColumn.java
+1.27		SKU.java
+1.1.2.2		SKUBA.java
+1.26.6.4	BuyerOrderSheetServiceImpl.java
+1.22.12.3	ReceivedSheetServiceImpl.java
+1.112.6.4	OrderSheet.xml
+1.27.6.3	ReceivedSheet.xml
+1.1.2.2		SKUBA.xml
+1.7.4.2		UserPreference.xml
+1.7.12.2	AkadenItemUI.java
+1.27.12.4	OrderForm.java
+1.17.12.4	OrderItemUI.java
+1.16.12.2	AkadenSheetUtil.java
+1.48.12.2	OrderSheetUtil.java
+1.43.4.6	OrderSheetLoadController.java
+1.26.12.3	ReceivedSheetLoadController.java
+1.2.2.4		hide_column_admin.js
+1.3.4.3		hide_column.js
+1.72.4.5	buyer_orderTable.jsp
+1.58.4.4	buyer_receivedTable.jsp
+1.83.4.5	buyerAdmin_orderTable.jsp
+1.71		en.js
+1.6.12.2	label_en.properties
+1.7.12.2	label_ja.properties
+1.10.12.2	DownloadExcelUtil.java
+1.38.12.1	DownloadExcelController.java
+1.3.4.4		hide_column.js
+1.35.4.3	buyer_billingTable.jsp
+1.72.4.5	buyer_orderTable.jsp
+1.58.4.5	buyer_receivedTable.jsp
+1.83.4.6	buyerAdmin_orderTable.jsp
+1.84		ja.js
+
+			Refactor
+Date:       Oct 07, 2011
+Developer:  Ogie
+RevNo       FileName
+1.26.6.6    BuyerOrderSheetService.java
+1.13.12.3   BuyerOrderSheetServiceImpl.java
+1.43.4.6    OrderSheetLoadController.java
+
+			Refactor and Fix
+Date:       Oct 07, 2011
+Developer:  Lele
+RevNo       FileName
+1.26.4.3	SKU.java
+1.26.6.6	BuyerOrderSheetServiceImpl.java
+1.22.12.3	ReceivedSheetServiceImpl.java
+1.16.12.3	AkadenSheetUtil.java
+1.48.12.4	OrderSheetUtil.java
+
+			4 new columns (billing sheet)
+Date:       Oct 07, 2011
+Developer:  Lele
+RevNo       FileName
+1.26.4.4	SKU.java
+1.17.4.2	AkadenSKU.java
+1.1.2.2		SKUTemplate.java
+1.11		BuyerBillingSheetController.java
+1.10.12.3	BuyerBillingLoadController.java
+1.35.4.4	buyer_billingTable.jsp
+
+Date:       Oct 07, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.46		Akaden.xml
+1.39		BillingSheet.xml
+1.19		BillingSheetService.java
+1.32		BillingSheetServiceImpl.java
+1.18		OrderBillingDao.java
+1.20.12.1	OrderBillingDaoImpl.java
+
+			Added sku id in EON_SKU_BA table
+Date:       Oct 11, 2011
+Developer:  Lele
+RevNo       FileName
+1.1.2.3		SKUBA.java
+1.26.6.8	BuyerOrderSheetServiceImpl.java
+1.22.12.5	ReceivedSheetServiceImpl.java
+1.1.2.4		SKUBA.xml
+1.1.2.3		2011_Version_05_00.sql
+
+			Fix reset of SKU BA fields in received sheet
+Date:		Oct 12, 2011
+Developer:	lele
+RevNo		Filename
+1.27.6.6	ReceivedSheet.xml
+
+			Fix sku comment maxlength
+Date:       Oct 12, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.83.4.9	buyerAdmin_orderTable.jsp
+1.58.4.7	buyer_receivedTable.jsp
+1.3.12.2	StringUtil.js
+
+			Bug fix from DEV testing
+Date:		Oct 12, 2011
+Developer:	Lele
+RevNo		Filename
+1.1.2.2-1.1.2.3	SKUBADaoImpl.java
+1.10.12.4	BuyerBillingSheetLoadController.java
+
+			Redmine 425: SELLING PRICE/PURCHAISE PRICE/SELLING UOM
+			column width as same as PACKAGING QUANTITY.
+Date:       Oct 18 2011
+Developer:  Rhoda
+RevNo       FileName
+1.72.4.7	buyer_orderTable.jsp
+1.83.4.10	buyerAdmin_orderTable.jsp
+1.58.4.8	buyer_receivedTable.jsp
+1.35.4.5	buyer_billingTable.jsp
+
+			Bug fix redmine 425 - Unable to save 3 new cols in add SKU
+			SELLING PRICE/PURCHAISE PRICE/SELLING UOM
+Date:		Oct 18, 2011
+Developer:	Lele
+RevNo		FileName
+1.1.2.4-1.1.2.5	SKUBA.java (reverted)
+1.26.6.9-1.26.6.11	BuyerOrderSheetServiceImpl.java
+1.43.4.9	OrderSheetLoadController.java
+1.83.4.12	buyerAdmin_orderTable.jsp
+
+			Bug fix redmine 425 - SKU comment tooltip
+Date:		Oct 18, 2011
+Developer:	Lele
+RevNo		FileName
+1.35.4.6	buyer_billingTable.jsp
+1.72.4.8	buyer_orderTable.jsp
+1.58.4.9	buyer_receivedTable.jsp
+1.83.4.11	buyerAdmin_orderTable.jsp
+
+			Bug fix found in STG (unable to save quantites - all dates view)
+Date:		Oct 18, 2011
+Developer:	Lele
+RevNo		FileName
+1.1.2.4		SKUBADaoImpl.java
+1.112.6.7	OrderSheet.xml
+
+			Weekly save in Received Sheet
+			New business rules
+Date:		Oct 20, 2011
+Developer:	Lele
+RevNo		FileName
+1.16.6.4-1.16.6.5 ReceivedSheetDao.java
+1.17.6.4-1.17.6.5 ReceivedSheetDaoImpl.java
+1.35.12.4	AllocationSheetServiceImpl.java
+1.22.12.6-1.22.12.7	ReceivedSheetServiceImpl.java
+1.22.12.7	WebServiceImpl.java
+1.27.6.8-1.27.6.9 ReceivedSheet.xml
+1.15.12.3	ReceivedSheetController.java
+1.26.12.4	ReceivedSheetLoadController.java
+1.6			ReceivedSheetLockUnlockController.java
+1.6.12.3	ReceivedSheetUpdateController.java
+1.58.4.10	buyer_receivedTable.jsp
+
+			Weekly save in Buyer Order Sheet
+Date:		Oct 21, 2011
+Developer:	Rhoda
+RevNo		FileName
+1.26.6.12	BuyerOrderSheetServiceImpl.java
+1.30.12.4	OrderDao.java
+1.36.12.4	OrderDaoImpl.java
+1.112.6.8	OrderSheet.xml
+
+===============================================================
+Module/Task: Download CSV
+Date:       Oct 06, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.22.12.3	DownloadCSVUtil.java
+1.8.12.2	OrderUnit.xml
+1.8.12.2	OrderUnitDao.java
+1.8.12.2	OrderUnitDaoImpl.java
+1.9.12.2	OrderUnitService.java
+1.9.12.2	OrderUnitServiceImpl.java
+1.26.4.2	SKU.java
+1.0			SKUTemplate.java
+1.10		SheetData.java
+1.18.12.2	SheetDataServiceImpl.java
+1.8.12.2	SortingUtil.java
+
+            Refactor
+Date:       Oct 07, 2011
+Developer:  Ogie
+RevNo       FileName
+1.22.12.2   DownloadCSVUtil.java
+
+
+			Add user's name to sql & fix username mapping to name
+Date:       Oct 11, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.45.12.2   Akaden.xml
+1.38.12.2	BillingSheet.xml
+1.22.12.4   DownloadCSVUtil.java
+1.112.6.6	OrderSheet.xml
+1.27.6.5	ReceivedSheet.xml
+1.18		SKU.xml
+1.1.2.3		SKUBA.xml
+
+			Bugfix Alert:ReceivedSheet.selectDistinctSKUBAs - missing expression
+Date:       Oct 18, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.27.6.7	ReceivedSheet.xml
+
+Module/Task: Download CSV - duplicate sku downloaded
+Date:		Oct 19, 2011
+Developer:	Lele
+RevNo		FileName
+1.3			AkadenItem.java
+1.7			BillingItem.java
+1.4			Item.java
+1.13.12.1	OrderItem.java
+1.5.12.1	OrderReceived.java
+1.18.12.3	SheetDataServiceImpl.java
+1.22.12.5	DownloadCSVUtil.java
+1.48.12.5	OrderSheetUtil.java
+
+			Fix SQL WHERE column IN (?,?,?...) IS LIMITED TO 1000
+Date:       Oct 27, 2011
+Developer:  Lele
+RevNo       FileName
+1.36.12.4-1.36.12.5	OrderDaoImpl.java
+1.17.6.7-1.17.6.8	ReceivedSheetDaoImpl.java
+===============================================================
+Module/Task: Download Excel
+Date:       Oct 06, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.38.12.3	DownloadExcelController.java
+1.11		DownloadExcelUtil.java
+1.7			label_en.properties
+1.8			label_ja.properties
+
+			Refactor
+Date:       Oct 11, 2011
+Developer:  Lele
+RevNo       FileName
+1.38.12.4	DownloadExcelController.java
+
+			Excel buyer ordersheet has columns of PRICE 1 and PRICE 2.
+Date:       Oct 24, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.10.12.5	DownloadExcelUtil.java
+===============================================================
+Module/Task: Web Service Error Messages to Japanese
+Date:       Oct 11, 2011
+Developer:  Ogie
+RevNo       FileName
+1.28        error_ja.properties
+===============================================================
+Module/Task: Redmine #459 Disable Akaden/Billing Sheet
+Date:       Oct 21, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.29        buyer_home.js
+1.43		home.js
+1.34		menuItems_util.js
+===============================================================
+Module/Task: Missing External SKU ID
+Date:       Nov 04, 2011
+Developer:  Lele
+RevNo       FileName
+1.11.2.6.10	OrderSheet.xml
+1.27.6.11	ReceivedSheet.xml
+1.1.2.6		SKUBA.xml
+
+Hot Fix
+Date:       Nov 07, 2011
+Developer:  Ogie
+1.27.6.12	ReceivedSheet.xml
+===============================================================
+Module/Task: Redmine 449 - SKU max limit validation (not working)
+Date:       Nov 08, 2011
+Developer:  Lele
+RevNo       FileName
+1.72.4.9	buyer_orderTable.jsp
+1.83.4.13	buyerAdmin_orderTable.jsp
+
+===============================================================
+Module/Task: Redmine 465 - SKUBA refactor queries
+Date:       Nov 08, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.112.6.12	OrderSheet.xml
+1.27.6.14	ReceivedSheet.xml
+1.1.2.8		SKUBA.xml
+1.9			Company.java(revert)

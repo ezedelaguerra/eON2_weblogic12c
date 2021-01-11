@@ -1,0 +1,72 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="SKUSort">
+	
+	<resultMap
+		id="skuColumn"
+		class="com.freshremix.model.SKUColumn">
+		<result property="skuColumnId" column="SKU_COLUMN_ID" />
+		<result property="headerKey" column="HEADER_KEY" />
+		<result property="headerSheet" column="HEADER_SHEET" />
+		<result property="headerCsv" column="HEADER_CSV" />
+	</resultMap>
+	
+	<resultMap
+		id="skuColumnSort"
+		class="com.freshremix.model.SKUSort">
+		<result property="userId" column="USER_ID" />
+		<result property="skuColumnIds" column="SKU_COLUMN_IDS" />
+	</resultMap>
+	
+	<select id="getDefaultColumns" parameterClass="java.util.Map" resultMap="skuColumn">
+		SELECT
+			cols.SKU_COLUMN_ID,
+			cols.HEADER_KEY,
+			cols.HEADER_SHEET,
+			cols.HEADER_CSV
+		FROM
+			EON_SKU_COLUMN cols
+		WHERE
+			cols.SKU_COLUMN_ID NOT IN <iterate property="excludeCols" open="(" close=")" conjunction=",">#excludeCols[]#</iterate>
+		ORDER BY cols.SKU_COLUMN_ID
+	</select>
+	
+	<select id="getSortSKU" parameterClass="java.util.Map" resultMap="skuColumnSort">
+		SELECT
+			skuSort.USER_ID,
+			skuSort.SKU_COLUMN_IDS
+		FROM
+			EON_SORT_SKU skuSort
+		WHERE
+			skuSort.USER_ID = #userId#
+	</select>
+	
+	<insert id="insertSortSKU" parameterClass="java.util.Map">
+		INSERT INTO
+			EON_SORT_SKU (USER_ID, SKU_COLUMN_IDS)
+		VALUES
+			(#userId#, #skuColumnIds#)
+		<selectKey keyProperty="userId" resultClass="java.lang.Integer">
+            SELECT #userId# FROM DUAL 
+        </selectKey>
+	</insert>
+	
+	<delete id="deleteSortSKU" parameterClass="java.util.Map">
+		DELETE FROM
+			EON_SORT_SKU
+		WHERE
+			USER_ID = #userId#
+	</delete>
+	
+	<select id="getAllColumns" parameterClass="java.util.Map" resultMap="skuColumn">
+		SELECT
+			cols.SKU_COLUMN_ID,
+			cols.HEADER_KEY,
+			cols.HEADER_SHEET,
+			cols.HEADER_CSV
+		FROM
+			EON_SKU_COLUMN cols
+	</select>
+	
+</sqlMap>

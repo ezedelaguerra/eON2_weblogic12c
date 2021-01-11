@@ -1,0 +1,70 @@
+<!-- 
+	Copyright Freshremix Asia Software Corporation
+	
+	date		name		version	changes
+	==============================================
+	20120724	gilwen		v11		Redmine 797 - SellerAdmin can select seller who don't have category
+-->
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Category">
+	
+	<resultMap
+		id="category-result"
+		class="Category">
+		<result property="categoryId" column="SKU_CATEGORY_ID" />
+		<result property="description" column="DESCRIPTION" />
+		<result property="tabName" column="TAB_NAME" />
+	</resultMap>
+	
+	<!-- ENHANCEMENT START 20120724: Lele - Redmine 797 -->
+	<resultMap id="userId-shortname-result" class="com.freshremix.model.User">
+		<result property="userId" column="USER_ID" />
+		<result property="shortName" column="SHORTNAME" />
+	</resultMap>
+	<!-- ENHANCEMENT START 20120724: -->
+
+	<select id="getAllCategory" resultMap="category-result">
+		SELECT * FROM EON_CATEGORY
+	</select>	
+	
+	<insert id="saveAdminCategoryDao">
+		INSERT INTO
+		EON_CATEGORY(SKU_CATEGORY_ID, DESCRIPTION)
+		VALUES
+			(EON_SKU_CATEGORY_SEQ.nextval, #categoryName#)	
+	</insert>
+	
+	<select id="getCategoryById" resultMap="category-result">
+		SELECT 
+			SKU_CATEGORY_ID, 
+			DESCRIPTION, 
+			TAB_NAME
+		FROM 
+			EON_CATEGORY 
+		WHERE 
+			SKU_CATEGORY_ID IN <iterate property="categoryId" open="(" close=")" conjunction=",">#categoryId[]#</iterate>
+	</select>
+	<select id="getCategoryByName" resultMap="category-result">
+		SELECT 
+			a.SKU_CATEGORY_ID, 
+			a.DESCRIPTION, 
+			a.TAB_NAME
+		FROM 
+			EON_CATEGORY a, EON_USERS_CATEGORY b
+		WHERE 
+			b.CATEGORY_ID=a.SKU_CATEGORY_ID AND b.USER_ID=#userId# AND 
+			a.DESCRIPTION IN <iterate property="categoryName" open="(" close=")" conjunction=",">#categoryName[]#</iterate>
+	</select>
+	
+	<!-- ENHANCEMENT START 20120724: Lele - Redmine 797 -->
+	<select id="filterSellerIdByCategory" resultMap="userId-shortname-result" parameterClass="java.util.Map">
+		SELECT EON_USERS.USER_ID, EON_USERS.SHORTNAME FROM EON_USERS_CATEGORY, EON_USERS 
+			WHERE EON_USERS_CATEGORY.USER_ID = EON_USERS.USER_ID
+			AND EON_USERS_CATEGORY.CATEGORY_ID = #categoryId# AND EON_USERS.USER_ID IN <iterate property="sellerId" open="(" close=")" conjunction=",">#sellerId[]#</iterate>
+	</select>
+	<!-- ENHANCEMENT END 20120724: -->
+	
+</sqlMap>

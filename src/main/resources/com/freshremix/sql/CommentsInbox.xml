@@ -1,0 +1,59 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="CommentsInbox">
+
+	<resultMap
+		id="emailItem"
+		class="com.freshremix.model.EmailItem">
+		<result property="id" column="COMMENTS_INBOX_ID" />
+		<result property="senderName" column="NAME" />
+		<result property="subject" column="COMMENT_SUBJECT" />
+		<result property="address" column="ADDRESS1" />
+		<result property="receivedDate" column="RECEIVED_DATE" />
+		<result property="message" column="COMMENT_MESSAGE" />
+		<result property="senderId" column="SENDER_ENTITY_ID" />
+		<result property="recipientId" column="RECIPIENT_ENTITY_ID" />
+	</resultMap>
+
+	<select id="countUnreadMessages" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+		SELECT COUNT(RECIPIENT_ENTITY_ID) FROM EON_COMMENTS_INBOX
+			WHERE OPEN_STATUS = '0' AND RECIPIENT_ENTITY_ID = #recipientId#
+	</select>
+	
+	<select id="selectUnreadMessages" parameterClass="java.lang.Integer" resultMap="emailItem">
+		SELECT NAME, COMMENT_SUBJECT, ADDRESS1,  RECEIVED_DATE, 
+		  COMMENTS_INBOX_ID, COMMENT_MESSAGE, SENDER_ENTITY_ID, RECIPIENT_ENTITY_ID
+		FROM EON_COMMENTS_INBOX
+		JOIN EON_USERS ON
+		  SENDER_ENTITY_ID = USER_ID
+		WHERE OPEN_STATUS = '0' AND RECIPIENT_ENTITY_ID = #recipientId#
+		ORDER BY EON_COMMENTS_INBOX.CREATE_TIMESTAMP DESC
+	</select>
+	
+	<select id="selectReadMessages" parameterClass="java.lang.Integer" resultMap="emailItem">
+		SELECT NAME, COMMENT_SUBJECT, ADDRESS1,  RECEIVED_DATE, 
+		  COMMENTS_INBOX_ID, COMMENT_MESSAGE, SENDER_ENTITY_ID, RECIPIENT_ENTITY_ID
+		FROM EON_COMMENTS_INBOX
+		JOIN EON_USERS ON
+		  SENDER_ENTITY_ID = USER_ID
+		WHERE OPEN_STATUS = '1' AND RECIPIENT_ENTITY_ID = #recipientId#
+		ORDER BY EON_COMMENTS_INBOX.CREATE_TIMESTAMP DESC
+	</select>
+	
+	<insert id="insertNewMessage" parameterClass="java.util.Map">
+		INSERT INTO EON_COMMENTS_INBOX 
+		(COMMENTS_INBOX_ID, SENDER_ENTITY_ID, RECIPIENT_ENTITY_ID, RECEIVED_DATE, COMMENT_SUBJECT, COMMENT_MESSAGE, OPEN_STATUS, CREATE_TIMESTAMP, CREATE_USER_ID) VALUES
+		(EON_COMMENTS_INBOX_ID_SEQ.nextVal, #senderId#, #recipientId#, SYSDATE, #subject#, #message#, #openStatus#, SYSDATE, #userId#)
+	</insert>
+	
+	<delete id="deleteMessage" parameterClass="java.lang.Integer">
+		DELETE FROM EON_COMMENTS_INBOX WHERE COMMENTS_INBOX_ID = #id#
+	</delete>
+	
+	<delete id="updateOpenStatus" parameterClass="java.lang.Integer">
+		UPDATE EON_COMMENTS_INBOX SET OPEN_STATUS = 1
+		WHERE COMMENTS_INBOX_ID = #id#
+	</delete>
+	
+</sqlMap>

@@ -1,0 +1,158 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="SKUGroup">
+	<resultMap
+		id="skuGroup"
+		class="com.freshremix.model.SKUGroup">
+		<result property="skuGroupId" column="SKU_GROUP_ID" />
+		<result property="origSkuGroupId" column="ORIG_SKU_GROUP_ID" />
+		<result property="sellerId" column="SELLER_ID" />
+		<result property="sellerName" column="SELLER_NAME" />
+		<result property="categoryId" column="SKU_CATEGORY_ID" />
+		<result property="description" column="DESCRIPTION" />
+	</resultMap>
+	<resultMap
+		id="skuGroup-render"
+		class="com.freshremix.model.SKUGroup">
+		<result property="skuGroupId" column="SKU_GROUP_ID" />
+		<result property="categoryId" column="SKU_CATEGORY_ID" />
+		<result property="description" column="DESCRIPTION" />
+	</resultMap>
+	<resultMap
+		id="sortSkuGroup"
+		class="com.freshremix.model.SortSKUGroup">
+		<result property="user.userId" column="USER_ID" />
+		<result property="skuGroup.skuGroupId" column="SKU_GROUP_ID" />
+		<result property="skuGroup.origSkuGroupId" column="ORIG_SKU_GROUP_ID" />
+		<result property="skuGroup.sellerId" column="SELLER_ID" />
+		<result property="skuGroup.sellerName" column="SELLER_NAME" />
+		<result property="skuGroup.categoryId" column="SKU_CATEGORY_ID" />
+		<result property="skuGroup.description" column="DESCRIPTION" />
+		<result property="sorting" column="SORTING" />
+	</resultMap>
+	
+	<select id="getAllSkuGroup" parameterClass="java.util.Map" resultMap="skuGroup-render">
+		SELECT * FROM EON_SKU_GROUP  
+			  WHERE SELLER_ID = #sellerId#
+			    AND SKU_CATEGORY_ID = #categoryId#
+	</select>
+	
+	<select id="getSKUGroupListBySellerId" parameterClass="java.util.Map" resultMap="skuGroup-render">
+		SELECT * FROM EON_SKU_GROUP esg 
+		  LEFT JOIN EON_SORT_SKU_GROUP essg on essg.SKU_GROUP_ID = esg.SKU_GROUP_ID
+		        AND essg.USER_ID = #sellerId#
+			  WHERE esg.SELLER_ID = #sellerId#
+			    AND esg.SKU_CATEGORY_ID = #categoryId#
+			    AND esg.END_DATE IS NULL
+			  ORDER BY essg.SORTING, esg.DESCRIPTION
+	</select>
+	
+	<insert id="insertSkuGroup" parameterClass="com.freshremix.model.SKUGroup">
+		INSERT INTO EON_SKU_GROUP (SKU_GROUP_ID, ORIG_SKU_GROUP_ID, SELLER_ID, DESCRIPTION, SKU_CATEGORY_ID, START_DATE) 
+  			VALUES (EON_SKU_GROUP_ID_SEQ.nextVal, #origSkuGroupId#, #sellerId#, #description#, #categoryId#, TO_CHAR(SYSDATE, 'YYYYMMDD'))
+  		<selectKey keyProperty="skuGroupId" resultClass="java.lang.Integer">
+            SELECT EON_SKU_GROUP_ID_SEQ.currval FROM DUAL
+        </selectKey>
+	</insert>
+		
+	<update id="updateOrigSkuGroupID" parameterClass="com.freshremix.model.SKUGroup">
+		UPDATE EON_SKU_GROUP 
+		SET ORIG_SKU_GROUP_ID = #skuGroupId# 
+		WHERE SKU_GROUP_ID = #skuGroupId# 		
+	</update>	
+	
+	<update id="updateSkuGroupToExpire">
+		UPDATE EON_SKU_GROUP 
+		SET END_DATE = TO_CHAR(SYSDATE, 'YYYYMMDD') 
+		WHERE SKU_GROUP_ID = #skuGroupId# 		
+	</update>	
+	
+	<insert id="insertSkuGroupToUpdateName" parameterClass="com.freshremix.model.SKUGroup">
+		INSERT INTO EON_SKU_GROUP (SKU_GROUP_ID, ORIG_SKU_GROUP_ID, SELLER_ID, DESCRIPTION, SKU_CATEGORY_ID, START_DATE) 
+  			VALUES (EON_SKU_GROUP_ID_SEQ.nextVal, #origSkuGroupId#, #sellerId#, #description#, #categoryId#, TO_CHAR(SYSDATE, 'YYYYMMDD'))
+  		<selectKey keyProperty="skuGroupId" resultClass="java.lang.Integer">
+            SELECT EON_SKU_GROUP_ID_SEQ.currval FROM DUAL
+        </selectKey>
+	</insert>
+	
+	<delete id="deleteSkuGroup" parameterClass="java.util.Map">
+		DELETE FROM EON_SKU_GROUP WHERE
+			SKU_GROUP_ID IN <iterate property="skuGroupIds" open="(" close=")" conjunction=",">#skuGroupIds[]#</iterate>
+	</delete>
+	
+	<delete id="deleteSortSKUGroup" parameterClass="java.util.Map">
+		DELETE FROM
+			EON_SORT_SKU_GROUP
+		WHERE
+			SKU_GROUP_ID IN <iterate property="skuGroupIds" open="(" close=")" conjunction=",">#skuGroupIds[]#</iterate> AND
+			SKU_GROUP_ID NOT IN (Select distinct sku_group_id from eon_sku
+								where sku_group_id in <iterate property="skuGroupIds" open="(" close=")" conjunction=",">#skuGroupIds[]#</iterate>)
+								
+	</delete>
+		
+	<select id="getSKUGroupListBySellerIds" parameterClass="java.util.Map" resultMap="sortSkuGroup">
+<!--		SELECT * FROM EON_SKU_GROUP  -->
+<!--			  WHERE COMPANY_SELLER_ID IN <iterate property="sellerIds" open="(" close=")" conjunction=","> #sellerIds[]# </iterate>-->
+<!--			    AND SKU_CATEGORY_ID = #categoryId#-->
+<!--			    AND END_DATE IS NULL-->
+        SELECT
+            grpsort.user_id USER_ID,
+            skugrp.SKU_GROUP_ID,
+            skugrp.ORIG_SKU_GROUP_ID,
+            skugrp.SELLER_ID,
+            skugrp.SELLER_NAME,
+            skugrp.SKU_CATEGORY_ID,
+            skugrp.DESCRIPTION,
+            grpsort.SORTING
+        FROM
+            (SELECT ESG.SKU_GROUP_ID SKU_GROUP_ID,
+                ESG.ORIG_SKU_GROUP_ID ORIG_SKU_GROUP_ID, 
+                ESG.SELLER_ID SELLER_ID, 
+                EU.NAME SELLER_NAME, 
+                ESG.SKU_CATEGORY_ID SKU_CATEGORY_ID, 
+                ESG.DESCRIPTION DESCRIPTION
+            FROM EON_SKU_GROUP ESG JOIN EON_USERS EU ON ESG.SELLER_ID = EU.USER_ID
+            WHERE ESG.SELLER_ID IN <iterate property="sellerIds" open="(" close=")" conjunction=",">#sellerIds[]#</iterate>
+                AND ESG.SKU_CATEGORY_ID = #skuCategoryId#
+                AND ESG.END_DATE IS NULL) skugrp 
+        LEFT JOIN
+            (SELECT essg.USER_ID, eu.NAME, essg.SKU_GROUP_ID, essg.SORTING, essg.SKU_CATEGORY_ID
+            FROM EON_SORT_SKU_GROUP essg JOIN EON_USERS eu ON essg.USER_ID = eu.USER_ID
+            WHERE essg.USER_ID = #userId#) grpsort
+        ON
+            skugrp.SKU_GROUP_ID = grpsort.SKU_GROUP_ID AND
+            skugrp.SKU_CATEGORY_ID = grpsort.SKU_CATEGORY_ID
+        ORDER BY
+            grpsort.SORTING, skugrp.SELLER_ID, skugrp.DESCRIPTION		    
+	</select>
+	
+	<select id="getAllSkuGroupList" parameterClass="java.lang.Integer" resultMap="skuGroup">
+		SELECT * FROM EON_SKU_GROUP  
+		WHERE COMPANY_SELLER_ID = #sellerId# 
+	</select>
+	
+	<select id="getSKUGroupNameCount" parameterClass="com.freshremix.model.SKUGroup" resultClass="Integer">
+		SELECT count(*)
+		FROM eon_sku_group
+		WHERE SELLER_ID = #sellerId#
+		    AND SKU_CATEGORY_ID = #categoryId#
+		    AND DESCRIPTION = #description#
+		    AND END_DATE IS NULL
+	</select>
+	
+	
+	<select id="getSpecificGroup" parameterClass="java.util.Map" resultMap="skuGroup" >
+		SELECT 	SKU_GROUP_ID,
+            ORIG_SKU_GROUP_ID,
+            SELLER_ID,
+            '' AS SELLER_NAME,
+            SKU_CATEGORY_ID,
+            DESCRIPTION FROM EON_SKU_GROUP  
+			WHERE SELLER_ID = #sellerId#  
+			AND DESCRIPTION = #description#
+			AND SKU_CATEGORY_ID = #categoryId#
+			AND END_DATE IS NULL
+	</select>
+	
+</sqlMap>

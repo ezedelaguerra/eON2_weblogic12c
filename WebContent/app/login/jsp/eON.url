@@ -1,0 +1,9 @@
+[DEFAULT]
+BASEURL=http://localhost:8080/eON/
+[InternetShortcut]
+URL=http://localhost:8080/eON/
+Modified=104656CBC580C70184
+HotKey=0
+IDList=
+[{000214A0-0000-0000-C000-000000000046}]
+Prop3=19,2

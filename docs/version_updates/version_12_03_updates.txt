@@ -1,0 +1,18 @@
+Module/Task: Redmine 1070 - Seller can unfinalize the Order Sheet after Seller finalized Allocation Sheet
+Date:       Oct 09, 2012
+Developer:  Rhoda
+1.18		ConcurrencyUtil.java
+1.23		OrderSheetUnfinalizeController.java
+1.248		sigmaTable.js
+=======================================================
+Module/Task: Redmine 1113 Can't select SKU GROUP in Allocation sheet
+Date:       Oct 09, 2012
+Developer:  Rhoda
+145		AllocationSheetLoadController.java
+1.73	OrderSheetLoadController.java
+
+=======================================================
+Module/Task: CSV download user frckj1 - {"message":"java.lang.NullPointerException"}
+Date:       Oct 09, 2012
+Developer:  Rhoda
+1.28		SheetDataServiceImpl.java

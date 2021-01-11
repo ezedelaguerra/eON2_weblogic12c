@@ -1,0 +1,27 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="SKUMaxLimit">
+	
+	<select id="selectSKUMaxLimit" parameterClass="java.util.Map" resultClass="java.math.BigDecimal">
+		SELECT SKU_MAX_LIMIT FROM EON_SKU_MAX_LIMIT 
+			WHERE SKU_ID = #skuId# and DELIVERY_DATE = #deliveryDate#
+	</select>
+	
+	<update id="updateSKUMaxLimit" parameterClass="java.util.Map">
+		UPDATE EON_SKU_MAX_LIMIT
+			SET SKU_MAX_LIMIT = #skuMaxLimit#
+			WHERE SKU_ID = #skuId# and DELIVERY_DATE = #deliveryDate#
+	</update>
+	
+	<insert id="insertSKUMaxLimit" parameterClass="java.util.Map">
+		INSERT INTO EON_SKU_MAX_LIMIT (SKU_ID, DELIVERY_DATE, SKU_MAX_LIMIT) 
+			VALUES (#skuId#, #deliveryDate#, #skuMaxLimit#)
+	</insert>
+	
+	<delete id="deleteSKUMaxLimit" parameterClass="java.util.Map">
+		DELETE FROM EON_SKU_MAX_LIMIT 
+			WHERE SKU_ID = #skuId# and DELIVERY_DATE = #deliveryDate#
+	</delete>
+	
+</sqlMap>

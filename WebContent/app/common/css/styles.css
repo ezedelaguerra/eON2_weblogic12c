@@ -1,0 +1,18 @@
+body{}
+.link-label{font-size:11px; font-family:Arial}
+.error-label{color:Red; font-size:11px; font-family:Arial; text-align:center}
+.font-button{font-size:11px; font-family:Arial}
+.font-label-save{font-size:11px; font-family:Arial; text-align:center}
+.backcolor-welcome{background-color:#B1FE94}
+.font-label{font-size:12px; font-family:verdana; text-align:right}
+.data-font-label{font-size:11px; font-family:verdana; text-align:center}
+.data-font-head{font-size:11px; font-family:verdana; text-align:center; font-weight:bold}
+.font-help{font-size:12px; font-family:verdana}
+.inq-font-head-frc{background-color:orange; font-size:12px; font-family:Verdana; font-weight:bold}
+.inq-font-head{font-size:16px; font-family:Verdana; border-collapse:collapse}
+.inq-font-head-label{background-color:#FAE3AA; font-size:12px; font-family:Verdana; border-collapse:collapse; font-weight:bold}
+.inq-font-label{font-size:11px; font-family:Verdana}
+.linb-datepicker-td{ cursor:pointer}
+.linb-texteditor-input{font-family:"Verdana", "Helvetica", "sans-serif";position:relative;}
+.linb-input-input{font-family:"Verdana", "Helvetica", "sans-serif";position:relative;}
+.linb-treegrid-hcella, .linb-treegrid-cella{font-family:"Verdana", "Helvetica", "sans-serif";position:relative;}

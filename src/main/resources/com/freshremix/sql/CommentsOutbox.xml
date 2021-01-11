@@ -1,0 +1,35 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="CommentsOutbox">
+
+	<resultMap
+		id="emailItem"
+		class="com.freshremix.model.EmailItem">
+		<result property="id" column="COMMENTS_OUTBOX_ID" />
+		<result property="recipientsAddress" column="RECIPIENTS_ADDRESS" />
+		<result property="subject" column="COMMENT_SUBJECT" />
+		<result property="message" column="COMMENT_MESSAGE" />
+		<result property="address" column="ADDRESS1" />
+		<result property="receivedDate" column="SENT_DATE" />
+	</resultMap>
+
+	<select id="selectMessages" parameterClass="java.lang.Integer" resultMap="emailItem">
+		SELECT COMMENTS_OUTBOX_ID, RECIPIENTS_ADDRESS, COMMENT_SUBJECT, COMMENT_MESSAGE, ADDRESS1,  SENT_DATE
+		FROM EON_COMMENTS_OUTBOX
+		JOIN EON_USERS ON
+		  SENDER_ENTITY_ID = USER_ID
+		WHERE SENDER_ENTITY_ID = #senderId#
+		ORDER BY EON_COMMENTS_OUTBOX.CREATE_TIMESTAMP DESC
+	</select>
+	
+	<insert id="insertNewOutboxMsg" parameterClass="java.util.Map">
+		INSERT INTO EON_COMMENTS_OUTBOX 
+		(COMMENTS_OUTBOX_ID, SENDER_ENTITY_ID, COMMENT_SUBJECT, COMMENT_MESSAGE, CREATE_TIMESTAMP, CREATE_USER_ID, RECIPIENTS_ADDRESS, SENT_DATE) VALUES
+		(EON_COMMENTS_OUTBOX_ID_SEQ.nextVal, #senderId#, #subject#, #body#, SYSDATE, #senderId#, #recipientsAddress#, SYSDATE)
+	</insert>
+	
+	<delete id="deleteMessage" parameterClass="java.lang.Integer">
+		DELETE FROM EON_COMMENTS_OUTBOX WHERE COMMENTS_OUTBOX_ID = #id#
+	</delete>
+</sqlMap>

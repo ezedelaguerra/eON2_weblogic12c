@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<weblogic-web-app xmlns="http://www.bea.com/ns/weblogic/weblogic-web-app"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd 
+http://www.bea.com/ns/weblogic/weblogic-web-app 
+http://www.bea.com/ns/weblogic/weblogic-web-app/1.2/weblogic-web-app.xsd">
+	<context-root>eON</context-root>
+	<container-descriptor>
+
+		<!-- https://docs.oracle.com/cd/E24329_01/web.1211/e21049/weblogic_xml.htm#WBAPP659 
+			Note: Neither prefer-application-packages nor prefer-application-resources 
+			can be specified when prefer-web-inf-classes is turned on in weblogic.xml. -->
+		<prefer-application-packages>
+			<package-name>org.joda.*</package-name>
+			<package-name>org.apache.*</package-name>
+		</prefer-application-packages>
+		<prefer-web-inf-classes>false</prefer-web-inf-classes>
+		<show-archived-real-path-enabled>true
+		</show-archived-real-path-enabled>
+	</container-descriptor>
+
+	<resource-description>
+		<res-ref-name>mail/eon_mailSession</res-ref-name>
+		<jndi-name>eon_mailSession</jndi-name>
+	</resource-description>
+
+	<resource-description>
+		<res-ref-name>jdbc/eon_datasource</res-ref-name>
+		<jndi-name>eon_datasource</jndi-name>
+	</resource-description>
+
+</weblogic-web-app>
+
+
+<!-- 
+OLD WEBLOGIC.XML 
+
+<?xml version="1.0" encoding="UTF-8"?>
+<weblogic-web-app xmlns="http://www.bea.com/ns/weblogic/weblogic-web-app" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd http://www.bea.com/ns/weblogic/weblogic-web-app http://www.bea.com/ns/weblogic/weblogic-web-app/1.0/weblogic-web-app.xsd">
+<context-root>eON</context-root>
+<container-descriptor>
+<prefer-web-inf-classes>true</prefer-web-inf-classes>
+</container-descriptor>
+</weblogic-web-app>
+
+ -->
+ 

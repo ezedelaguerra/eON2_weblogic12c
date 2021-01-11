@@ -1,0 +1,41 @@
+----------------------
+Module/Task:   Migration Scripts Batch 03
+Date:          April 14, 2010
+Developer:     Rhoda
+RevNo       FileName
+1.2         Batch_03_Company.sql
+1.2			Batch_03_CompanyDealingPattern.sql
+1.2			Batch_03_UserDealingPattern.sql
+1.2			Batch_03_Users.sql
+1.1			readme_batch_03.txt
+
+----------------------
+Module/Task:   Migration Scripts Batch 03 version 1.1
+Date:          April 19, 2010
+Developer:     Ogie
+RevNo       FileName
+1.3         Batch_03_Company.sql
+1.3			Batch_03_UserDealingPattern.sql
+1.3			Batch_03_Users.sql
+1.1         chouai_to_selleradmin.sql
+1.1         proc_populate_users.sql
+
+1.2         03_run_Batch_03.sql
+
+----------------------
+Module/Task:   Migration Scripts Batch 03 version 1.2
+Date:          April 27, 2010
+Developer:     Ogie
+RevNo       FileName
+1.4         Batch_03_Company.sql
+1.2         Batch_03_CompanyDealingPattern.sql
+1.4         Batch_03_UserDealingPattern.sql
+1.4         Batch_03_Users.sql
+1.1         proc_execute_migration.sql
+
+1.3         03_run_Batch_03.sql
+1.1         run_batch_03.cmd
+
+1.1         hara_script.sql
+1.1         jfuna_script.sql
+

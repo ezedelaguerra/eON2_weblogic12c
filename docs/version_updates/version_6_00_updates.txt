@@ -1,0 +1,837 @@
+===============================================================
+Module/Task: Database Script for v6.00
+Date:       Oct 17, 2011
+Developer:  Ogie
+RevNo       FileName
+1.4-1.8     2011_Version_06_00.sql
+
+Module/Task: Upated contents EON_SKU_COLUMN
+Date:       Oct 25, 2011
+Developer:  Lele
+RevNo       FileName
+1.9		    2011_Version_06_00.sql
+
+Reviewed and Refactored Database Script for v6.00
+Date:       Oct 25, 2011
+Developer:  Ogie
+RevNo       FileName
+1.10        2011_Version_06_00.sql
+===============================================================
+Module/Task: Redmine 457: SKU Sorting
+
+Date:       Oct 14, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.4 		2011_Version_06_00.sql
+1.8-1.9		AkadenSKUComparator.java
+1.2			SKUColumnConstants.java
+1.11		SKUComparator.java
+1.4			SKUSort.xml
+deleted		SKUSortColumnNames.java(1.4)
+1.3			SKUSortService.java
+1.5			SKUSortServiceImpl.java
+1.10-1.11	SortingUtil.java
+
+			Set SKU Sorting on User Preference 
+
+Date:       Oct 17, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.4 		EONUserPreference.java
+1.11		SortingUtil.java
+1.4			UserPreferenceService.java
+1.5			UserPreferenceServiceImpl.java
+1.3			SKUSortSave.java
+
+            Found bug on sku sorting, didn't sort according to settings
+            
+Date: 		Dec 13, 2011
+Developer: 	Rhoda
+RevNo		FileName
+1.37		AllocationSheetLoadController.java
+1.51		OrderSheetLoadController.java
+1.66		OrderSheetLoadController.java
+1.34		ReceivedSheetLoadController.java
+1.14		SKUComparator.java
+1.10		SKUSortServiceImpl.java
+===============================================================
+Module/Task: Redmine 457: SKU Sorting Preference
+
+Date:       Oct 14, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.3			SKUSortInit.java
+1.6,1.8		sku_sort.js
+
+Date:       Oct 17, 2011
+1.8			SKUSortServiceImpl.java
+
+			Refactor header keys
+Date:       Oct 25, 2011
+Developer:  Lele
+RevNo       FileName
+1.43		buyer_billingTable.jsp
+1.79		buyer_orderTable.jsp
+1.67		buyer_receivedTable.jsp
+1.91		buyerAdmin_orderTable.jsp
+1.97		allocationTable.jsp
+1.75		billingTable.jsp
+1.211		sigmaTable.jsp
+
+			Remove Sort SKUBA from Sorting Util
+Date:       Oct 27, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.45		DownloadExcelController.java
+1.31		ReceivedSheetLoadController.java
+1.22		SheetDataServiceImpl.java
+1.13		SortingUtil.java
+
+			SKU COMMENTS after External SKU ID user pref display from list, 
+			HEADER_SHEET char length to 10 and update SKU COLUMN values
+Date:       Nov 09, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.11		2011_Version_06_00.sql
+1.3			SKUColumnConstants.java
+===============================================================
+Module/Task: Redmine 453: 20 New Column - Load/Insert/Update SKU in all sheets
+
+Date:       Oct 14, 2011
+Developer:  Lele
+RevNo       FileName
+1.4			RoleConstants.java
+1.0			SystemConstants.java
+1.15		DownloadCSVDao.java
+1.3			SKUSortDao.java
+1.14		DownloadCSVDaoImpl.java
+1.3			SKUSortDaoImpl.java
+1.0			EONHeader.java
+1.8			HideColumn.java
+1.3			OrderUnit.java
+1.28		SKU.java
+1.2			SKUColumn.java
+1.7			SKUGroup.java
+1.3			SKUTemplate.java
+1.0			AppSettingService.java
+1.20		BillingSheetService.java
+1.0			AppSettingServiceImpl.java
+1.33		BillingSheetServiceImpl.java
+1.5			SKUSortServiceImpl.java
+1.49		Akaden.xml
+1.41		BillingSheet.xml
+1.20		DownloadCSV.xml
+1.37		OrderAllocation.xml
+1.115		OrderSheet.xml
+1.30		ReceivedSheet.xml
+1.21		SKU.xml
+1.3			SKUBA.xml
+1.5			SKUSort.xml
+1.30		OrderForm.xml
+1.20		OrderItemUI.java
+1.51		OrderSheetUtil.java
+1.35		AllocationSheetLoadController.java
+1.25		BillingSheetLoadController.java
+1.8			BillingSheetUpdateController.java
+1.14		BuyerBillingSheetLoadController.java
+1.24		OrderSheetController.java
+1.47		OrderSheetLoadController.java
+1.10		LoginSubmitController.java
+1.0			SystemPreferencesController.java (deleted)
+1.64		OrderSheetLoadController.java
+1.29		ReceivedSheetLoadController.java
+1.39		buyer_billingTable.jsp
+1.75		buyer_orderTable.jsp
+1.61		buyer_receivedTable.jsp
+1.87		buyerAdmin_orderTable.jsp
+1.94		allocationTable.jsp
+1.72		billingTable.jsp
+1.208		sigmaTable.jsp
+1.51		applicationContext.xml
+1.5			applicationContext-security.xml
+1.8-1.9		dispatcher-servlet.xml
+1.0			UserPreferencesController.java
+1.2-1.3		2011_Version_06_00_updates.txt
+
+			Refactor SKUColumn attributes
+Date:       Oct 17, 2011
+Developer:  Lele
+RevNo       FileName
+1.7			sku_sort.js
+1.3			SKUColumn.java
+1.7			SKUSortServiceImpl.java
+1.6			SKUSort.xml
+1.2			EONHeader.java
+
+			20 New column in Hide/Show maintenance
+			Column mapping of table headers
+Date:       Oct 17, 2011
+Developer:  Lele
+RevNo       FileName
+1.7			sku_sort.js
+1.2			SystemConstants.java
+1.10		UserPreference.xml
+1.2-1.3		LoadHideColumnController.java
+1.7			2011_Version_06_00.sql
+1.4-1.5		hide_column_admin.js
+1.7-1.8		hide_column.js
+1.40&1.42	buyer_billingTable.jsp
+1.76&1.78	buyer_orderTable.jsp
+1.63&1.66	buyer_receivedTable.jsp
+1.88&1.90	buyerAdmin_orderTable.jsp
+1.3-1.3		hide_column.js
+1.95-1.96	allocationTable.jsp
+1.73-1.74	billingTable.jsp
+1.209-1.210	sigmaTable.jsp
+1.3			EONHeader.java
+
+			Bugfix editable skumaxlimit for proposed sku 
+Date:       Oct 26, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.211		sigmaTable.jsp
+
+			20 New Columns new changes
+Date:		Nov 09, 2011
+Developer:	Lele
+RevNo		FileName
+1.6			hide_column_admin.js
+1.9			hide_column.js
+1.81-1.82	buyer_orderTable.jsp
+1.68-1.69	buyer_receivedTable.jsp
+1.93-1.94	buyerAdmin_orderTable.jsp
+1.5			hide_column.js
+1.98		allocationTable.jsp
+1.213		sigmaTable.jsp
+
+			20 New SKU Columns Download CSV
+Date:       Oct 26, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.56        DownloadCSVController.java
+1.26        DownloadCSVUtil.java
+1.4	        EONHeader.java
+
+            Redmine #515 Creates new sku id while adding quantity
+Date: 		Jan 09, 2012
+1.30		SKU.java
+===============================================================
+Module/Task: Redmine 458: 4 New SKU Columns Download Excel
+
+Date:       Oct 17, 2011
+Developer:  Ogie
+RevNo       FileName
+1.1         SKUColumnConstantsExcel.java
+1.13        DownloadExcelUtil.java
+1.41        DownloadExcelController.java
+1.4         DownloadExcelLoadSetting.java
+removed     CellFormat.java (1.1)
+1.17        DownloadExcelView.java
+
+			20 New SKU Columns Download Excel
+Date:       Oct 26, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.3         SKUColumnConstantsExcel.java
+1.14        DownloadExcelUtil.java
+1.42        DownloadExcelController.java
+1.18        DownloadExcelView.java
+1.9			label_en.properties
+1.10		label_ja.properties
+
+			Reposition 20 New SKU Columns Download Excel
+Date:       Nov 10, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.16        DownloadExcelUtil.java
+1.20        DownloadExcelView.java
+1.11		label_en.properties
+1.12		label_ja.properties
+
+			Refactor Excel Headers
+Date:       Nov 17, 2011
+Developer:  Lele
+RevNo       FileName
+1.17		DownloadExcelUtil.java
+1.46		DownloadExcelController.java
+
+			Refactor Excel and CSV Constants
+Date:       Nov 18, 2011
+Developer:  Ogie
+RevNo       FileName
+1.10        AkadenSKUComparator.java
+1.11        SKUComparator.java
+1.9         SKUSortServiceImpl.java
+1.27        DownloadCSVUtil.java
+1.18        DownloadExcelUtil.java
+1.47        DownloadExcelController.java
+1.21        DownloadExcelView.java
+
+1.12        label_en.properties
+1.13        label_ja.properties
+1.5         SKUColumnConstants.java
+1.1         SKUColumnConstatnsCSV.java
+1.4         SKUColumnConstatnsExcel.java
+
+Date:       Nov 21, 2011
+Developer:  Ogie
+1.52        applicationContext.xml
+
+            Found bug on download excel, areaOfProd, class1, class2,
+				marketCondition, uom, purchasePrice, sellingPrice,
+				sellingUom and skuComments are always null 
+				and didn't get the actual data
+Date: 		Dec 14, 2011
+Developer: 	Rhoda
+RevNo		FileName
+1.49		DownloadExcelController.java
+===============================================================
+Module/Task: SheetDataServiceImpl (Seller Order Sheet)
+
+Date:       Oct 26, 2011
+Developer:  Lele
+RevNo       FileName
+1.4			AkadenItem.java
+1.8			BillingItem.java
+1.5			Item.java
+1.16		OrderItem.java
+1.8			OrderReceived.java
+1.11		SheetData.java
+1.58		OrderSheetService.java
+1.7			SheetDataService.java
+1.123		OrderSheetServiceImpl.java
+1.21		SheetDataServiceImpl.java
+1.15		DateFormatter.java
+1.53		OrderSheetUtil.java
+1.55		DownloadCSVController.java
+1.43-1.44	DownloadExcelController.java (revert)
+1.65		OrderSheetLoadController.java
+
+			SheetDataServiceImpl (Buyer Order Sheet)
+Date:		Oct 26, 2011
+Developer:  Lele
+RevNo       FileName
+1.12		SheetData.java
+1.15		BuyerOrderSheetService.java
+1.31		BuyerOrderSheetServiceImpl.java
+1.49		OrderSheetLoadController.java
+
+			SheetDataServiceImpl (Allocation Sheet)
+Date:		Oct 26, 2011
+Developer:  Lele
+RevNo       FileName
+1.5			AkadenItem.java
+1.9			BillingItem.java
+1.6			Item.java
+1.17		OrderItem.java
+1.9			OrderReceived.java
+1.12		AllocationSheetController.java
+1.36		AllocationSheetLoadController.java
+
+			SheetDataServiceImpl (Received Sheet)
+			Depricated obselete method in AllocationService
+Date:		Oct 27, 2011
+Developer:  Lele
+RevNo       FileName
+1.17		AllocationSheetService.java
+1.14		ReceivedSheetService.java
+1.38		AllocationSheetServiceImpl.java
+1.26		ReceivedSheetServiceImpl.java
+1.32		ReceivedSheetLoadController.java
+
+			Removed unused methods in Service
+Date:		Oct 27, 2011
+Developer:  Lele
+RevNo       FileName
+1.18		AllocationSheetService.java
+1.16		BuyerOrderSheetService.java
+1.15		ReceivedSheetService.java
+1.39		AllocationSheetServiceImpl.java
+1.32		BuyerOrderSheetServiceImpl.java
+1.27		ReceivedSheetServiceImpl.java
+===============================================================
+			Fix SQL WHERE column IN (?,?,?...) IS LIMITED TO 1000
+Date:       Oct 27, 2011
+Developer:  Rhoda
+RevNo       FileName
+1.39		OrderDaoImpl.java
+1.20		ReceivedSheetDaoImpl.java
+===============================================================
+			Redmine 429: Column Width Setting
+Date: 		Nov 14, 2011
+Developer: 	Lele
+RevNo		FileName
+1.4			SKUColumnConstants.java
+1.3			UserPreferenceDao.java
+1.6			UserPreferenceDaoImpl.java
+1.5			EONUserPreference.java
+1.0			WidthColumn.java
+1.5			UserPreferenceService.java
+1.6			UserPreferenceServiceImpl.java
+1.11		UserPreference.xml
+1.31		OrderForm.java
+1.50		OrderSheetLoadController.java
+1.0			SaveColumnWidthController.java
+1.19		ReceivedSheetController.java
+1.33		ReceivedSheetLoadController.java
+1.83		buyer_orderTable.jsp
+1.70		buyer_receivedTable.jsp
+1.95		buyerAdmin_orderTable.jsp
+1.99		allocationTable.jsp
+1.214		sigmaTable.jsp
+1.94		dispatcher-json-servlet.xml
+1.15		2011_Version_06_00.sql
+===============================================================
+Module:		Redmine 427: Seller Sorting Preference
+Date: 		Nov 22, 2011
+Developer: 	Rhoda
+RevNo		FileName
+1.17		2011_Version_06_00.sql
+1.0			CompanySellersSort.xml
+1.0			CompanySellersSortDao.java
+1.0			CompanySellersSortDaoImpl.java
+1.2			CompanySellersSortInit.java
+1.0			CompanySellersSortSave.java
+1.0			CompanySellersSortService.java
+1.0			CompanySellersSortServiceImpl.java
+1.0			SellersSort.java
+1.2			SellersSortInit.java
+1.0			SellersSortSave.java
+1.53		applicationContext.xml
+1.0			company_sellers_sort.js
+1.95		dispatcher-json-servlet.xml
+1.95		en.js
+1.85		ja.js
+1.59		seller/index.jsp
+1.37		buyer/index.jsp
+1.0			sellers_sort.js
+1.31		sql-map-config.xml
+1.15		buyer/user_preference.js
+1.12		seller/user_preference.js
+
+Module:		Seller Sorting Filter Page
+Date: 		Nov 23, 2011
+Developer: 	Rhoda
+RevNo		FileName
+1.8			AdminUserLevelFilterController.java
+1.11		CompanyLevelFilterController.java
+1.2			CompanySellersSort.xml
+1.2			CompanySellersSortDao.java
+1.2			CompanySellersSortDaoImpl.java
+1.2			CompanySellersSortService.java
+1.2			CompanySellersSortServiceImpl.java
+1.13		UserLevelFilterController.java
+1.2			company_sellers_sort.js
+1.2			sellers_sort.js
+
+			Seller Sorting on Sheets with SKU Sorting
+Date: 		Nov 25, 2011
+Developer: 	Rhoda
+RevNo		FileName
+1.2			FilterIDUtil.java
+1.13		SKUComparator.java
+1.14		SortingUtil.java
+
+			Download CSV Seller Sorting
+Date: 		Nov 25, 2011
+Developer: 	Rhoda
+RevNo		FileName
+1.31		DownloadCSVServiceImpl.java
+
+			Refactor based on User Session
+Date: 		Nov 25, 2011
+Developer: 	Rhoda
+RevNo		FileName
+1.9			AdminUserLevelFilterController.java
+1.12		CompanyLevelFilterController.java
+1.2			CompanySellersSortSave.java
+1.7			EONUserPreference.java
+1.2			SellersSortSave.java
+1.14		UserLevelFilterController.java
+1.6			UserPreferenceService.java
+1.8			UserPreferenceServiceImpl.java
+===============================================================
+			Redmine 428: Category Sorting (Maintenance and Sheet Impl)
+Date: 		Nov 22, 2011
+Developer: 	Lele
+RevNo		FileName
+1.7			AbstractCategoryTabs.java
+1.7			CategoryDao.java
+1.8			CategoryDaoImpl.java
+1.6			EONUserPreference.java
+1.2			UsersCategory.java
+1.8			CategoryService.java
+1.9			CategoryServiceImp.java
+1.7			UserPreferenceServiceImpl.java
+1.9			UserCategory.xml
+1.4			AdminAllRolesAndCategoryController.java
+1.3			AdminCategoryController.java
+1.8			AdminUpdateUserController.java
+1.15		UserSaveInformationController.java
+1.17		2011_Version_06_00.sql
+1.91-1.92	company.js
+
+			Category Sorting (Download CSV)
+Date: 		Nov 22, 2011
+Developer: 	Lele
+RevNo		FileName
+1.2			SheetDataUtil.java
+1.57		DownloadCSVController.java
+
+			Dynamic Name/Add of Category 
+Date: 		Nov 22, 2011
+Developer: 	Lele
+RevNo		FileName
+1.8			AbstractCategoryTabs.java
+1.3			SystemConstants.java
+1.2			Category.java
+1.3			DownloadCSVSettings.java
+1.9			CategoryService.java
+1.2			AppSettingServiceImpl.java
+1.10		CategoryServiceImpl.java
+1.30		DownloadCSVServiceImpl.java
+1.5			Category.xml
+1.3			DownloadCSVInitController.java
+1.19		2011_Version_06_00.sql
+1.19		download_csv_admin.js (buyer)
+1.18		download_csv.js (buyer)
+1.20		download_csv_admin.js
+1.23		download_csv.js
+
+			Prepared Meat and Delica category
+Date: 		Dec 01, 2011
+Developer: 	Lele
+RevNo		FileName
+1.10		CategoryService.java
+1.11		CategoryServiceImpl.java
+1.24		UsersInformationServiceImpl.java
+1.0			2011_Version_06_00_New_Categories.sql
+
+			Locale based category name
+Date: 		Dec 05, 2011
+Developer: 	Lele
+RevNo		FileName
+1.4			DownloadCSVInitController.java
+
+			Browser's ie locale based category name
+Date: 		Dec 12 & 19, 2011
+Developer: 	Ogie
+RevNo		FileName
+1.5			DownloadCSVInitController.java
+1.24        seller\js\download_csv.js 
+1.19        buyer\js\download_csv.js
+1.20        buyer\js\download_csv_admin.js 
+1.21        seller\js\download_csv_admin.js
+
+			When no category sorting yet
+Date: 		Dec 12, 2011
+Developer: 	Ogie
+1.9-10		AbstractCategoryTabs.java
+1.33        DownloadCSVServiceImpl.java
+1.58        DownloadCSVController.java
+
+            Download CSV dyanmic category naming fix
+Date: 		Dec 19, 2011
+1.2			CSVDownloader.java
+1.31		WebServiceImpl.java
+1.4			CategoryUtil.java
+1.29		DownloadCSVUtil.java
+1.59		DownloadCSVController.java
+1.22		DownloadExcelView.java
+
+Date: 		Dec 19, 2011
+Developer: 	Ogie
+RevNo		FileName
+1.2         2011_Version_06_00_New_Categories.sql
+
+Date: 		Dec 19, 2011
+Developer: 	Ogie
+RevNo		FileName
+1.32        WebServiceImpl.java
+
+            Icons for Meat and Delica
+Date: 		Dec 27, 2011
+Developer: 	Ogie
+RevNo		FileName
+1.1         delica.gif
+1.1         meat.gif
+
+            Redmine #501 - Tab Name was not included from Select Stmt.
+Date: 		Dec 27, 2011
+Developer: 	Rhoda
+RevNo		FileName
+1.6			Category.xml
+
+            Keep default order of categories (Fruits,Vegetables,Fish,Meat,Delica)
+Date: 		Jan 04, 2011
+Developer: 	Ogie
+RevNo		FileName
+1.10		UserCategory.xml
+===============================================================
+Module:		Fix Buyer Sorting Download CSV Filter Page for BuyerAdmin
+Date: 		Nov 28, 2011
+Developer: 	Rhoda
+RevNo		FileName
+1.32		DownloadCSVServiceImpl.java
+===============================================================
+Module:		Redmine 350: Download CSV Lock flag for Received Sheet
+Date: 		Nov 28, 2011
+Developer: 	Rhoda
+RevNo		FileName
+1.28		DownloadCSVUtil.java
+===============================================================
+Module:		Concurrency on Buyer/BA Order Sheet Save button
+Date: 		Dec 06, 2011
+Developer: 	Rhoda
+RevNo		FileName
+1.10		AdminUserLevelFilterController.java
+1.1			ConcurrencyResponse.java
+1.1			ConcurrencyUtil.java
+1.3			FilterIDUtil.java
+1.11		OrderSheetUpdateController.java
+1.15		UserLevelFilterController.java
+1.97		buyerAdmin_orderTable.jsp
+1.85		buyer_orderTable.jsp
+1.79		buyer_ordersheet.js
+1.73		en.js
+1.86		ja.js
+===============================================================
+Module:		Redmine 463:Should be removed the description "F5" from update menu.
+Date: 		Dec 08, 2011
+Developer: 	Rhoda
+RevNo		FileName
+1.86		ja.js 
+===============================================================
+Module:		Redmine 351:Download Excel 'with quantity' bug
+Date: 		Dec 12, 2011
+Developer: 	Rhoda
+RevNo		FileName
+1.28		ReceivedSheetServiceImpl.java
+===============================================================
+Module:		Auto Download CSV
+Date: 		Dec 16, 2011
+Developer: 	Lele
+RevNo		FileName
+1.0,1.3-1.4	CSVDownloader.java
+1.0			CSVScheduleLoader.java
+1.0			AutoDownloadDao.java
+1.16		DownloadCSVDao.java
+1.28		UserDao.java
+1.0			AutoDownloadDaoImpl.java
+1.15		DownloadCSVDaoImpl.java
+1.33		UserDaoImpl.java
+1.0			FileTransfer.java
+1.0			FTPDetails.java
+1.0			AutoDownloadSchedule.java
+1.3			Category.java
+1.2			AppSettingService.java
+1.0-1.2		AutoDownloadService.java
+1.3			AppSettingServiceImpl.java
+1.0-1.3		AutoDownloadServiceImpl.java
+1.0			AutoDownload.xml
+1.3			SheetTypes.xml
+1.21		User.xml
+1.0-1.2		AbstractJobController.java
+1.0			AddJobController.java
+1.0			ConfirmJobController.java
+1.0			InitJobController.java
+1.0			ListJobController.java
+1.0			DeleteJobController.java
+1.20		2011_Version_06_00.sql
+1.0			confirm.jsp
+1.0			input.jsp
+1.0-1.2		list.jsp
+1.54		applicationContext.xml
+1.0			applicationContext-scheduler.xml
+1.10		dispatcher-servlet.xml
+1.31		sql-map-config.xml
+1.69		web.xml
+1.1			ReloadJobsController.java
+
+            All categories is selected
+Date: 		Jan 04, 2012
+Developer: 	Ogie
+RevNo		FileName
+1.5         CSVDownloader.java
+
+Date: 		Jan 05, 2012
+Developer: 	Ogie
+RevNo		FileName
+1.11        dispatcher-servlet.xml
+
+            Add delete of autodownload schedule
+Date: 		Jan 06, 2012
+Developer: 	Ogie/Rhoda
+RevNo		FileName
+1.2         AutoDownloadDao.java
+1.2         AutoDownloadDaoImpl.java
+1.4         AutoDownloadServiceImpl.java
+1.2         AutoDownload.xml
+1.5			list.jsp
+1.2			DeleteJobController.java
+
+            Add security password (frasceon)
+Date: 		Jan 10, 2012
+Developer: 	Ogie
+RevNo		FileName
+1.1         PasswordHandler.java
+1.2         AddJobController.java
+1.3         DeleteJobController.java
+1.2         input.jsp
+1.1         invalid.jsp
+1.6         list.jsp
+1.55        applicationContext.xml
+1.5         eon.properties
+
+            Add view job details
+Date: 		Jan 12, 2012
+Developer: 	Rhoda
+RevNo		FileName
+1.3         AbstractJobController.java
+1.3			AutoDownload.xml
+1.3			AutoDownloadDao.java
+1.3			AutoDownloadDaoImpl.java
+1.3			AutoDownloadService.java
+1.5			AutoDownloadServiceImpl.java
+1.1			ViewJobDetailsController.java
+1.1			details.jsp
+1.12		dispatcher-servlet.xml
+1.7			list.jsp
+
+            Change FTP filename and validate existence,
+            and validate date range to 45 days maximum
+Date: 		Jan 13, 2012
+Developer: 	Rhoda
+RevNo		FileName
+1.5         AutoDownloadService.java
+1.9			AutoDownloadServiceImpl.java
+1.8			CSVDownloader.java
+1.2			FileTransfer.java
+1.57		applicationContext.xml
+1.6			eon.properties
+
+            Logging and Email Notifications 
+Date: 		Jan 16, 2012
+Developer: 	Ogie/Lele
+RevNo		FileName
+1.10-1.11   CSVDownloader.java
+1.2-1.4     FileTransfer.java
+1.5         AutoDownloadService.java
+1.11-1.12   AutoDownloadServiceImpl.java
+1.9-1.10    log4j.properties
+
+			Script for validating inputed dealing pattern
+Date: 		Jan 26, 2012
+Developer: 	Rhoda
+RevNo		FileName
+1.1			Auto_Download_Validate_DP.sql			
+===============================================================
+Module:		Center column changed to Integer (column01)
+Date: 		Dec 26, 2011
+Developer: 	Lele
+RevNo		FileName
+1.29		SKU.java
+1.4			SKUTemplate.java
+1.32		OrderForm.java
+1.21		OrderItemUI.java
+1.98-1.100	buyerAdmin_orderTable.jsp
+1.100-1.102	allocationTable.jsp
+1.215-1.217	sigmaTable.jsp
+===============================================================
+Module:		Download CSV (not responding)
+Date: 		Dec 26, 2011
+Developer: 	Lele
+RevNo		FileName
+1.30		DownloadCSVUtil.java
+===============================================================
+Database Script for v6.01
+Date:       Dec 26, 2011
+Developer:  Ogie
+RevNo       FileName
+1.1         2011_Version_06_01.sql
+1.1         2011_Version_06_01_New_Categories.sql
+===============================================================
+Module:		Redmine 488 - Remove Forgot Password link from Login page
+Date: 		Dec 26, 2011
+Developer: 	Lele
+RevNo		FileName
+1.21		userDetails.js
+===============================================================
+Module:		Redmine 494 - from 10 to 5 character maximum for shortname,
+			and remove category for SA, BA and Buyer from User Details page.
+Date: 		Dec 26, 2011
+Developer: 	Lele
+RevNo		FileName
+1.21		userDetails.js
+
+            Remove link
+Date: 		Jan. 02, 2012
+Developer: 	Ogie
+RevNo		FileName
+1.35        menuItems_utils.js
+===============================================================
+Module:		Redmine 504 - Ordersheet's data has changed when its changed in allocation
+Date: 		Jan 02, 2012
+Developer: 	Lele
+RevNo		FileName
+1.40		AllocationSheetServiceImpl.java
+===============================================================
+Module:		Redmine 514 - Change labels
+Date: 		Jan 02, 2012
+Developer: 	Ogie
+RevNo		FileName
+1.30        buyer_home.js
+1.44        home.js
+1.87        ja.js
+1.34        login.jsp
+remove      app/common/util/index.js
+===============================================================
+Module:		Redmine 500
+Date: 		Jan 02, 2012
+Developer: 	Lele
+RevNo		FileName
+1.101		buyerAdmin_orderTable.jsp
+1.103		allocationTable.jsp
+1.218		sigmaTable.jsp
+===============================================================
+Module:		Redmine 509 - SKU Group disappear after in Received Sheet
+Date: 		Jan 02, 2012
+Developer: 	Lele
+RevNo		FileName
+1.35		ReceivedSheetLoadController.java
+1.71		buyer_receivedTable.jsp
+===============================================================
+Module:		Changed 20 New Columns length from 64 to 42
+Date: 		Jan 03, 2012
+Developer: 	Lele
+RevNo		FileName
+1.102		buyerAdmin_orderTable.jsp
+1.104		allocationTable.jsp
+1.219		sigmaTable.jsp
+===============================================================
+Module:		Redmine #498 Can't press any button/Link from Buyer/Buyer Admin Home Page
+Date: 		Jan 04, 2012
+Developer: 	Rhoda
+RevNo		FileName
+1.31		buyer_home.js
+1.40		buyer_menu.js
+1.23		index.js
+===============================================================
+Module:		Redmine #411 Concurrency Message
+Date: 		Jan 05, 2012
+Developer: 	Rhoda
+RevNo		FileName
+1.2			ConcurrencyUtil.java
+1.88		ja.js
+===============================================================
+Module:		Redmine #517 Doesn't work auto-publish allocation sheet.
+Date: 		Jan 06, 2012
+Developer: 	Rhoda
+RevNo		FileName
+1.9			UserPreferenceServiceImpl.java
+===============================================================
+Module:		Redmine #518 There are same BUYER_ORDER_NUMBER in different Buyers.
+Date: 		Jan 12, 2012
+Developer: 	Rhoda
+RevNo		FileName
+1.31		DownloadCSVUtil.java

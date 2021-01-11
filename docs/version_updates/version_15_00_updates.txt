@@ -1,0 +1,24 @@
+=======================================================
+=======================================================
+VERSION 15.00
+=======================================================
+=======================================================
+Module/Task: Redmine 1110 - Change the position of each strings in cells (additional changes)
+Date:       Dec 13, 2012
+Developer:  Mikes
+1.135       buyerAdmin_orderTable.jsp
+1.115       buyer_orderTable.jsp
+1.94        buyer_receivedTable.jsp
+=======================================================
+Module/Task: Redmine 1225 -  Pack fee not displayed in buyer/buyeradmin order sheet screen
+Date:       Dec 13, 2012
+Developer:  Mikes
+1.63        OrderSheetLoadController.java
+=======================================================
+Module/Task: Redmine 1228 - Duplicate data from download menu
+Date:       Dec 13, 2012
+Developer:  Melissa
+1.22		seller/js/download_csv_admin.js
+1.25		seller/js/download_csv.js
+1.21		buyer/js/download_csv_admin.js
+1.20		buyer/js/download_csv.js

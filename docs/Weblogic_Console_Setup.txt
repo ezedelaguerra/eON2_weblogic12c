@@ -1,0 +1,97 @@
+
+**************************************************************
+** #1) Create Oracle Data Source                            **
+**************************************************************
+In console under Domain Structure:
+	Services ->
+			JDBC ->	
+				Data Sources
+					
+- Click New Button
+     Name:            eon_datasource
+     JNDI Name:       eon_datasource				
+     Database Type:   Oracle
+     Database Driver: *Oracle's  Driver (Thin) for Instance connections; Versions:9.0.1,9.2.0,10,11
+
+- Click Next
+     Transaction Options: 
+     (Uncheck) Supports Global Transactions
+
+- Click Next
+     Connection Properties 
+     Database Name:  EONDEV2
+     Host Name:      192.168.55.111
+     Port:           1521
+     Database User Name: eon01
+     Password:           eon01
+
+- Click Next
+- Click Test Configuration
+- Click Next
+     Check AdminServer checkbox.
+- Click Finish.
+
+**************************************************************
+** #2) Create Mail Session                                  **
+**************************************************************
+In console under Domain Structure:
+	Services ->
+			Mail Sessions
+- Click New Button
+     Name:            eon_mailSession
+     JNDI Name:       eon_mailSession				
+     JavaMail Properties: 
+        mail.host=192.168.55.23
+        mail.port=25
+        mail.smtp.auth=false
+        mail.from=monitoring@farmind.com.ph
+        
+- Click Next
+     Check AdminServer checkbox.
+- Click Finish.
+
+**************************************************************
+** #3) Port setting                                         **
+**************************************************************
+In console under Environment Structure:
+   Server ->
+
+- Click AdminServer (this should be the eON server)
+	Change listen port to 80
+	Check the SSL Listen Port Enabled and set the port to 443
+
+**************************************************************
+** #4) WAR File Deployment                                  **
+**************************************************************
+In console under Domain Structure:
+   Deployments ->
+   
+- Click Install
+     Install Application Assistant
+     Select directory path and the war file
+     
+- Click Next
+     Select (default)
+            - Install this deployment as an application.
+     
+- Click Next
+     Select (default)
+            - DD Only: Use only roles and policies that are defined in the deployment descriptors.
+            - Use the defaults defined by the deployment's targets
+
+- Click Next
+     Select (default)
+            - Yes, take me to the deployment's configuration screen.
+            
+- Click Finish
+It may take a while to finish the deployment and will be directed to deployment's configuration screen.
+
+- Click Configuration Tab.
+     Under General Tab.
+     [Input] Context Root: eON
+     
+- Click Save
+     Select a directory to save the deployment plan
+
+- Click Ok
+
